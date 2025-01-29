@@ -1,0 +1,21 @@
+// {
+//   "compilerOptions": {
+//     "composite": true,
+//     "module": "ESNext",
+//     "moduleResolution": "bundler",
+//     "allowSyntheticDefaultImports": true
+//   },
+//   "include": ["vite.config.ts"]
+// }
+
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["node"]
+  },
+  "include": ["vite.config.ts"]
+}
