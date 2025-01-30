@@ -1,3 +1,5 @@
+import './Wrapper.scss'
+
 const Wrapper = () => {
     return (
         <main>

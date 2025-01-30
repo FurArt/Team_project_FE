@@ -1,0 +1,12 @@
+@import '../../features/styles/variables';
+
+footer {
+  background-color: $main-text-color;
+  width: 100%;
+  padding: 88px 44px;
+  color: $color-text-focus;
+  &-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,14 @@
+@import '../../features/styles/variables';
+
+body {
+  font-family: Inter, serif;
+  background-color: $page-back-color;
+  font-style: normal;
+  font-weight: normal;
+  scroll-behavior: smooth;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
