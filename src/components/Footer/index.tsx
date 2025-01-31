@@ -1,1 +1,1 @@
-import * from './Footer'
+export * from './Footer';

@@ -1,12 +1,18 @@
-import './Wrapper.scss'
+import { Outlet } from "react-router-dom"
+import "./Wrapper.scss"
+import { ReactNode } from "react";
 
-const Wrapper = () => {
-    return (
-        <main>
-          <p>Hello World from front</p>
-        </main>
-        )
-  }
-  
-  export default Wrapper;
-  
+interface WrapperProps {
+  children?: ReactNode;
+}
+
+const Wrapper = ({ children }: WrapperProps) => {
+  return (
+    <main>
+      {children}
+      <Outlet />
+    </main>
+  )
+}
+
+export default Wrapper
