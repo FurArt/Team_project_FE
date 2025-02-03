@@ -3,7 +3,9 @@ import react from "@vitejs/plugin-react"
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // base: "/",
   base: "/Team_project_FE/", 
+
   plugins: [react()],
   server: {
     open: true,

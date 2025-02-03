@@ -8,7 +8,7 @@ interface WrapperProps {
 
 const Wrapper = ({ children }: WrapperProps) => {
   return (
-    <main>
+    <main className="wrapper">
       {children}
       <Outlet />
     </main>

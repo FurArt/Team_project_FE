@@ -1,12 +1,36 @@
-@import '../../features/styles/variables';
+@import "../../features/styles/variables";
 
-footer {
-  background-color: $main-text-color;
+.footer {
+  background-color: $heder-gray;
   width: 100%;
-  padding: 88px 44px;
+  min-height: 15vh;
+
+  padding: 25px 44px;
   color: $color-text-focus;
   &-container {
     max-width: 1200px;
     margin: 0 auto;
+    // background-color: red;
+  }
+  &-logo {
+    text-align: center;
+    display: block;
+    background: url(../../images/icon/Logo.png) no-repeat;
+    width: 136px;
+    height: 32px;
+    margin: 0 auto;
+  }
+  &-menu {
+    margin: 15px auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    &-link {
+      color: $main-text-color;
+  
+      &:hover {
+        color: $focus-color-but;
+      }
+    }
   }
 }

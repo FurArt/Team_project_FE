@@ -2,10 +2,12 @@
 
 .header-page {
     width: 100%;
+    min-height: 15vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background-color: $heder-gray;
   }
   
   .top-bar {
@@ -87,7 +89,7 @@
       font-size: 16px;
       color: $main-text-color;
       &:hover {
-        color: $heder-gray;
+        color: $color-text-focus;
       }
     }
   

@@ -15,7 +15,7 @@ if (container) {
 
   root.render(
     <React.StrictMode>
-      <Router>
+      <Router basename="/Team_project_FE/">
         <Provider store={store}>
           <App />
         </Provider>

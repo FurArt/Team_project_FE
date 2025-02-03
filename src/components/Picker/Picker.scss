@@ -1,0 +1,22 @@
+@import "../../features/styles/variables";
+
+.picker {
+  // height: 70vh;
+  text-align: center;
+  &-head {
+  }
+  &-title {
+    padding-block: 25px;
+    width: 50%;
+    margin: 0 auto;
+  }
+  &-button {
+    margin: 0 auto;
+    text-transform: uppercase;
+    display: block;
+    width: 250px;
+    height: auto;
+    padding: 20px;
+    background-color: $heder-gray;
+  }
+}
