@@ -9,12 +9,36 @@ body {
 }
 
 main {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
 }
+$items: 70;
+$columns: 14;
+$row: 4;
+.conteiner-video {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  width: 99.5%;
 
+}
 .wrapper {
   min-height: 66vh;
-  padding: 25px 44px;
-}
+  &-img {
+    display: block;
+    width: 107%;
+    height: 125px;
+    @for $i from 1 through $items {
+      &-#{$i} {
+        background-image: url('../../images/movie/video-#{$i}.png');
+        background-size: cover;
+        background-position: center;
 
+        @if $i % 7 == 0 { 
+          grid-row: 100%;
+        }
+        @if $i % 11 == 0 { 
+          grid-row: 115%;
+        }
+      }
+    }
+  }
+}

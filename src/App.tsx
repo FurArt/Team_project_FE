@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer"
 import { Route, Routes } from "react-router"
 import NotFound from "./components/NotFound/NotFound"
 import Picker from "./components/Picker/Picker"
+import Stats from "./components/Stats/Stats"
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
     <Header />
     <Wrapper >
       <Routes>
-       <Route path="/" element={<Picker />} /> 
+       <Route path="/" element={<Stats />} /> 
         <Route path="*" element={<NotFound />} /> 
       </Routes>
     </Wrapper>

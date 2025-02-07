@@ -5,6 +5,7 @@ const Picker = () => {
   const handleClick = async () => {
     getMovies()
       .then((movies)=>{
+        
         console.log(movies);
       })
   }

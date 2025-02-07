@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = 'https://backend-moodie.onrender.com/api';
+// const BASE_URL = '/api'; 
 
 // a promise resolved after a given delay
 function wait(delay: number) {

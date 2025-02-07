@@ -1,11 +1,13 @@
 @import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+      
 
 .footer {
-  background-color: $heder-gray;
+  background-color: $heder-black;
   width: 100%;
   min-height: 15vh;
 
-  padding: 25px 44px;
+  padding: 60px 44px;
   color: $color-text-focus;
   &-container {
     max-width: 1200px;
@@ -16,8 +18,8 @@
     text-align: center;
     display: block;
     background: url(../../images/icon/Logo.png) no-repeat;
-    width: 136px;
-    height: 32px;
+    width: 151px;
+      height: 66px;
     margin: 0 auto;
   }
   &-menu {
@@ -26,10 +28,10 @@
     display: flex;
     justify-content: space-around;
     &-link {
-      color: $main-text-color;
-  
+      @extend %AG_H5;
+      color: $stroke;
       &:hover {
-        color: $focus-color-but;
+        color: $main-text-color;
       }
     }
   }
