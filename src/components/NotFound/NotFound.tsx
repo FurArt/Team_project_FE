@@ -2,8 +2,8 @@ import "./NotFound.scss"
 
 const NotFound = () => {
   return (
-    <section>
-      <p>Page not found</p>
+    <section className="pnf">
+      <p className="pnf-title">Page not found</p>
     </section>
   )
 }

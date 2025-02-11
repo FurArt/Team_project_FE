@@ -34,7 +34,9 @@ const Header = () => {
           <a href="#" className="top-bar-control-lenguage"></a>
         </div>
         <div className="top-bar-button">
-          <a href="#" className="top-bar-button--link">PUSH THE LUCK</a>
+          <a href="#" className="top-bar-button--link">
+            PUSH THE LUCK
+          </a>
         </div>
       </div>
 

@@ -10,6 +10,7 @@ body {
 
 main {
   width: 100%;
+  position: relative;
 }
 $items: 70;
 $columns: 14;
@@ -18,14 +19,19 @@ $row: 4;
   display: grid;
   grid-template-columns: repeat($columns, 1fr);
   width: 99.5%;
-
+  position: sticky;
+  top: 0;
+  z-index: -1;
+  height: $height_wrapper;
 }
 .wrapper {
-  min-height: 66vh;
+  // position: sticky;
+  // top: 0;
+  min-height: 50vh;
   &-img {
     display: block;
     width: 107%;
-    height: 125px;
+    height: auto;
     @for $i from 1 through $items {
       &-#{$i} {
         background-image: url('../../images/movie/video-#{$i}.png');

@@ -1,5 +1,4 @@
 @import '../../features/styles/variables';
-
 @import "../../features/styles/typograf";
 
 
@@ -49,22 +48,19 @@
       background-color: $main-text-color;
       border-radius: 10px;
       width: 19%;
+      max-width: 300px;
       line-height: 48px;
+      @extend %AG_H4;
       &--link{
+        color:$heder-black;
+        
         display: block;
-
         text-align: center;
         width: 100%;
         max-width: 273px;
-        color:$heder-black;
       }
     }
   
-    // @media screen and (max-width: 1024px) {
-    //   max-width: 768px;
-    //   height: $height-mobile-top-bar;
-    //   padding-inline: 16px;
-    // }
   }
   
   .icons {
@@ -72,7 +68,7 @@
   
     &-logo {
       display: block;
-      background: url(../../images/icon/Logo.png) no-repeat;
+      background: url(../../images/icon/Logo.svg) no-repeat;
       width: 151px;
       height: 66px;
       pointer-events: visible;
@@ -107,7 +103,6 @@
     width: 42%;
     max-width: 615px;
     &-container {
-      // display: flex;
   
       &--desktop {
         display: flex;

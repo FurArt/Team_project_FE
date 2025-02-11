@@ -3,7 +3,6 @@ import "./features/styles/App.scss"
 import "./features/styles/index.scss"
 import "./features/styles/reset.scss"
 
-
 import Header from "./components/Header/Header"
 import Wrapper from "./components/Wrapper/Wrapper"
 import Footer from "./components/Footer/Footer"
@@ -11,19 +10,23 @@ import { Route, Routes } from "react-router"
 import NotFound from "./components/NotFound/NotFound"
 import Picker from "./components/Picker/Picker"
 import Stats from "./components/Stats/Stats"
+import Mood from "./components/Mood/Mood"
 
 const App = () => {
   return (
     <>
-    <Header />
-    <Wrapper >
-      <Routes>
-       <Route path="/" element={<Stats />} /> 
-        <Route path="*" element={<NotFound />} /> 
-      </Routes>
-    </Wrapper>
-    <Footer />
-  </>
+      <Header />
+      <Wrapper>
+        <Routes>
+          <Route path="/" element={<Stats />} >
+            <Route index element={<Mood/>} />
+            <Route path="picker" element={<Picker/>} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Wrapper>
+      <Footer />
+    </>
   )
 }
 

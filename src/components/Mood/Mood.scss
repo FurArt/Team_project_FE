@@ -1,0 +1,26 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.mood {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  top: 100vh;
+  background-color: $heder-black-0_6;
+  color: $main-text-color;
+  height: $height_mood;
+
+  width: 100%;
+  text-align: center;
+  padding: 30vh 0 30vh;
+  &-head {
+    @extend %AG_H1;
+  }
+  &-title {
+    width: 80%;
+    margin: 24px auto;
+    @extend %AG_H2;
+  }
+  &-link {
+  }
+}
