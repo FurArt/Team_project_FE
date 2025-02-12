@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <header className="header-page" id="header">
       <div className="top-bar menu-container--desktop">
-        <a href="#" className="icons-logo"></a>
+        <a href="#" className="icons-logo" id="logo"></a>
         <div className="menu">
           <nav>
             <ul className="menu-list">

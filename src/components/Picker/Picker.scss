@@ -1,3 +1,4 @@
+@use "sass:list";
 @import "../../features/styles/variables";
 
 .picker {
@@ -5,11 +6,11 @@
   text-align: center;
   background-color: $heder-black-0_6;
   color: $main-text-color;
-    padding-top: 50px;
+  padding-top: 50px;
   position: absolute;
   width: 100%;
   height: 100vh;
-  top:0;
+  top: 0;
   &-head {
   }
   &-title {
@@ -28,74 +29,117 @@
   }
 }
 
-.movie-picker {
-    max-width: 712px;
-    margin: auto;
-    padding: 20px;
-    background: #f1f3f3;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    &--title {
-        position: relative;
-        text-align: left;
-        color: #000;
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-    }
-}
+$images: (
+  "1.svg",
+  "2.svg",
+  "3.svg",
+  "4.svg",
+  "5.svg",
+  "6.svg",
+  "7.svg",
+  "8.svg"
+);
 
-.movie-picker--vibe {
+.movie-picker {
+  max-width: 712px;
+  margin: auto;
+  padding: 20px;
+  background: #f1f3f3;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: $color-picker-black;
+
+  &--vibe {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 75px;
     margin-bottom: 15px;
-}
-.movie-picker--vibe-btn {
+  }
+
+  &--vibe-btn {
+    color: $main-text-color;
     padding: 10px;
     border: none;
-    background: #ddd;
+    background: #14181a;
     cursor: pointer;
     border-radius: 5px;
-}
-.movie-picker--filters {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-.movie-picker--select {
+    width: $size-btn-picker;
+    height: $size-btn-picker;
+    position: relative;
+    z-index: 0;
+
+    // Loop through buttons and apply the hover background
+    @for $i from 1 through list.length($images) {
+      &:nth-child(#{$i})::after {
+        content: "";
+        display: block;
+        width: 110px;
+        height: 110px;
+        background: no-repeat center;
+        background-image: url("../../images/face/#{list.nth($images, $i)}");
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:nth-child(#{$i}):hover::after {
+        opacity: 1; // Show image on hover
+      }
+    }
+  }
+  
+  .movie-picker--select {
     width: 100%;
     padding: 5px;
+    background-color: $heder-black;
+    color: $main-text-color;
+  }
+
+  &--filters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 10px;
+    gap: 24px;
+    text-align: left;
+  }
 }
+
+
 .movie-picker--subtext {
-    font-size: 0.9rem;
-    color: #666;
+  font-size: 0.9rem;
+  color: #666;
 }
 .movie-picker--preferences {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
 }
 .movie-picker--checkbox {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .movie-picker--btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 5px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 5px;
 }
 .movie-picker--btn-primary {
-    background: #ff5733;
-    color: #fff;
+  background: #ff5733;
+  color: #fff;
 }
 .movie-picker--btn-secondary {
-    background: #ddd;
-    color: #333;
+  background: #ddd;
+  color: #333;
 }

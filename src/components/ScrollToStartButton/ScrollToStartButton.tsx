@@ -1,6 +1,7 @@
 import { motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
 import { useState } from "react"
 import "./ScrollToStartButton.scss" // Import SCSS file
+import { useNavigate } from "react-router-dom"
 
 const ScrollToStartButton = () => {
   const controls = useAnimation()
@@ -9,6 +10,7 @@ const ScrollToStartButton = () => {
   const x = useMotionValue(0);
   const width = useTransform(x, [0, 390], ["390px", "100px"]); 
   const opacity = useTransform(x, [0, 100], [1, 0]); 
+  const navigete = useNavigate()
 
   const handleAnimationComplete = () => {
     setActionTriggered(true)
@@ -20,7 +22,8 @@ const ScrollToStartButton = () => {
       console.log("Action Triggered! 🎬")
     }
     controls.start({ x: 0 })
-    
+    navigete("/picker/#logo")
+    window.scrollTo(0, 0)
   }
 
  const setIsStartDragging = () => {

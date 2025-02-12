@@ -1,0 +1,47 @@
+@import "../../features/styles/variables";
+
+.select-trigger {
+  padding: 8px;
+  border: 1px solid $heder-black;
+  border-radius: 4px;
+  background-color: $heder-black;
+  cursor: pointer;
+  color: $main-text-color;
+  display: flex;
+  justify-content: space-between;
+  max-width: 320px;
+  width: 60vw;
+}
+
+.select-positioner {
+  position: relative;
+  z-index: 50;
+}
+
+.select-popup {
+  max-width: 340px;
+  width: 70vw;
+
+  background-color: $heder-black;
+  padding: 8px;
+  color: $main-text-color;
+  &:focus-visible{
+    border: none;
+  }
+}
+
+.select-item {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+
+  &:hover {
+    border: 2px solid $stroke;
+    border-radius: 5px;
+  }
+}
+
+// .select-arrow {
+//   background: url(../../images/icon/select/arow.svg);
+// }

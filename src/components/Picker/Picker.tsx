@@ -1,6 +1,8 @@
+import { Select } from "@base-ui-components/react/select"
+
 import { getMovies } from "../../api/movie"
-import Stats from "../Stats/Stats"
 import "./Picker.scss"
+import DinamicSelect from "./DinamicSelect"
 
 const Picker = () => {
   const handleClick = async () => {
@@ -8,6 +10,28 @@ const Picker = () => {
       console.log(movies)
     })
   }
+
+  const handleYearChange = (value:string) => {
+    console.log("Selected Year:", value)
+  }
+
+  const handleTypeChange = (value:string) => {
+    console.log('Selected Movie Type:', value);
+  };
+
+  const releaseYearOptions = [
+    { value: "2023", label: "2023" },
+    { value: "2022", label: "2022" },
+    { value: "2021", label: "2021" },
+    { value: "2020", label: "2020" },
+  ]
+
+  const movieTypeOptions = [
+    { value: "action", label: "Action" },
+    { value: "comedy", label: "Comedy" },
+    { value: "drama", label: "Drama" },
+    { value: "horror", label: "Horror" },
+  ]
 
   return (
     <>
@@ -38,15 +62,21 @@ const Picker = () => {
           <div className="movie-picker--filters">
             <label>
               Release year
-              <select className="movie-picker--select">
-                <option>2005-2025</option>
-              </select>
+              <DinamicSelect
+                defaultValue="2023"
+                placeholder="Select a year"
+                options={releaseYearOptions}
+                onValueChange={handleYearChange}
+              />
             </label>
             <label>
               Types
-              <select className="movie-picker--select">
-                <option>Movies</option>
-              </select>
+              <DinamicSelect
+                 defaultValue="action"
+                 placeholder="Select a movie type"
+                 options={movieTypeOptions}
+                 onValueChange={handleTypeChange}
+              />
             </label>
           </div>
           <p className="movie-picker--subtext">
