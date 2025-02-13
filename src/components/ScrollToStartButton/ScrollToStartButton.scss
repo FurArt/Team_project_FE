@@ -12,13 +12,7 @@
   right: 39%;
   width: 33%;
   height: 77px;
-  background: linear-gradient(90deg, 
-  rgba(#e83f14, 1) 0%, 
-  rgba(#e83f14, 0.8) 0.1%,
-  rgba(215, 58, 19, 0.8) 28%,
-  rgba(179, 49, 15, 0.8) 57%,
-  rgba(130, 35, 11, 0.8) 100%
-  );
+  @extend %BTN-bg-grad;
   opacity: 1; 
 
   border-radius: 12px;

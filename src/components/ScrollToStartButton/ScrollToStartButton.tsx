@@ -12,24 +12,13 @@ const ScrollToStartButton = () => {
   const opacity = useTransform(x, [0, 100], [1, 0]); 
   const navigete = useNavigate()
 
-  const handleAnimationComplete = () => {
-    setActionTriggered(true)
-    alert("Action Triggered! 🎬") 
-  }
   const setIsDragging = (isDragging: boolean) => {
     setBackgroundVisible(isDragging)
-    if (isDragging) {
-      console.log("Action Triggered! 🎬")
-    }
     controls.start({ x: 0 })
-    navigete("/picker/#logo")
+    navigete("/picker/")
     window.scrollTo(0, 0)
   }
 
- const setIsStartDragging = () => {
-  console.log(width);
-  
- }
 
   return (
     <div className="scroll-cont">
@@ -46,7 +35,7 @@ const ScrollToStartButton = () => {
           dragConstraints={{ left: 0, right: 300 }}
           // dragElastic={1}
           animate={controls}
-          onDrag={(event, info) => setIsStartDragging()}
+          // onDrag={(event, info) => setIsStartDragging()}
           style={{x}}
           onDragEnd={() => setIsDragging(true)}
           transition={{ duration: 0.5 }}

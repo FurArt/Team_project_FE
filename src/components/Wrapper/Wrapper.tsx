@@ -1,8 +1,7 @@
 import { Outlet } from "react-router-dom"
 import "./Wrapper.scss"
 import { ReactNode } from "react"
-import myimg from "../../images/movie/video-1.png"
-import Stats from "../Stats/Stats"
+import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
 
 interface WrapperProps {
   children?: ReactNode
@@ -11,6 +10,7 @@ interface WrapperProps {
 const Wrapper = ({ children }: WrapperProps) => {
   return (
     <main className="wrapper">
+      <MadeInUkraine/>
       <section className="conteiner-video">
         <div className="wrapper-img wrapper-img-1"></div>
         <div className="wrapper-img wrapper-img-2"></div>

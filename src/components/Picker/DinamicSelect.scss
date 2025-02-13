@@ -1,6 +1,8 @@
 @import "../../features/styles/variables";
+@import "../../features/styles/typograf";
 
 .select-trigger {
+  margin: 8px 0 0;
   padding: 8px;
   border: 1px solid $heder-black;
   border-radius: 4px;
@@ -35,6 +37,8 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+    @extend %AG_H6;
+
 
   &:hover {
     border: 2px solid $stroke;

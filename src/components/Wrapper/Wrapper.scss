@@ -34,7 +34,7 @@ $row: 4;
     height: auto;
     @for $i from 1 through $items {
       &-#{$i} {
-        background-image: url('../../images/movie/video-#{$i}.png');
+        background-image: url('../../images/movie/#{$i}.jpg');
         background-size: cover;
         background-position: center;
 

@@ -18,7 +18,7 @@ const Picker = () => {
     { label: "Sport-life movies", checked: false },
     { label: "IMDB Top 250 movies", checked: true },
   ]);
-  
+
   const handleClick = async () => {
     getMovies().then(movies => {
       console.log(movies)
@@ -49,6 +49,8 @@ const Picker = () => {
   ]
 
   const releaseYearOptions = [
+    { value: "2025", label: "2025" },
+    { value: "2024", label: "2024" },
     { value: "2023", label: "2023" },
     { value: "2022", label: "2022" },
     { value: "2021", label: "2021" },
@@ -66,7 +68,7 @@ const Picker = () => {
 
   return (
     <>
-      <section className="picker">
+      <section className="picker" id="picker">
         <h1 className="picker-head">Let’s pick a film for you</h1>
         <p className="picker-title">
           Unleash your desires-get recommendations!
@@ -108,7 +110,8 @@ const Picker = () => {
             </label>
           </div>
           <p className="movie-picker--subtext">
-            Additional preferences{" "}
+            Additional preferences{" "} 
+            <br />
             <span className="movie-picker--info">
               Multiple answers are available
             </span>
@@ -123,6 +126,7 @@ const Picker = () => {
             PUSH THE LUCK
           </button>
         </div>
+        <a href="#picker" className="picker-link"></a>
       </section>
     </>
   )
