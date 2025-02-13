@@ -92,13 +92,13 @@ $images: (
       }
     }
   }
-  
-  .movie-picker--select {
-    width: 100%;
-    padding: 5px;
-    background-color: $heder-black;
-    color: $main-text-color;
-  }
+
+  // .movie-picker--select {
+  //   width: 100%;
+  //   padding: 5px;
+  //   background-color: $heder-black;
+  //   color: $main-text-color;
+  // }
 
   &--filters {
     display: grid;
@@ -107,24 +107,53 @@ $images: (
     gap: 24px;
     text-align: left;
   }
-}
 
+  &--preferences {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  &--checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    width: 16px;
+    height: 16px;
+    background-color: $heder-black;
+    position: relative;
+    &-indicator {
+      width: 10px;
+      height: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      // background-color: white;
+    }
+  }
+
+  &-label--checkbox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid;
+    /* line-height: 40px; */
+    height: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 4px;
+  }
+}
 
 .movie-picker--subtext {
   font-size: 0.9rem;
   color: #666;
 }
-.movie-picker--preferences {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-bottom: 15px;
-}
-.movie-picker--checkbox {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
+.movie-picker
+
 .movie-picker--btn {
   width: 100%;
   padding: 10px;

@@ -3,21 +3,50 @@ import { Select } from "@base-ui-components/react/select"
 import { getMovies } from "../../api/movie"
 import "./Picker.scss"
 import DinamicSelect from "./DinamicSelect"
+import CheckboxMap from "./CheckboxMap"
+import { useState } from "react"
 
 const Picker = () => {
+
+  const [movieCategories, setMovieCategories] = useState([
+    { label: "Movies based on a true story", checked: false },
+    { label: "Spy movies & Cop movies", checked: true },
+    { label: "Movies based on a book", checked: true },
+    { label: "Must watch list", checked: true },
+    { label: "Girl Power movies", checked: false },
+    { label: "Life-changing movies", checked: false },
+    { label: "Sport-life movies", checked: false },
+    { label: "IMDB Top 250 movies", checked: true },
+  ]);
+  
   const handleClick = async () => {
     getMovies().then(movies => {
       console.log(movies)
     })
   }
 
-  const handleYearChange = (value:string) => {
+  const handleYearChange = (value: string) => {
     console.log("Selected Year:", value)
   }
 
-  const handleTypeChange = (value:string) => {
-    console.log('Selected Movie Type:', value);
-  };
+  const handleTypeChange = (value: string) => {
+    console.log("Selected Movie Type:", value)
+  }
+
+  const handleVibeClick = (vibe: string) => {
+    console.log(`You selected: ${vibe}`)
+  }
+
+  const vibes = [
+    "make me chill",
+    "scary me silly",
+    "make me feel good",
+    "make me dream",
+    "make me curious",
+    "take me to another world",
+    "blow my mind",
+    "keep me on edge",
+  ]
 
   const releaseYearOptions = [
     { value: "2023", label: "2023" },
@@ -33,6 +62,8 @@ const Picker = () => {
     { value: "horror", label: "Horror" },
   ]
 
+  
+
   return (
     <>
       <section className="picker">
@@ -46,18 +77,15 @@ const Picker = () => {
             What vibe are you looking for?
           </h2>
           <div className="movie-picker--vibe">
-            <button className="movie-picker--vibe-btn">make me chill</button>
-            <button className="movie-picker--vibe-btn">scary me silly</button>
-            <button className="movie-picker--vibe-btn">
-              make me feel good
-            </button>
-            <button className="movie-picker--vibe-btn">make me dream</button>
-            <button className="movie-picker--vibe-btn">make me curious</button>
-            <button className="movie-picker--vibe-btn">
-              take me to another world
-            </button>
-            <button className="movie-picker--vibe-btn">blow my mind</button>
-            <button className="movie-picker--vibe-btn">keep me on edge</button>
+            {vibes.map((vibe, index) => (
+              <button
+                key={index}
+                className="movie-picker--vibe-btn"
+                onClick={() => handleVibeClick(vibe)}
+              >
+                {vibe}
+              </button>
+            ))}
           </div>
           <div className="movie-picker--filters">
             <label>
@@ -72,10 +100,10 @@ const Picker = () => {
             <label>
               Types
               <DinamicSelect
-                 defaultValue="action"
-                 placeholder="Select a movie type"
-                 options={movieTypeOptions}
-                 onValueChange={handleTypeChange}
+                defaultValue="action"
+                placeholder="Select a movie type"
+                options={movieTypeOptions}
+                onValueChange={handleTypeChange}
               />
             </label>
           </div>
@@ -86,30 +114,7 @@ const Picker = () => {
             </span>
           </p>
           <div className="movie-picker--preferences">
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" /> Movies based on a true story
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" checked /> Spy movies & Cop movies
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" checked /> Movies based on a book
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" checked /> Must watch list
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" /> Girl Power movies
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" /> Life-changing movies
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" /> Sport-life movies
-            </label>
-            <label className="movie-picker--checkbox">
-              <input type="checkbox" checked /> IMD Top 250 movies
-            </label>
+            <CheckboxMap categories={movieCategories} onCategoryChange={setMovieCategories} />
           </div>
           <button className="movie-picker--btn movie-picker--btn-primary">
             PICK MY FILM
