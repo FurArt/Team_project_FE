@@ -1,4 +1,3 @@
-// createAppSlice.ts
 import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getMovies } from "../api/movie";

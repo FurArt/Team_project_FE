@@ -5,6 +5,7 @@ import "./Picker.scss"
 import DinamicSelect from "./DinamicSelect"
 import CheckboxMap from "./CheckboxMap"
 import { ReactElement, ReactEventHandler, useState } from "react"
+import { scrollToHandler } from "../../utils/scrollToHandler"
 
 const Picker = () => {
 
@@ -18,10 +19,10 @@ const Picker = () => {
     { label: "Sport-life movies", checked: false },
     { label: "IMDB Top 250 movies", checked: true },
   ]);
-  const scrollToHandle = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.scrollTo(0, 0);
-  }
+  // const scrollToHandler = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   window.scrollTo(0, 0);
+  // }
   const handleClick = async () => {
     getMovies().then(movies => {
       console.log(movies)
@@ -137,7 +138,7 @@ const Picker = () => {
         <a
           href="#/picker/"
           className="picker-link"
-          onClick={scrollToHandle}
+          onClick={scrollToHandler}
         ></a>
       </section>
     </>

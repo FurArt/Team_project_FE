@@ -213,8 +213,9 @@ $border-radius: 8px;
     }
 
   }
-  &-button--primary {
+  .movie-button--primary {
     @extend %BTN-bg-grad;
+    color: $main-text-color;
   }
 
   &-photos {

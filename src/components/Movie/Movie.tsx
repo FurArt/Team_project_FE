@@ -3,6 +3,8 @@ import { useAppSelector } from "../../app/hooks"
 import "./Movie.scss"
 import GalleryComponent from "./Gallery/GalleryComponent"
 import { castPhotos } from "./Gallery/cast-photos"
+import { useNavigate } from "react-router-dom"
+import Loading from "../Loading/Loading"
 
 type Genre = {
   id: string
@@ -11,20 +13,25 @@ type Genre = {
 
 const Movie = () => {
   const { data: movies, loading, error } = useAppSelector(state => state.movies)
+  const navigate = useNavigate()
   const posterPath = movies?.[0]?.posterPath
   const nameMovie = movies?.[0]?.name
   const imDB = movies?.[0]?.rating
+
+  const handlerBack = () => {
+    navigate(-1);
+  };
 
   const arryGenres: Genre[] = movies?.[0]?.genres
   useEffect(() => {
     console.log(arryGenres)
   }, [movies])
 
-  return loading ? null : (
+  return loading ? <Loading /> : (
     <div className="movie">
       <div className="movie-content">
         <div className="movie-header">
-          <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
+          <a href="#" className="movie-link" onClick={handlerBack}>
             ← BACK
           </a>
           <h1 className="movie-page-title">Film for you</h1>
@@ -137,7 +144,7 @@ const Movie = () => {
           </button>
         </div>
         <button className="movie-button movie-button--primary">
-          FIND THE WAY TO WATCH
+          FIND THE WAY TO WATCH  →
         </button>
       </div>
     </div>

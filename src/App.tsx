@@ -15,6 +15,7 @@ import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
 import { fetchMoviesStore } from "./app/store"
 import Movie from "./components/Movie/Movie"
+import Loading from "./components/Loading/Loading"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -31,7 +32,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Routes>
+      {loading ? <Loading /> : (<Routes>
         <Route
           path="/"
           element={
@@ -45,7 +46,8 @@ const App = () => {
         </Route>
         <Route path="movie" element={<Movie />} />
         <Route path="*" element={<NotFound />} />
-      </Routes>
+
+      </Routes>)}
       <div></div>
       <Footer />
     </>
