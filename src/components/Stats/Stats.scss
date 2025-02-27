@@ -61,12 +61,16 @@
 
 .picker + .stats {
   margin-top: 0;
-  height: 100vh;
+  height: 50vh;
   z-index: -1;
+  top: 77vh;
+  position: absolute;
   .stats-container {
     display: none;
   }
 
+
+  
   .stats-content {
     display: none;
   }

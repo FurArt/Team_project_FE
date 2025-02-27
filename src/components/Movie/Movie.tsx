@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useAppSelector } from "../../app/hooks"
 import "./Movie.scss"
 import GalleryComponent from "./Gallery/GalleryComponent"
+import { castPhotos } from "./Gallery/cast-photos"
 
 type Genre = {
   id: string
@@ -89,30 +90,26 @@ const Movie = () => {
       </div>
 
       <div className="movie-cast">
-      <div className="movie-row">
-        <h2 className="movie-section-title">Top Cast TODO NEED DATA FROM SERVER</h2>
-        <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
+        <div className="movie-row">
+          <h2 className="movie-section-title">Top Cast TODO NEED DATA FROM SERVER</h2>
+          <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
           </a>
-      </div>
+        </div>
 
         <div className="movie-cast-list">
-          {[
-            {
-              name: "TODO NEED DATA FROM SERVER",
-              role: "",
-              img: "JPG.jpg",
-            },
-            { name: "Rachel Weisz", role: "Tessa Quayle", img: "rachel.jpg" },
-          ].map((actor, index) => (
+          {castPhotos.map((actor, index) => (
             <div key={index} className="movie-cast-item">
               <img
-                src={actor.img}
+                src={actor.src}
                 alt={actor.name}
                 className="movie-cast-photo"
               />
-              <span className="movie-cast-name">{actor.name}</span>
-              <span className="movie-cast-role">{actor.role}</span>
+              <div>
+
+                <span className="movie-cast-name">{actor.name}</span>
+                <span className="movie-cast-role">{actor.role}</span>
+              </div>
             </div>
           ))}
         </div>

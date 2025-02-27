@@ -2,15 +2,26 @@
 @import "../../features/styles/variables";
 @import "../../features/styles/typograf";
 
+// .picker {
+//   text-align: center;
+//   background-color: rgba(20, 24, 26, 0.6);
+//   color: #fff;
+//   padding: 50px 0;
+//   position: absolute;
+//   width: 100%;
+//   top: 0;
+// }
+
 .picker {
-  // height: 70vh;
+  height: 77vh;
   text-align: center;
   background-color: $heder-black-0_6;
   color: $main-text-color;
   padding: 50px 0;
   position: absolute;
   width: 100%;
-  height: 100vh;
+  // height: 100vh;
+  
   top: 0;
   &-head {
     @extend %AG_H1;

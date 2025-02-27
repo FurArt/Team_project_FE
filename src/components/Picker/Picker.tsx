@@ -18,7 +18,10 @@ const Picker = () => {
     { label: "Sport-life movies", checked: false },
     { label: "IMDB Top 250 movies", checked: true },
   ]);
-
+  const scrollToHandle = (e) => {
+    e => e.preventDefault();
+    window.scrollTo(0, 0)
+  }
   const handleClick = async () => {
     getMovies().then(movies => {
       console.log(movies)
@@ -47,7 +50,7 @@ const Picker = () => {
     "blow my mind",
     "keep me on edge",
   ]
-// todo терміни 
+  // todo терміни 
   const releaseYearOptions = [
     { value: "2020-2025", label: "2020-2025" },
     { value: "2014-2019", label: "2014-2019" },
@@ -57,7 +60,7 @@ const Picker = () => {
     { value: "1990-1995", label: "1990-1995" },
     { value: "no_matter", label: "No matter" },
   ]
-// todo терміни 
+  // todo терміни 
 
   const movieTypeOptions = [
     { value: "tv_shows", label: "TV Shows" },
@@ -66,7 +69,7 @@ const Picker = () => {
     { value: "no_matter", label: "No matter" },
   ]
 
-  
+
 
   return (
     <>
@@ -112,7 +115,7 @@ const Picker = () => {
             </label>
           </div>
           <p className="movie-picker--subtext">
-            Additional preferences{" "} 
+            Additional preferences{" "}
             <br />
             <span className="movie-picker--info">
               Multiple answers are available
@@ -121,9 +124,9 @@ const Picker = () => {
           <div className="movie-picker--preferences">
             <CheckboxMap categories={movieCategories} onCategoryChange={setMovieCategories} />
           </div>
-          <button 
-          className="movie-picker--btn movie-picker--btn-primary"
-          onClick={()=>{handleClick()}}
+          <button
+            className="movie-picker--btn movie-picker--btn-primary"
+            onClick={() => { handleClick() }}
           >
             PICK MY FILM
           </button>
@@ -131,7 +134,11 @@ const Picker = () => {
             PUSH THE LUCK
           </button>
         </div>
-        <a href="#picker" className="picker-link"></a>
+        <a
+          href="#/picker/"
+          className="picker-link"
+          onClick={scrollToHandle}
+        ></a>
       </section>
     </>
   )
