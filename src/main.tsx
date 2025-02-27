@@ -5,8 +5,8 @@ import { Provider } from "react-redux"
 import App from "./App"
 import { store } from "./app/store"
 import "./features/styles/index.scss"
-// import { BrowserRouter } from "react-router-dom"
-import { BrowserRouter as Router } from "react-router-dom"
+// import { BrowserRouter as Router } from "react-router-dom"
+import { HashRouter as Router } from "react-router-dom"
 
 const container = document.getElementById("root")
 
@@ -15,7 +15,8 @@ if (container) {
 
   root.render(
     <React.StrictMode>
-      <Router basename="/Team_project_FE/">
+      {/* <Router basename="/Team_project_FE/"> */}
+      <Router>
         <Provider store={store}>
           <App />
         </Provider>

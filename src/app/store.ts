@@ -1,16 +1,40 @@
+// store.ts
+import { createSlice, PayloadAction, createAsyncThunk, configureStore, combineReducers } from "@reduxjs/toolkit";
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { getMovies } from "../api/movie";
 
-const initialState = {
-  data: [] as any[], 
-};
+const fetchMoviesStore = createAsyncThunk("movies/fetchMovies", async () => {
+  const movies = await getMovies();
+  return movies;
+});
 
-const dataReducer = (state = initialState, action: Action) => {
-  return state;
-};
+const moviesSlice = createSlice({
+  name: "movies",
+  initialState: {
+    data: [] as any[],
+    loading: false,
+    error: null as string | null,
+  },
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(fetchMoviesStore.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchMoviesStore.fulfilled, (state, action: PayloadAction<any[]>) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchMoviesStore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to load movies";
+      });
+  },
+});
 
 const rootReducer = combineReducers({
-  data: dataReducer,
+  movies: moviesSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -33,3 +57,5 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   unknown,
   Action
 >;
+
+export { fetchMoviesStore };

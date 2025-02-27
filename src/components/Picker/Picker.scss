@@ -2,7 +2,6 @@
 @import "../../features/styles/variables";
 @import "../../features/styles/typograf";
 
-
 .picker {
   // height: 70vh;
   text-align: center;
@@ -14,13 +13,13 @@
   height: 100vh;
   top: 0;
   &-head {
-    @extend %AG_H1
+    @extend %AG_H1;
   }
   &-title {
     padding-block: 25px;
     width: 50%;
     margin: 0 auto;
-    @extend %AG_H2
+    @extend %AG_H2;
   }
   &-button {
     margin: 0 auto;
@@ -86,7 +85,6 @@ $images: (
     z-index: 0;
     @extend %AG_H6;
 
-    // Loop through buttons and apply the hover background
     @for $i from 1 through list.length($images) {
       &:nth-child(#{$i})::after {
         content: "";
@@ -105,8 +103,11 @@ $images: (
         transition: opacity 0.3s ease;
       }
 
-      &:nth-child(#{$i}):hover::after {
-        opacity: 1; // Show image on hover
+      &:nth-child(#{$i}):hover {
+        color: #14181a;
+        &::after {
+          opacity: 1;
+        }
       }
     }
   }
@@ -116,6 +117,8 @@ $images: (
     grid-template-columns: repeat(2, 1fr);
     margin-bottom: 10px;
     gap: 24px;
+    @extend %AG_H4;
+
     // text-align: left;
     label {
       @extend %AG_H4;
@@ -123,6 +126,7 @@ $images: (
   }
 
   &--preferences {
+    @extend %AG_H5;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -161,17 +165,14 @@ $images: (
     margin-bottom: 4px;
     cursor: pointer;
   }
- 
+
   &--subtext {
     @extend %AG_H4;
     .movie-picker--info {
       @extend %AG_H6;
     }
   }
-
-  
 }
-
 
 .movie-picker--btn {
   width: 100%;
@@ -190,6 +191,6 @@ $images: (
 .movie-picker--btn-secondary {
   background: $main-text-color;
   border: 2px solid $red;
-  border-radius: 8  ;
+  border-radius: 8;
   color: $heder-black;
 }

@@ -47,21 +47,23 @@ const Picker = () => {
     "blow my mind",
     "keep me on edge",
   ]
-
+// todo терміни 
   const releaseYearOptions = [
-    { value: "2025", label: "2025" },
-    { value: "2024", label: "2024" },
-    { value: "2023", label: "2023" },
-    { value: "2022", label: "2022" },
-    { value: "2021", label: "2021" },
-    { value: "2020", label: "2020" },
+    { value: "2020-2025", label: "2020-2025" },
+    { value: "2014-2019", label: "2014-2019" },
+    { value: "2008-2013", label: "2008-2013" },
+    { value: "2002-2007", label: "2002-2007" },
+    { value: "1996-2001", label: "1996-2001" },
+    { value: "1990-1995", label: "1990-1995" },
+    { value: "no_matter", label: "No matter" },
   ]
+// todo терміни 
 
   const movieTypeOptions = [
-    { value: "action", label: "Action" },
-    { value: "comedy", label: "Comedy" },
-    { value: "drama", label: "Drama" },
-    { value: "horror", label: "Horror" },
+    { value: "tv_shows", label: "TV Shows" },
+    { value: "movies", label: "Movies" },
+    { value: "shorts", label: "Shorts" },
+    { value: "no_matter", label: "No matter" },
   ]
 
   
@@ -119,7 +121,10 @@ const Picker = () => {
           <div className="movie-picker--preferences">
             <CheckboxMap categories={movieCategories} onCategoryChange={setMovieCategories} />
           </div>
-          <button className="movie-picker--btn movie-picker--btn-primary">
+          <button 
+          className="movie-picker--btn movie-picker--btn-primary"
+          onClick={()=>{handleClick()}}
+          >
             PICK MY FILM
           </button>
           <button className="movie-picker--btn movie-picker--btn-secondary">

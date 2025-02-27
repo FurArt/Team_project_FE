@@ -1,10 +1,28 @@
+import { useNavigate } from "react-router-dom"
 import "./Header.scss"
 
 const Header = () => {
+  const navigete = useNavigate()
+
+const handlerLuckClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault();
+  navigete("/movie/")
+}
+
+const handlerLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault();
+  navigete("/")
+}
+
   return (
     <header className="header-page" id="header">
       <div className="top-bar menu-container--desktop">
-        <a href="#" className="icons-logo" id="logo"></a>
+        <a 
+        href="#" 
+        className="icons-logo" 
+        id="logo"
+        onClick={handlerLogoClick}
+        ></a>
         <div className="menu">
           <nav>
             <ul className="menu-list">
@@ -34,7 +52,11 @@ const Header = () => {
           <a href="#" className="top-bar-control-lenguage"></a>
         </div>
         <div className="top-bar-button">
-          <a href="#" className="top-bar-button--link">
+          <a 
+            href="#" 
+            className="top-bar-button--link"
+            onClick={handlerLuckClick}
+          >
             PUSH THE LUCK
           </a>
         </div>

@@ -1,6 +1,13 @@
-import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit"
+// createAppSlice.ts
+import { asyncThunkCreator, buildCreateSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getMovies } from "../api/movie";
 
-// `buildCreateSlice` allows us to create a slice with async thunks.
+export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
+  const movies = await getMovies();
+  return movies;
+});
+
 export const createAppSlice = buildCreateSlice({
   creators: { asyncThunk: asyncThunkCreator },
-})
+});
