@@ -24,6 +24,7 @@ $border-radius: 8px;
   background-size: cover;
   color: $main-text-color;
   @extend %AG_H5;
+  padding-bottom: 70px;
   &-row {
     margin: 56px 0 48px;
     display: flex;
@@ -152,6 +153,8 @@ $border-radius: 8px;
     height: 48px;
     border: none;
     border-radius: $border-radius;
+    @extend %AG_H4;
+
     span {
       // padding: 10px 15px;
       font-size: 14px;
@@ -176,13 +179,42 @@ $border-radius: 8px;
 
     &--secondary {
       background: transparent;
-      border: 1px solid $primary-color;
+      border-bottom: 1px solid $button-hover;
       margin-right: 10px;
+      color: $main-text-color;
+      border-radius: 0;
+      position: relative;
+      padding-left: 40px;
+      width: 360px;
+      height: 54px;
+      // line-height: 54px;
+      &::before { 
+        content: '';
+        width: 24px;
+        height: 24px;
+        background: url(../../images/icon/expand.svg) no-repeat center;
+        
+        position: absolute;
+        left: 40px;
+        top: 16px;
+        
+      };
+      &:last-child {
+        &::before { 
+          content: '';
+          // width: 20px;
+          // height: 20px;
+          background: url(../../images/icon/arrows_reload_01.svg) no-repeat center;
+          // position: absolute;
+        // left: 40px;
+        };
+        margin-top: 24px;
+      }
     }
 
-    &--primary {
-      background: $primary-color;
-    }
+  }
+  &-button--primary {
+    @extend %BTN-bg-grad;
   }
 
   &-photos {
@@ -282,7 +314,14 @@ $border-radius: 8px;
 
   &-actions {
     margin-top: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    @extend %CENTRE_WITH;
+    color: $main-text-color;
+    div {
+      display: flex;  
+      flex-direction: column;
+    }
   }
 }
 

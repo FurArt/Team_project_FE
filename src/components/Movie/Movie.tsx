@@ -127,12 +127,15 @@ const Movie = () => {
       </div>
 
       <div className="movie-actions">
-        <button className="movie-button movie-button--secondary">
-          EXPLORE LIST RECOMMENDATION
-        </button>
-        <button className="movie-button movie-button--secondary">
-          GET ANOTHER RECOMMENDATION
-        </button>
+        <div>
+
+          <button className="movie-button movie-button--secondary">
+            EXPLORE LIST RECOMMENDATION
+          </button>
+          <button className="movie-button movie-button--secondary">
+            GET ANOTHER RECOMMENDATION
+          </button>
+        </div>
         <button className="movie-button movie-button--primary">
           FIND THE WAY TO WATCH
         </button>

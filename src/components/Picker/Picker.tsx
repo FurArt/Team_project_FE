@@ -4,7 +4,7 @@ import { getMovies } from "../../api/movie"
 import "./Picker.scss"
 import DinamicSelect from "./DinamicSelect"
 import CheckboxMap from "./CheckboxMap"
-import { useState } from "react"
+import { ReactElement, ReactEventHandler, useState } from "react"
 
 const Picker = () => {
 
@@ -18,9 +18,9 @@ const Picker = () => {
     { label: "Sport-life movies", checked: false },
     { label: "IMDB Top 250 movies", checked: true },
   ]);
-  const scrollToHandle = (e) => {
-    e => e.preventDefault();
-    window.scrollTo(0, 0)
+  const scrollToHandle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo(0, 0);
   }
   const handleClick = async () => {
     getMovies().then(movies => {
