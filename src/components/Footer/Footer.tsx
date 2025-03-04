@@ -7,7 +7,7 @@ const Footer = () => {
   const { pathname } = location
   const isPickerPage = location.pathname === '/picker/';
   return (
-    <footer className="footer" style={isPickerPage ? { margin: '50vh 0 0' } : {}}>
+    <footer className="footer" style={isPickerPage ? { margin: '650px 0 0' } : {}}>
       <div className="footer-container">
         <div className="footer-logo"></div>
         <div>

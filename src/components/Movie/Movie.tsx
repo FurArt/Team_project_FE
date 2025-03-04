@@ -1,10 +1,12 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAppSelector } from "../../app/hooks"
 import "./Movie.scss"
 import GalleryComponent from "./Gallery/GalleryComponent"
 import { castPhotos } from "./Gallery/cast-photos"
 import { useNavigate } from "react-router-dom"
 import Loading from "../Loading/Loading"
+import { useSelector } from "react-redux"
+import { RootState } from "../../app/store"
 
 type Genre = {
   id: string
@@ -12,15 +14,21 @@ type Genre = {
 }
 
 const Movie = () => {
-  const { data: movies, loading, error } = useAppSelector(state => state.movies)
-  const navigate = useNavigate()
-  const posterPath = movies?.[0]?.posterPath
-  const nameMovie = movies?.[0]?.name
-  const imDB = movies?.[0]?.rating
-
+  const { data: movies, loading, error } = useAppSelector(state => state.movies);
+  const usedNumbers = useSelector((state: RootState) => state.randomNumbers.usedNumbers);
+  const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
+  const navigate = useNavigate();
+  const posterPath = movies?.[numberRandomMovie]?.posterPath
+  const nameMovie = movies?.[numberRandomMovie]?.name
+  const imDB = movies?.[numberRandomMovie]?.rating
+  
   const handlerBack = () => {
     navigate(-1);
   };
+
+  useEffect(()=>{
+    setNumberRandomMovie(usedNumbers[usedNumbers.length-1])
+  },[usedNumbers])
 
   const arryGenres: Genre[] = movies?.[0]?.genres
   useEffect(() => {

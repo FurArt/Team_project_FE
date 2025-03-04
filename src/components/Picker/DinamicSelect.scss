@@ -62,3 +62,17 @@ height: inherit;
 // .select-arrow {
 //   background: url(../../images/icon/select/arow.svg);
 // }
+
+.gallery-page {
+  .select-trigger {
+    border: 1px solid $main-text-color;
+    background-color: $main-text-color;
+    color: $heder-black;
+  }
+  .select-popup {
+    
+    background-color: $main-text-color;
+    color: $heder-black;
+  }
+  
+}

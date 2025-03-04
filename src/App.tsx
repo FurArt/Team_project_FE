@@ -16,6 +16,10 @@ import { useAppDispatch, useAppSelector } from "./app/hooks"
 import { fetchMoviesStore } from "./app/store"
 import Movie from "./components/Movie/Movie"
 import Loading from "./components/Loading/Loading"
+import { generateRandomNumber } from "./app/randomNumbersSlice"
+import MovieRecommendations from "./components/MovieRecommendations/MovieRecommendations"
+import GalleryPage from "./components/GalleryPage/GalleryPage"
+import { RoutesPath } from "./utils/enumRouts"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -23,32 +27,64 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchMoviesStore())
+    dispatch(generateRandomNumber(movies.length))
   }, [dispatch])
   useEffect(() => {
     console.log(movies?.[0])
-    console.log(loading);
-
+    console.log(loading)
   })
+  // return (
+  //   <>
+  //     <Header />
+  //     {loading ? (
+  //       <Loading />
+  //     ) : (
+  //       <Routes>
+  //         <Route
+  //           path={RoutesPath.HOME}
+  //           element={
+  //             <Wrapper>
+  //               <Stats />
+  //             </Wrapper>
+  //           }
+  //         >
+  //           <Route index element={<Mood />} />
+  //           <Route path={RoutesPath.PICKER} element={<Picker />} />
+  //         </Route>
+  //         <Route path={RoutesPath.MOVIE} element={<Movie />} />
+  //         <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />
+  //         <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
+
+  //         <Route path="*" element={<NotFound />} />
+  //       </Routes>
+  //     )}
+  //     <div></div>
+  //     <Footer />
+  //   </>
+  // )
+
   return (
     <>
       <Header />
-      {loading ? <Loading /> : (<Routes>
-        <Route
-          path="/"
-          element={
-            <Wrapper>
-              <Stats />
-            </Wrapper>
-          }
-        >
-          <Route index element={<Mood />} />
-          <Route path="picker" element={<Picker />} />
-        </Route>
-        <Route path="movie" element={<Movie />} />
-        <Route path="*" element={<NotFound />} />
-
-      </Routes>)}
-      <div></div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Routes>
+          <Route path={RoutesPath.HOME} element={
+              <Wrapper>
+                <Stats />
+              </Wrapper>
+            }>
+            <Route index element={<Mood />} />
+            <Route path={RoutesPath.PICKER} element={<Picker />} />
+            {/* <Route path={RoutesPath.STATS} element={<Stats />} /> */}
+          </Route>
+          <Route path={RoutesPath.MOVIE} element={<Movie />} />
+          <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />
+          <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      )}
       <Footer />
     </>
   )

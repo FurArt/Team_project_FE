@@ -2,10 +2,10 @@
 @import "../../features/styles/typograf";
 
 .mood {
-  position: absolute;
+  position: absolute;  
   display: block;
-  z-index: 1;
-  top: 100vh;
+  z-index: 1000;
+  top: 0;
   background-color: $heder-black-0_6;
   color: $main-text-color;
   height: $height_mood;
