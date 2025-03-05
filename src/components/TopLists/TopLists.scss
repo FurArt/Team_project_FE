@@ -1,0 +1,79 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.top-lists {
+  text-align: center;
+  padding: 2rem;
+  background: url(../../images/stats-bg.jpg);
+  color: #fff;
+  @extend %AG_H2;
+  &-title {
+    @extend %AG_H1;
+  }
+
+  &-description {
+    margin: 24px auto 84px;
+  }
+
+  &-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-menu {
+    list-style: none;
+    padding: 0;
+    width: 50%;
+    text-align: left;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: $heder-black;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border-left: solid $button-hover 1px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &.active {
+      background: $button-hover;
+    }
+
+    &:hover {
+      background: $stroke;
+    }
+  }
+
+  &-arrow {
+    font-size: 1rem;
+    color: white;
+  }
+
+  &-image {
+    position: relative;
+    width: 40%;
+    border-radius: 10px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    &-overlay {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background: rgba(255, 215, 0, 0.8);
+      border-radius: 50%;
+    }
+  }
+}

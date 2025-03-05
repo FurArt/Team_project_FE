@@ -2,16 +2,20 @@
   import "./Wrapper.scss"
   import { ReactNode } from "react"
   import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
+import { useAppSelector } from "../../app/hooks"
 
   interface WrapperProps {
     children?: ReactNode
   }
 
   const Wrapper = ({ children }: WrapperProps) => {
+
+      const { data: movies, loading, error } = useAppSelector(state => state.movies);
+    
     return (
       <main className="wrapper">
         <MadeInUkraine/>
-        <section className="conteiner-video">
+        {/* <section className="conteiner-video">
           <div className="wrapper-img wrapper-img-1"></div>
           <div className="wrapper-img wrapper-img-2"></div>
           <div className="wrapper-img wrapper-img-3"></div>
@@ -82,8 +86,16 @@
           <div className="wrapper-img wrapper-img-68"></div>
           <div className="wrapper-img wrapper-img-69"></div>
           <div className="wrapper-img wrapper-img-70"></div>
-          {/* <div className="wrapper-img wrapper-img-71"></div> */}
-          {/* <div className="wrapper-img wrapper-img-72"></div> */}
+         
+        </section> */}
+        <section className="conteiner-video">
+        {movies.slice(0, 70).map((movie, index) => (
+          <div
+            key={index}
+            className={`wrapper-img`}
+            style={{ backgroundImage: `url(${movie.posterPath})` }}
+          ></div>
+        ))}
         </section>
         {children}
         {/* <Outlet /> */}

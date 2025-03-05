@@ -33,11 +33,15 @@ $row: 4;
     width: 107%;
     height: auto;
     transition: transform 0.2s ease-in-out; 
+    background-size: cover;
+    background-position: center;
+    &:hover{
+      transform: scale(1.1);
+    }
+
     @for $i from 1 through $items {
       &-#{$i} {
         background-image: url('../../images/movie/#{$i}.jpg');
-        background-size: cover;
-        background-position: center;
 
         @if $i % 7 == 0 { 
           grid-row: 100%;
@@ -45,9 +49,7 @@ $row: 4;
         @if $i % 11 == 0 { 
           grid-row: 115%;
         }
-        &:hover{
-          transform: scale(1.1);
-        }
+        
       }
     }
   }

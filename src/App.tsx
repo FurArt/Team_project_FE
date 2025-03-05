@@ -20,6 +20,7 @@ import { generateRandomNumber } from "./app/randomNumbersSlice"
 import MovieRecommendations from "./components/MovieRecommendations/MovieRecommendations"
 import GalleryPage from "./components/GalleryPage/GalleryPage"
 import { RoutesPath } from "./utils/enumRouts"
+import TopLists from "./components/TopLists/TopLists"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -77,11 +78,11 @@ const App = () => {
             }>
             <Route index element={<Mood />} />
             <Route path={RoutesPath.PICKER} element={<Picker />} />
-            {/* <Route path={RoutesPath.STATS} element={<Stats />} /> */}
           </Route>
           <Route path={RoutesPath.MOVIE} element={<Movie />} />
           <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />
           <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
+          <Route path={RoutesPath.TOPLISTS} element={<TopLists />} />.
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

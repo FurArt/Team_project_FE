@@ -8,6 +8,9 @@ import { ReactElement, ReactEventHandler, useState } from "react"
 import { scrollToHandler } from "../../utils/scrollToHandler"
 import { useNavigate } from "react-router-dom"
 import { RoutesPath } from "../../utils/enumRouts"
+import { useDispatch } from "react-redux"
+import { useAppSelector } from "../../app/hooks"
+import { generateRandomNumber } from "../../app/randomNumbersSlice"
 
 export const Vibes = [
   "make me chill",
@@ -38,6 +41,8 @@ export const ReleaseYearOptions = [
 
 const Picker = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const { data: movies, loading } = useAppSelector((state) => state.movies);
 
   const [movieCategories, setMovieCategories] = useState([
     { label: "Movies based on a true story", checked: false },
@@ -69,12 +74,18 @@ const Picker = () => {
   }
 
   
-
+const handleLuckClick = (e: React.MouseEvent) => {
+    if (loading) {
+      return
+    }
+    e.preventDefault()
+    dispatch(generateRandomNumber(movies.length))
+    navigate(`../${RoutesPath.MOVIE}`)
+    scrollToHandler(e)
+  }
   
 
-const handleRecommend = () => {
-  navigate(`../${RoutesPath.RECOMMENDATIONS}`)
-}
+
 
   return (
     <>
@@ -131,7 +142,7 @@ const handleRecommend = () => {
           </div>
           <button
             className="movie-picker--btn movie-picker--btn-primary"
-            onClick={handleRecommend}
+            onClick={handleLuckClick}
           >
             PICK MY FILM
           </button>

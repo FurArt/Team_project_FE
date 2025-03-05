@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import Loading from "../Loading/Loading"
 import { useSelector } from "react-redux"
 import { RootState } from "../../app/store"
+import { RoutesPath } from "../../utils/enumRouts"
 
 type Genre = {
   id: string
@@ -14,28 +15,36 @@ type Genre = {
 }
 
 const Movie = () => {
-  const { data: movies, loading, error } = useAppSelector(state => state.movies);
-  const usedNumbers = useSelector((state: RootState) => state.randomNumbers.usedNumbers);
+  const { data: movies, loading, error } = useAppSelector(state => state.movies)
+  const usedNumbers = useSelector(
+    (state: RootState) => state.randomNumbers.usedNumbers,
+  )
   const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const posterPath = movies?.[numberRandomMovie]?.posterPath
   const nameMovie = movies?.[numberRandomMovie]?.name
   const imDB = movies?.[numberRandomMovie]?.rating
-  
-  const handlerBack = () => {
-    navigate(-1);
-  };
 
-  useEffect(()=>{
-    setNumberRandomMovie(usedNumbers[usedNumbers.length-1])
-  },[usedNumbers])
+  const handlerBack = () => {
+    navigate(-1)
+  }
+
+  useEffect(() => {
+    setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
+  }, [usedNumbers])
 
   const arryGenres: Genre[] = movies?.[0]?.genres
   useEffect(() => {
     console.log(arryGenres)
   }, [movies])
 
-  return loading ? <Loading /> : (
+  const handleRecommend = () => {
+    navigate(`../${RoutesPath.RECOMMENDATIONS}`)
+  }
+
+  return loading ? (
+    <Loading />
+  ) : (
     <div className="movie">
       <div className="movie-content">
         <div className="movie-header">
@@ -96,7 +105,9 @@ const Movie = () => {
 
       <div className="movie-photos">
         <div className="movie-row">
-          <h2 className="movie-section-title">Photos  todo Need data from server</h2>
+          <h2 className="movie-section-title">
+            Photos todo Need data from server
+          </h2>
           <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
           </a>
@@ -106,7 +117,9 @@ const Movie = () => {
 
       <div className="movie-cast">
         <div className="movie-row">
-          <h2 className="movie-section-title">Top Cast TODO NEED DATA FROM SERVER</h2>
+          <h2 className="movie-section-title">
+            Top Cast TODO NEED DATA FROM SERVER
+          </h2>
           <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
           </a>
@@ -121,7 +134,6 @@ const Movie = () => {
                 className="movie-cast-photo"
               />
               <div>
-
                 <span className="movie-cast-name">{actor.name}</span>
                 <span className="movie-cast-role">{actor.role}</span>
               </div>
@@ -143,8 +155,10 @@ const Movie = () => {
 
       <div className="movie-actions">
         <div>
-
-          <button className="movie-button movie-button--secondary">
+          <button
+            onClick={handleRecommend}
+            className="movie-button movie-button--secondary"
+          >
             EXPLORE LIST RECOMMENDATION
           </button>
           <button className="movie-button movie-button--secondary">
@@ -152,7 +166,7 @@ const Movie = () => {
           </button>
         </div>
         <button className="movie-button movie-button--primary">
-          FIND THE WAY TO WATCH  →
+          FIND THE WAY TO WATCH →
         </button>
       </div>
     </div>

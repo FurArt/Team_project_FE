@@ -31,7 +31,7 @@ const MovieRecommendations: React.FC = () => {
   }
 
   const startIndex = (page - 1) * itemsPerPage
-  const displayedMovies = movies.slice(startIndex, startIndex + itemsPerPage)
+  const displayedMovies = movies.slice(0, itemsPerPage)
 
   return (
     <main className="conteiner">
@@ -64,7 +64,7 @@ const MovieRecommendations: React.FC = () => {
             )
           })}
         </div>
-        <Stack spacing={2} className="pagination">
+        {/* <Stack spacing={2} className="pagination">
           <Pagination
             count={Math.ceil(movies.length / itemsPerPage)}
             page={page}
@@ -77,7 +77,7 @@ const MovieRecommendations: React.FC = () => {
               <PaginationItem slots={{ next: NextText }} {...item} />
             )}
           />
-        </Stack>
+        </Stack> */}
       </div>
     </main>
   )
