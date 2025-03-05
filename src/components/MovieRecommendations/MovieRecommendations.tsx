@@ -34,7 +34,7 @@ const MovieRecommendations: React.FC = () => {
   const displayedMovies = movies.slice(0, itemsPerPage)
 
   return (
-    <main className="conteiner">
+    <section className="conteiner">
       <div className="movie-recommendations">
         <a
           href="#"
@@ -79,7 +79,7 @@ const MovieRecommendations: React.FC = () => {
           />
         </Stack> */}
       </div>
-    </main>
+    </section>
   )
 }
 

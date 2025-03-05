@@ -1,15 +1,6 @@
 @import "../../features/styles/variables";
 @import "../../features/styles/typograf";
-
-$primary-color: #ff6b01;
-$secondary-color: #222;
-$text-color: #fff;
-$gray: #888;
 $border-radius: 8px;
-
-// $hover: #979b9b;
-// $stroke: #5b6060;
-
 %LEFT_LINE {
   border-left: solid 2px $red;
 }
@@ -102,7 +93,7 @@ $border-radius: 8px;
   &-description {
     @extend %AG_H5;
     font-size: 14px;
-    color: $gray;
+    color: $hover;
   }
 
   &-tags {
@@ -128,7 +119,7 @@ $border-radius: 8px;
     display: flex;
 
     font-size: 14px;
-    color: $gray;
+    color: $hover;
     margin-top: 10px;
     @extend %AG_H5;
     &-item {
@@ -240,18 +231,7 @@ $border-radius: 8px;
 
     &--more {
       @extend %EXTRA_Text;
-      // &::before {
-      //   background: rgba($secondary-color, 0.3);
-      //   color: $gray;
-      //   font-size: 14px;
-      //   position: absolute;
-      //   z-index: 2;
-
-      //   content: "";
-      //   display: block;
-      //   width: inherit;
-      //   height: inherit;
-      // }
+      
     }
   }
 
@@ -310,7 +290,7 @@ $border-radius: 8px;
 
   &-review-text {
     font-size: 14px;
-    color: $gray;
+    color: $hover;
   }
 
   &-actions {

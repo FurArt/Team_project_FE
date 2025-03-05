@@ -34,35 +34,6 @@ const App = () => {
     console.log(movies?.[0])
     console.log(loading)
   })
-  // return (
-  //   <>
-  //     <Header />
-  //     {loading ? (
-  //       <Loading />
-  //     ) : (
-  //       <Routes>
-  //         <Route
-  //           path={RoutesPath.HOME}
-  //           element={
-  //             <Wrapper>
-  //               <Stats />
-  //             </Wrapper>
-  //           }
-  //         >
-  //           <Route index element={<Mood />} />
-  //           <Route path={RoutesPath.PICKER} element={<Picker />} />
-  //         </Route>
-  //         <Route path={RoutesPath.MOVIE} element={<Movie />} />
-  //         <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />
-  //         <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
-
-  //         <Route path="*" element={<NotFound />} />
-  //       </Routes>
-  //     )}
-  //     <div></div>
-  //     <Footer />
-  //   </>
-  // )
 
   return (
     <>

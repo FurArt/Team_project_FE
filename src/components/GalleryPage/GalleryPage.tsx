@@ -59,10 +59,12 @@ const GalleryPage: React.FC = () => {
     }
   }
 
-  const getPageCount = (movies, searchMovies, itemsPerPage) => {
-    const totalItems = searchMovies?.length > 0 ? searchMovies.length : movies.length;
+  const getPageCount = (movies: Movie[], searchMovies: Movie[] | null, itemsPerPage: number): number => {
+    const totalItems = searchMovies && searchMovies.length > 0 ? searchMovies.length : movies.length;
     return Math.ceil(totalItems / itemsPerPage);
   };
+  
+  
 
   return (
     <main>
@@ -160,105 +162,3 @@ const GalleryPage: React.FC = () => {
 }
 
 export default GalleryPage
-
-// import React, { useState } from "react"
-// import Typography from "@mui/material/Typography"
-// import Pagination from "@mui/material/Pagination"
-// import Stack from "@mui/material/Stack"
-// import { Input } from "@base-ui-components/react/input"
-// import "./GalleryPage.scss"
-// import { useAppSelector } from "../../app/hooks"
-// import { PaginationItem } from "@mui/material"
-// import { useNavigate } from "react-router-dom"
-// import { scrollToHandler } from "../../utils/scrollToHandler"
-
-// const itemsPerPage = 6
-// const NextText = () => (
-//   <>
-//     <Typography>Next</Typography>
-//   </>
-// )
-
-// const GalleryPage: React.FC = () => {
-//   const navigate = useNavigate()
-//   const { data: movies, loading, error } = useAppSelector(state => state.movies)
-//   const [page, setPage] = useState(1)
-//   const [search, setSearch] = useState("")
-
-//   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-//     setPage(value)
-//   }
-
-//   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setSearch(event.target.value)
-//   }
-
-//   const startIndex = (page - 1) * itemsPerPage
-//   const displayedMovies = movies.slice(startIndex, startIndex + itemsPerPage)
-
-//   return (
-//     <main>
-//       <div className="gallery-header">
-//         <div className="gallery-header-background">
-//           <h1 className="gallery-header-title">GALLERY</h1>
-//           <p className="gallery-header-description">
-//             Welcome to the Movio Library collection of films tailored to your preferences.
-//           </p>
-//           <div className="gallery-header-search">
-//             <Input
-//               placeholder="Search"
-//               value={search}
-//               onChange={handleSearchChange}
-//               className="gallery-header-search-input"
-//               data-filled={search ? "true" : undefined} // Optional: handles filled state
-//             />
-//             <button className="gallery-header-search-button">
-//               <span className="gallery-header-search-icon">🔍</span>
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="container">
-//         <div className="gallery-page">
-//           <h2>LIST OF RECOMMENDATIONS FOR YOU</h2>
-//           <p>Movio offers the following movies for you to watch</p>
-//           <div className="movies-container">
-//             {displayedMovies.map((movie, index) => {
-//               const { posterPath, name, rating, genres } = movie
-//               return (
-//                 <div key={index} className="movie-card">
-//                   <img src={posterPath} alt={name} />
-//                   <div className="movie-info">
-//                     <h3>{name}</h3>
-//                     <span className="rating">{rating.toFixed(1)}/10</span>
-//                   </div>
-//                   <p>
-//                     {Array.isArray(genres)
-//                       ? genres.map(g => g.name).join(" / ")
-//                       : "Unknown Genre"}
-//                   </p>
-//                 </div>
-//               )
-//             })}
-//           </div>
-//           <Stack spacing={2} className="pagination">
-//             <Pagination
-//               count={Math.ceil(movies.length / itemsPerPage)}
-//               page={page}
-//               onChange={handleChange}
-//               onClick={scrollToHandler}
-//               hideNextButton={false}
-//               shape="rounded"
-//               showLastButton
-//               renderItem={item => (
-//                 <PaginationItem slots={{ next: NextText }} {...item} />
-//               )}
-//             />
-//           </Stack>
-//         </div>
-//       </div>
-//     </main>
-//   )
-// }
-
-// export default GalleryPage
