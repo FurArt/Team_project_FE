@@ -7,13 +7,15 @@ import {
 } from "@reduxjs/toolkit"
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { getMovies } from "../api/movie"
-import randomNumbersReducer from "./randomNumbersSlice";
+import randomNumbersReducer from "./randomNumbersSlice"
 
-
-const fetchMoviesStore = createAsyncThunk("movies/fetchMovies", async () => {
-  const movies = await getMovies()
-  return movies
-})
+const fetchMoviesStore = createAsyncThunk(
+  "movies/fetchMovies",
+  async (n: number = 100) => {
+    const movies = await getMovies(n)
+    return movies
+  },
+)
 
 const moviesSlice = createSlice({
   name: "movies",
@@ -46,7 +48,6 @@ const moviesSlice = createSlice({
 const rootReducer = combineReducers({
   movies: moviesSlice.reducer,
   randomNumbers: randomNumbersReducer,
-
 })
 
 export type RootState = ReturnType<typeof rootReducer>

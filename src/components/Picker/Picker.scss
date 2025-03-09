@@ -13,13 +13,14 @@
 // }
 
 .picker {
-  height: 635px;
+  height: 765px;
   text-align: center;
   background-color: $heder-black-0_6;
   color: $main-text-color;
   padding: 50px 0;
   position: absolute;
   width: 100%;
+  z-index: 1;
   // height: 100vh;
   
   top: 0;
@@ -71,6 +72,7 @@ $images: (
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: $color-picker-black;
   text-align: left;
+  z-index: 1;
   &--title {
     @extend %AG_H4;
     // text-align: left;
@@ -93,7 +95,7 @@ $images: (
     width: $size-btn-picker;
     height: $size-btn-picker;
     position: relative;
-    z-index: 0;
+    z-index: 1;
     @extend %AG_H6;
 
     @for $i from 1 through list.length($images) {

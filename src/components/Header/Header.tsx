@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import { generateRandomNumber } from "../../app/randomNumbersSlice"
 import { useAppSelector } from "../../app/hooks"
 import { RoutesPath } from "../../utils/enumRouts"
+import PopoverSearch from "./PopoverSearch/PopoverSearch"
 
 const Header = () => {
   const navigate = useNavigate()
@@ -20,12 +21,12 @@ const Header = () => {
       return
     }
     e.preventDefault()
-    navigate(`${target}`) 
+    navigate(`${target}`)
     console.log(
       RoutesPath.HOME,
-     
+
     );
-    
+
   }
 
   const handleLuckClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -33,7 +34,9 @@ const Header = () => {
       return
     }
     e.preventDefault()
-    dispatch(generateRandomNumber(movies.length))
+    console.log(movies.length);
+
+    dispatch(generateRandomNumber((movies.length - 1)))
     navigate(`${RoutesPath.MOVIE}`)
   }
 
@@ -90,6 +93,9 @@ const Header = () => {
               </li>
             </ul>
           </nav>
+        </div>
+        <div className="top-bar-container">
+          <PopoverSearch />
         </div>
         <div className="top-bar-button">
           <a

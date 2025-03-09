@@ -8,6 +8,7 @@ import { PaginationItem } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { main } from "framer-motion/client"
 import { scrollToHandler } from "../../utils/scrollToHandler"
+import { MovieData } from "../../types/movie"
 
 const itemsPerPage = 6
 const NextText = () => (
@@ -19,7 +20,9 @@ const NextText = () => (
 const MovieRecommendations: React.FC = () => {
   const navigate = useNavigate()
 
-  const { data: movies, loading, error } = useAppSelector(state => state.movies)
+  const { data: movies, loading, error } = useAppSelector(
+    (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
+  );
 
   const [page, setPage] = useState(1)
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -47,19 +50,19 @@ const MovieRecommendations: React.FC = () => {
         <p>Muvio offers the following movies for you to watch</p>
         <div className="movies-container">
           {displayedMovies.map((movie, index) => {
-            const { posterPath, name, rating, genres } = movie
+            const { posterPath, title, rating, genresDto, duration } = movie
             return (
               <div key={index} className="movie-card">
-                <img src={posterPath} alt={name} />
+                <img src={posterPath} alt={title} />
                 <div className="movie-info">
-                  <h3>{name}</h3>
+                  <h3>{title}</h3>
                   <span className="rating">{rating.toFixed(1)}/10</span>
                 </div>
-                  <p>
-                    {Array.isArray(genres)
-                      ? genres.map(g => g.name).join(" / ")
-                      : "Unknown Genre"}
-                  </p>
+                <p>
+                  {`${Array.isArray(genresDto)
+                    ? genresDto.map(g => g).slice(0, 3).join(" / ")
+                    : "Unknown Genre"} ‧ ${duration}`}
+                </p>
               </div>
             )
           })}

@@ -1,21 +1,22 @@
-  import { Outlet } from "react-router-dom"
-  import "./Wrapper.scss"
-  import { ReactNode } from "react"
-  import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
+import { Outlet } from "react-router-dom"
+import "./Wrapper.scss"
+import { ReactNode } from "react"
+import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
 import { useAppSelector } from "../../app/hooks"
 
-  interface WrapperProps {
-    children?: ReactNode
-  }
+interface WrapperProps {
+  children?: ReactNode
+}
 
-  const Wrapper = ({ children }: WrapperProps) => {
+const Wrapper = ({ children }: WrapperProps) => {
 
-      const { data: movies, loading, error } = useAppSelector(state => state.movies);
-    
-    return (
-      <main className="wrapper">
-        <MadeInUkraine/>
-        {/* <section className="conteiner-video">
+  const { data: movies, loading, error } = useAppSelector(state => state.movies);
+
+  return (
+    <main className="wrapper">
+      <MadeInUkraine />
+      <section className="conteiner-video">
+        {movies.length < 70 ? (<>
           <div className="wrapper-img wrapper-img-1"></div>
           <div className="wrapper-img wrapper-img-2"></div>
           <div className="wrapper-img wrapper-img-3"></div>
@@ -86,21 +87,23 @@ import { useAppSelector } from "../../app/hooks"
           <div className="wrapper-img wrapper-img-68"></div>
           <div className="wrapper-img wrapper-img-69"></div>
           <div className="wrapper-img wrapper-img-70"></div>
-         
-        </section> */}
-        <section className="conteiner-video">
-        {movies.slice(0, 70).map((movie, index) => (
-          <div
-            key={index}
-            className={`wrapper-img`}
-            style={{ backgroundImage: `url(${movie.posterPath})` }}
-          ></div>
-        ))}
-        </section>
-        {children}
-        {/* <Outlet /> */}
-      </main>
-    )
-  }
+        </>
 
-  export default Wrapper
+        ) : (
+
+          movies.slice(0, 70).map((movie, index) => (
+            <div
+              key={index}
+              className={`wrapper-img`}
+              style={{ backgroundImage: `url(${movie.posterPath})` }}
+            ></div>
+          ))
+        )}
+      </section>
+      {children}
+      {/* <Outlet /> */}
+    </main>
+  )
+}
+
+export default Wrapper

@@ -27,7 +27,7 @@ const App = () => {
   const { data: movies, loading, error } = useAppSelector(state => state.movies)
 
   useEffect(() => {
-    dispatch(fetchMoviesStore())
+    dispatch(fetchMoviesStore(100))
     dispatch(generateRandomNumber(movies.length))
   }, [dispatch])
   useEffect(() => {
@@ -43,10 +43,10 @@ const App = () => {
       ) : (
         <Routes>
           <Route path={RoutesPath.HOME} element={
-              <Wrapper>
-                <Stats />
-              </Wrapper>
-            }>
+            <Wrapper>
+              <Stats />
+            </Wrapper>
+          }>
             <Route index element={<Mood />} />
             <Route path={RoutesPath.PICKER} element={<Picker />} />
           </Route>

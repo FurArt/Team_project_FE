@@ -10,7 +10,7 @@ const Loading = () => {
     <>
       <section className="loading">
         <p className="loading-title">Wait, Muvio is in the process</p>
-        <p><Counter target={100} duration={2000} start={loading} />%</p>
+        <p><Counter target={99} duration={6000} start={loading} />%</p>
       </section>
     </>
   )

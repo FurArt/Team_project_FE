@@ -8,6 +8,9 @@ import Loading from "../Loading/Loading"
 import { useSelector } from "react-redux"
 import { RootState } from "../../app/store"
 import { RoutesPath } from "../../utils/enumRouts"
+import { MovieData } from "../../types/movie"
+import { Avatar } from "@mui/material"
+// import { Avatar } from "@base-ui-components/react/avatar"
 
 type Genre = {
   id: string
@@ -15,15 +18,43 @@ type Genre = {
 }
 
 const Movie = () => {
-  const { data: movies, loading, error } = useAppSelector(state => state.movies)
+  const { data: movies, loading, error } = useAppSelector(
+    (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
+  );
+
+
   const usedNumbers = useSelector(
     (state: RootState) => state.randomNumbers.usedNumbers,
   )
   const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
   const navigate = useNavigate()
-  const posterPath = movies?.[numberRandomMovie]?.posterPath
-  const nameMovie = movies?.[numberRandomMovie]?.name
-  const imDB = movies?.[numberRandomMovie]?.rating
+  // const posterPath = movies?.[numberRandomMovie]?.posterPath
+  // const nameMovie = movies?.[numberRandomMovie]?.title
+  // const imDB = movies?.[numberRandomMovie]?.rating
+
+  const movieShow = movies?.[numberRandomMovie]
+  // const movieShow = movies?.[6]
+
+  const {
+    actorsDto = [],
+    duration = '',
+    genresDto = [],
+    id = '',
+    keywords = null,
+    overview = '',
+    photos = [],
+    posterPath = '',
+    producer = '',
+    rating = 0,
+    releaseYear = 0,
+    reviewsDto = [],
+    title = 'Unknown title',
+    trailer = '',
+  } = movieShow ?? {};
+
+  const filteredActors = actorsDto
+    .filter((actor) => actor.photo)
+    .slice(0, 3)
 
   const handlerBack = () => {
     navigate(-1)
@@ -33,10 +64,11 @@ const Movie = () => {
     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
   }, [usedNumbers])
 
-  const arryGenres: Genre[] = movies?.[0]?.genres
+  const arryGenres: string[] = genresDto
   useEffect(() => {
-    console.log(arryGenres)
-  }, [movies])
+    console.log(movieShow);
+    console.log(`movieShow`);
+  }, [movieShow])
 
   const handleRecommend = () => {
     navigate(`../${RoutesPath.RECOMMENDATIONS}`)
@@ -55,25 +87,21 @@ const Movie = () => {
         </div>
         <div className="movie-info">
           <div className="movie-poster">
-            <img src={posterPath} alt={nameMovie} />
+            <img src={posterPath} alt={title} />
           </div>
           <div className="movie-container">
             <div className="movie-details">
               <h1 className="movie-title item-1">
-                {nameMovie} (need YEAR FROM DATA)
+                {`${title} ${releaseYear}`}
               </h1>
               <p className="movie-description item-2">
-                (NEED DISCRIPTON FROM DATA) Lorem ipsum dolor sit amet
-                consectetur, adipisicing elit. Animi saepe consequuntur
-                provident iure distinctio eligendi nesciunt odit quaerat quis
-                accusantium cupiditate, voluptas, totam quidem, veritatis
-                reiciendis numquam. Libero, aliquam eveniet!
+                {overview}
               </p>
 
               <div className="movie-tags item-3">
-                {arryGenres?.map(genre => (
-                  <span key={genre.id} className="movie-tag">
-                    {genre.name}
+                {arryGenres?.map((genre, index) => (
+                  <span key={index} className="movie-tag">
+                    {genre}
                   </span>
                 ))}
               </div>
@@ -83,21 +111,26 @@ const Movie = () => {
               <div className="movie-meta-item">
                 <strong>Director:</strong>
                 <br />
-                TODO NEED DATA FROM SERVER
+                {producer}
               </div>
               <div className="movie-meta-item">
                 <strong>Duration:</strong>
                 <br />
-                TODO NEED DATA FROM SERVER
+                {duration}
               </div>
               <div className="movie-meta-item">
                 <strong>IMDB Rating:</strong>
                 <br />
-                {imDB}
+                {rating}
               </div>
             </div>
-            <button className="movie-button">
-              <span>WATCH TRAILER</span>
+            <button className="movie-button" >
+
+              <a href={trailer} target="_blank">
+
+                WATCH TRAILER
+              </a>
+
             </button>
           </div>
         </div>
@@ -106,13 +139,13 @@ const Movie = () => {
       <div className="movie-photos">
         <div className="movie-row">
           <h2 className="movie-section-title">
-            Photos todo Need data from server
+            Photos
           </h2>
           <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
           </a>
         </div>
-        <GalleryComponent />
+        <GalleryComponent photos={photos} />
       </div>
 
       <div className="movie-cast">
@@ -126,32 +159,47 @@ const Movie = () => {
         </div>
 
         <div className="movie-cast-list">
-          {castPhotos.map((actor, index) => (
+          {filteredActors.map((actor, index) => (
             <div key={index} className="movie-cast-item">
               <img
-                src={actor.src}
+                src={actor.photo}
                 alt={actor.name}
                 className="movie-cast-photo"
               />
               <div>
                 <span className="movie-cast-name">{actor.name}</span>
-                <span className="movie-cast-role">{actor.role}</span>
+                <span className="movie-cast-role">{actor.name}</span>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="movie-reviews">
-        <h2 className="movie-section-title">User Reviews</h2>
-        <div className="movie-review">
-          <h3 className="movie-review-title">"TODO NEED DATA FROM SERVER"</h3>
-          <p className="movie-review-text">
-            If you want to see a movie that makes you think, this is it. The
-            story is compelling, and the cinematography is fantastic.
-          </p>
+      {reviewsDto.length > 1 && (
+        <div className="movie-reviews">
+          <h2 className="movie-section-title">User Reviews</h2>
+          <div className="movie-review">
+            {reviewsDto.slice(0, 3).map((review) => (
+              <div key={review.id} className="movie-review-item">
+                <h3 className="movie-review-title">"{`${review.content.slice(0, 20)}...`}"</h3>
+                <div className="movie-review-item--author-block">
+                  <Avatar
+                    src={review.avatarPath || undefined}
+                    alt={review.author}
+                  >
+                    {!review.avatarPath && review.author.charAt(0).toUpperCase()}
+                  </Avatar>
+                  <p className="movie-review-author">
+                    {review.author}
+                    <br />
+                    {review.content.slice(0, 120) + '..'}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="movie-actions">
         <div>

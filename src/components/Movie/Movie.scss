@@ -28,6 +28,7 @@ $border-radius: 8px;
   &-header {
     padding: 32px 0 24px;
     // margin-bottom: 20px;
+    @extend %CENTRE_WITH;
   }
 
   &-link {
@@ -62,13 +63,13 @@ $border-radius: 8px;
   }
 
   &-info {
-    // background: url('../../images/movie-item/back-photo-movie-info.jpg') no-repeat;
     display: flex;
     gap: 20px;
+    @extend %CENTRE_WITH
   }
 
   &-poster {
-    width: 65%;
+    width: 100%;
     img {
       width: 265px;
       border-radius: $border-radius;
@@ -146,7 +147,7 @@ $border-radius: 8px;
     border-radius: $border-radius;
     @extend %AG_H4;
 
-    span {
+    a {
       // padding: 10px 15px;
       font-size: 14px;
       // margin-top: 10px;
@@ -228,6 +229,9 @@ $border-radius: 8px;
     justify-content: center;
     position: relative;
     z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
 
     &--more {
       @extend %EXTRA_Text;
@@ -254,8 +258,16 @@ $border-radius: 8px;
   }
 
   &-cast-photo {
+    // width: 140px;
+    // height: auto;
+    // resize: horizontal;
+    // border-radius: 50%;
+
     width: 140px;
-    border-radius: 50%;
+    height: 140px; // Set both width and height to 140px
+    object-fit: cover; // Ensures the image scales correctly to fit the box while maintaining its aspect ratio
+    border-radius: 50%; // Optional: to make it circular
+    resize: horizontal;
   }
 
   &-cast-name {
@@ -282,6 +294,13 @@ $border-radius: 8px;
     padding: 15px;
     border-radius: $border-radius;
     // border: line;
+    .MuiAvatar-root {
+      margin: 10px 5px 0 0;
+    }
+
+    &-item--author-block {
+      display: flex;
+    }
   }
 
   &-review-title {

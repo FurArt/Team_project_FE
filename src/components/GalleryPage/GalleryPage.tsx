@@ -44,14 +44,14 @@ const GalleryPage: React.FC = () => {
     setSearch(event.target.value)
   }
 
-  const handleYearChange = () => {}
-  const handleTypeChange = () => {}
+  const handleYearChange = () => { }
+  const handleTypeChange = () => { }
 
   const handleEndSearch = () => {
     if (!search.trim()) {
       setSearchMovies(null)
     } else {
-      const filteredMovies:Movie[] | null = movies.filter(movie =>
+      const filteredMovies: Movie[] | null = movies.filter(movie =>
         movie.name.toLowerCase().includes(search.toLowerCase()),
       )
       setSearchMovies(filteredMovies)
@@ -63,8 +63,8 @@ const GalleryPage: React.FC = () => {
     const totalItems = searchMovies && searchMovies.length > 0 ? searchMovies.length : movies.length;
     return Math.ceil(totalItems / itemsPerPage);
   };
-  
-  
+
+
 
   return (
     <main>
@@ -124,18 +124,18 @@ const GalleryPage: React.FC = () => {
           </div>
           <div className="movies-container">
             {displayedMovies.map((movie, index) => {
-              const { posterPath, name, rating, genres } = movie
+              const { posterPath, title, rating, genresDto, duration } = movie
               return (
                 <div key={index} className="movie-card">
-                  <img src={posterPath} alt={name} />
+                  <img src={posterPath} alt={title} />
                   <div className="movie-info">
-                    <h3>{name}</h3>
+                    <h3>{title}</h3>
                     <span className="rating">{rating.toFixed(1)}/10</span>
                   </div>
                   <p>
-                    {Array.isArray(genres)
-                      ? genres.map(g => g.name).join(" / ")
-                      : "Unknown Genre"}
+                    {`${Array.isArray(genresDto)
+                      ? genresDto.map(g => g).slice(0, 2).join(" / ")
+                      : "Unknown Genre"} ‧ ${duration}`}
                   </p>
                 </div>
               )
@@ -143,7 +143,7 @@ const GalleryPage: React.FC = () => {
           </div>
           <Stack spacing={2} className="pagination">
             <Pagination
-              count={getPageCount(movies,searchMovies,itemsPerPage)}
+              count={getPageCount(movies, searchMovies, itemsPerPage)}
               page={page}
               onChange={handleChange}
               onClick={scrollToHandler}
