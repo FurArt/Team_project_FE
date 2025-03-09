@@ -2,7 +2,7 @@ import { Input, Popover } from "@base-ui-components/react";
 import "./PopoverSearch.scss"
 import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { Movie, MovieData } from "../../../types/movie";
+import { MovieData } from "../../../types/movie";
 import { Autocomplete, TextField } from "@mui/material";
 
 export default function PopoverSearch() {
@@ -23,7 +23,7 @@ export default function PopoverSearch() {
     if (!search.trim()) {
       setSearchMovies(null)
     } else {
-      const filteredMovies: Movie[] | null = movies.filter(movie =>
+      const filteredMovies: MovieData[] | null = movies.filter(movie =>
         movie.title.toLowerCase().includes(search.toLowerCase()),
       )
       console.log();

@@ -54,12 +54,12 @@ const Picker = () => {
     { label: "Sport-life movies", checked: false },
     { label: "IMDB Top 250 movies", checked: true },
   ]);
-  
-  const handleClick = async () => {
-    getMovies().then(movies => {
-      console.log(movies)
-    })
-  }
+
+  // const handleClick = async () => {
+  //   getMovies().then(movies => {
+  //     console.log(movies)
+  //   })
+  // }
 
   const handleYearChange = (value: string) => {
     console.log("Selected Year:", value)
@@ -73,8 +73,8 @@ const Picker = () => {
     console.log(`You selected: ${vibe}`)
   }
 
-  
-const handleLuckClick = (e: React.MouseEvent) => {
+
+  const handleLuckClick = (e: React.MouseEvent) => {
     if (loading) {
       return
     }
@@ -83,7 +83,7 @@ const handleLuckClick = (e: React.MouseEvent) => {
     navigate(`../${RoutesPath.MOVIE}`)
     scrollToHandler(e)
   }
-  
+
 
 
 

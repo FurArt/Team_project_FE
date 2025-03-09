@@ -11,7 +11,7 @@ import { scrollToHandler } from "../../utils/scrollToHandler"
 import { Input } from "@base-ui-components/react"
 import DinamicSelect from "../Picker/DinamicSelect"
 import { MovieTypeOptions, ReleaseYearOptions } from "../Picker"
-import { Movie } from "../../types/movie"
+import { MovieData } from "../../types/movie"
 
 const itemsPerPage = 6
 const NextText = () => (
@@ -25,7 +25,7 @@ const GalleryPage: React.FC = () => {
 
   const { data: movies, loading, error } = useAppSelector(state => state.movies)
   const [search, setSearch] = useState("")
-  const [searchMovies, setSearchMovies] = useState<Movie[] | null>(null);
+  const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
 
   const [page, setPage] = useState(1)
 
@@ -51,7 +51,7 @@ const GalleryPage: React.FC = () => {
     if (!search.trim()) {
       setSearchMovies(null)
     } else {
-      const filteredMovies: Movie[] | null = movies.filter(movie =>
+      const filteredMovies: MovieData[] | null = movies.filter(movie =>
         movie.name.toLowerCase().includes(search.toLowerCase()),
       )
       setSearchMovies(filteredMovies)
@@ -59,7 +59,7 @@ const GalleryPage: React.FC = () => {
     }
   }
 
-  const getPageCount = (movies: Movie[], searchMovies: Movie[] | null, itemsPerPage: number): number => {
+  const getPageCount = (movies: MovieData[], searchMovies: MovieData[] | null, itemsPerPage: number): number => {
     const totalItems = searchMovies && searchMovies.length > 0 ? searchMovies.length : movies.length;
     return Math.ceil(totalItems / itemsPerPage);
   };
