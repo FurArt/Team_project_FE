@@ -25,7 +25,7 @@ const GalleryPage: React.FC = () => {
 
   const { data: movies, loading, error } = useAppSelector(state => state.movies)
   const [search, setSearch] = useState("")
-  const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
+  const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null)
 
   const [page, setPage] = useState(1)
 
@@ -44,27 +44,34 @@ const GalleryPage: React.FC = () => {
     setSearch(event.target.value)
   }
 
-  const handleYearChange = () => { }
-  const handleTypeChange = () => { }
+  const handleYearChange = () => {}
+  const handleTypeChange = () => {}
 
   const handleEndSearch = () => {
     if (!search.trim()) {
+      console.log(movies)
       setSearchMovies(null)
     } else {
-      const filteredMovies: MovieData[] | null = movies.filter(movie =>
-        movie.name.toLowerCase().includes(search.toLowerCase()),
+      const filteredMovies: MovieData[] | null = movies?.filter(movie =>
+        movie.title.toLowerCase().includes(search.toLowerCase()),
       )
+
       setSearchMovies(filteredMovies)
       setPage(1)
     }
   }
 
-  const getPageCount = (movies: MovieData[], searchMovies: MovieData[] | null, itemsPerPage: number): number => {
-    const totalItems = searchMovies && searchMovies.length > 0 ? searchMovies.length : movies.length;
-    return Math.ceil(totalItems / itemsPerPage);
-  };
-
-
+  const getPageCount = (
+    movies: MovieData[],
+    searchMovies: MovieData[] | null,
+    itemsPerPage: number,
+  ): number => {
+    const totalItems =
+      searchMovies && searchMovies.length > 0
+        ? searchMovies.length
+        : movies.length
+    return Math.ceil(totalItems / itemsPerPage)
+  }
 
   return (
     <main>
@@ -133,9 +140,14 @@ const GalleryPage: React.FC = () => {
                     <span className="rating">{rating.toFixed(1)}/10</span>
                   </div>
                   <p>
-                    {`${Array.isArray(genresDto)
-                      ? genresDto.map(g => g).slice(0, 2).join(" / ")
-                      : "Unknown Genre"} ‧ ${duration}`}
+                    {`${
+                      Array.isArray(genresDto)
+                        ? genresDto
+                            .map(g => g)
+                            .slice(0, 2)
+                            .join(" / ")
+                        : "Unknown Genre"
+                    } ‧ ${duration}`}
                   </p>
                 </div>
               )

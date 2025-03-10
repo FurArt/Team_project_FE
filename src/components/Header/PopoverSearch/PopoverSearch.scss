@@ -13,7 +13,8 @@
  
 }
 .popover-portal-container {
-top: 100px;
+// top: 100px;
+
 }
 // .autocomplete {
 //   // outline: none;
@@ -29,12 +30,15 @@ top: 100px;
 
 //     @extend %AG_H5;
 //     // z-index: 0;
-//     .MuiInputBase-root {
-//       height: 50px;
-//     }
+    // .MuiInputBase-root {
+    //   // height: 50px;
+    //   z-index: 100;
+    // }
 // }
 
 .popover-portal {
+  z-index: 1000;
+
   &-search-input {
     outline: none;
     width: 275px;
@@ -48,7 +52,7 @@ top: 100px;
     position: relative;
 
     @extend %AG_H5;
-    z-index: 0;
+    z-index: 100;
   }
 
   &-search-icon {
@@ -64,4 +68,13 @@ top: 100px;
         background-position: 14px;
         cursor: pointer;
   }
+
+  .MuiInputBase-root {
+    // height: 50px;
+    z-index: 100;
+  }
+}
+
+[role="presentation"] {
+  z-index: 1000;
 }

@@ -3,7 +3,7 @@ import { useAppSelector } from "../../app/hooks"
 import "./Movie.scss"
 import GalleryComponent from "./Gallery/GalleryComponent"
 import { castPhotos } from "./Gallery/cast-photos"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Loading from "../Loading/Loading"
 import { useSelector } from "react-redux"
 import { RootState } from "../../app/store"
@@ -28,12 +28,12 @@ const Movie = () => {
   )
   const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
   const navigate = useNavigate()
-  // const posterPath = movies?.[numberRandomMovie]?.posterPath
-  // const nameMovie = movies?.[numberRandomMovie]?.title
-  // const imDB = movies?.[numberRandomMovie]?.rating
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const idMovie = params.get("idMovie");
 
+  
   const movieShow = movies?.[numberRandomMovie]
-  // const movieShow = movies?.[6]
 
   const {
     actorsDto = [],
@@ -64,11 +64,27 @@ const Movie = () => {
     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
   }, [usedNumbers])
 
-  const arryGenres: string[] = genresDto
+  useEffect(()=>{
+    console.log(`idMovie`);
+
+    console.log(idMovie);
+  })
+
+  const arryGenres: string[] = genresDto;
+
   useEffect(() => {
-    console.log(movieShow);
-    console.log(`movieShow`);
-  }, [movieShow])
+    console.log(idMovie);
+    
+  
+    const indexShow = movies.findIndex(movie => movie?.id === idMovie);
+    
+    console.log(indexShow);
+    if (indexShow === -1) {
+      setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
+      return;
+    }
+    setNumberRandomMovie(indexShow);
+  });
 
   const handleRecommend = () => {
     navigate(`../${RoutesPath.RECOMMENDATIONS}`)

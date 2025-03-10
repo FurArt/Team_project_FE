@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { MovieData } from "../../../types/movie";
 import { Autocomplete, TextField } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function PopoverSearch() {
   const { data: movies, loading, error } = useAppSelector(
@@ -11,12 +12,17 @@ export default function PopoverSearch() {
   );
   const [search, setSearch] = useState("")
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
+  const navigate = useNavigate();
+
 
   const handleSearchChange = (_: any, value: MovieData | null) => {
     setSearchMovies(value);
     if (value) {
       console.log("Selected movie:", value.id);
+
+      
     }
+    navigate(`../movie?idMovie=${value?.id}`)
   };
 
   const handleEndSearch = () => {
@@ -69,28 +75,45 @@ export default function PopoverSearch() {
                   getOptionLabel={(option) => option.title}
                   onChange={handleSearchChange}
                   renderInput={(params) => <TextField {...params} label="Search Movies" variant="outlined" />}
-
+ noOptionsText="No movie"
                   sx={{
-                    backgroundColor: '#ffffff33',
+                    // backgroundColor: '#ffffff33',
+                    backgroundColor: '#d9d9d9',
+                    borderRadius: '8px',
                     width: 300,
-                    color: '#fff',
+                   color: '#e83f14',
+                    zIndex: 1000,
                     "& .MuiInputLabel-root": {
-                      color: "#fff",
+                      // color: '#000',
+                      // zIndex: 1000,
+                      display: "none",
+                      "& .MuiFormLabel-root ":{
+                        color: "#fff",
+                      },  
                     },
                     "& .MuiOutlinedInput-root": {
+                      zIndex: 1000,
+
                       "& .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#fff"
+                        borderColor: "#fff",
+                        borderRadius: '8px',
+                        
                       },
                       "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#fff"
+                        borderColor: "#fff",
+                        borderRadius: '8px',
                       },
                       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#fff"
+                        borderColor: "#fff",
+                        borderRadius: '8px',
+
                       },
-                      color: "#fff"
+                      color: '#000',
+                      
                     },
                     "& .MuiAutocomplete-option": {
-                      color: "#fff"
+                      // color: '#000',
+                      color: '#e83f14',
                     }
                   }}
                 />

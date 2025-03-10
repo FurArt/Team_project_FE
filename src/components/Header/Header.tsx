@@ -37,7 +37,7 @@ const Header = () => {
     console.log(movies.length);
 
     dispatch(generateRandomNumber((movies.length - 1)))
-    navigate(`${RoutesPath.MOVIE}`)
+    navigate(`${RoutesPath.MOVIE}/`)
   }
 
   return (
