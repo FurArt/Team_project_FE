@@ -1,17 +1,23 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import "./Wrapper.scss"
 import { ReactNode } from "react"
 import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
 import { useAppSelector } from "../../app/hooks"
+import { scrollToHandler } from "../../utils/scrollToHandler"
 
 interface WrapperProps {
   children?: ReactNode
 }
 
 const Wrapper = ({ children }: WrapperProps) => {
+  const navigate = useNavigate()
 
-  const { data: movies, loading, error } = useAppSelector(state => state.movies);
+  const { data: movies } = useAppSelector(state => state.movies);
+  const handleSelectMovie = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+    navigate(`../movie?idMovie=${id}`)
 
+    scrollToHandler(e)
+  }
   return (
     <main className="wrapper">
       <MadeInUkraine />
@@ -96,6 +102,7 @@ const Wrapper = ({ children }: WrapperProps) => {
               key={index}
               className={`wrapper-img`}
               style={{ backgroundImage: `url(${movie.posterPath})` }}
+              onClick={(e) => handleSelectMovie(e, movie.id)}
             ></div>
           ))
         )}
