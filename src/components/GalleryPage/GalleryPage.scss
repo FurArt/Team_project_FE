@@ -108,6 +108,11 @@
   width: 345px;
   text-align: center;
   padding: 24px 24px 9px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.05)
+  }
   p {
     @extend %AG_H6;
     text-align: left;
@@ -123,6 +128,7 @@
   justify-content: space-between;
   margin-top: 10px;
   text-align: left;
+  display: flex;
   h3 {
     @extend %AG_H5;
   }

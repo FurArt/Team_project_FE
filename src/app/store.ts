@@ -24,7 +24,11 @@ const moviesSlice = createSlice({
     loading: false,
     error: null as string | null,
   },
-  reducers: {},
+  reducers: {
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchMoviesStore.pending, state => {
@@ -72,3 +76,5 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
 >
 
 export { fetchMoviesStore }
+
+export const { setLoading } = moviesSlice.actions

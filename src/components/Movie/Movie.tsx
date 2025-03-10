@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import "./Movie.scss"
 import GalleryComponent from "./Gallery/GalleryComponent"
 import { castPhotos } from "./Gallery/cast-photos"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Loading from "../Loading/Loading"
 import { useSelector } from "react-redux"
-import { RootState } from "../../app/store"
+import { RootState, setLoading } from "../../app/store"
 import { RoutesPath } from "../../utils/enumRouts"
 import { MovieData } from "../../types/movie"
 import { Avatar } from "@mui/material"
@@ -18,6 +18,7 @@ type Genre = {
 }
 
 const Movie = () => {
+  const dispatch = useAppDispatch();
   const { data: movies, loading, error } = useAppSelector(
     (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
   );
@@ -32,7 +33,7 @@ const Movie = () => {
   const params = new URLSearchParams(location.search);
   const idMovie = params.get("idMovie");
 
-  
+
   const movieShow = movies?.[numberRandomMovie]
 
   const {
@@ -64,27 +65,28 @@ const Movie = () => {
     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
   }, [usedNumbers])
 
-  useEffect(()=>{
-    console.log(`idMovie`);
+  useEffect(() => {
+    if (movieShow) {
+      const timer = setTimeout(() => {
+        dispatch(setLoading(false)); // Stop loading after 2 seconds
+      }, 2000);
 
-    console.log(idMovie);
-  })
+      return () => clearTimeout(timer); // Clear timer if component unmounts or re-renders
+    }
+  }, [movieShow]);
 
   const arryGenres: string[] = genresDto;
 
   useEffect(() => {
-    console.log(idMovie);
-    
-  
     const indexShow = movies.findIndex(movie => movie?.id === idMovie);
-    
-    console.log(indexShow);
     if (indexShow === -1) {
       setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
       return;
     }
     setNumberRandomMovie(indexShow);
-  });
+  }, [idMovie]);
+
+
 
   const handleRecommend = () => {
     navigate(`../${RoutesPath.RECOMMENDATIONS}`)
@@ -101,7 +103,7 @@ const Movie = () => {
           </a>
           <h1 className="movie-page-title">Film for you</h1>
         </div>
-        <div className="movie-info">
+        <div className="movie-coteiner-info">
           <div className="movie-poster">
             <img src={posterPath} alt={title} />
           </div>

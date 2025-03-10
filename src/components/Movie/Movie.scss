@@ -62,10 +62,10 @@ $border-radius: 8px;
     padding-inline: 40px;
   }
 
-  &-info {
+  &-coteiner-info {
     display: flex;
     gap: 20px;
-    @extend %CENTRE_WITH
+    @extend %CENTRE_WITH;
   }
 
   &-poster {

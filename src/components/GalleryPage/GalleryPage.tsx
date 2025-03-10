@@ -44,8 +44,14 @@ const GalleryPage: React.FC = () => {
     setSearch(event.target.value)
   }
 
-  const handleYearChange = () => {}
-  const handleTypeChange = () => {}
+  const handleSelectMovie = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+    navigate(`../movie?idMovie=${id}`)
+
+    scrollToHandler(e)
+  }
+
+  const handleYearChange = () => { }
+  const handleTypeChange = () => { }
 
   const handleEndSearch = () => {
     if (!search.trim()) {
@@ -131,23 +137,25 @@ const GalleryPage: React.FC = () => {
           </div>
           <div className="movies-container">
             {displayedMovies.map((movie, index) => {
-              const { posterPath, title, rating, genresDto, duration } = movie
+              const { posterPath, title, rating, genresDto, duration, id } = movie
               return (
-                <div key={index} className="movie-card">
+                <div
+                  key={index} className="movie-card"
+                  onClick={(e) => handleSelectMovie(e, id)}
+                >
                   <img src={posterPath} alt={title} />
                   <div className="movie-info">
                     <h3>{title}</h3>
                     <span className="rating">{rating.toFixed(1)}/10</span>
                   </div>
                   <p>
-                    {`${
-                      Array.isArray(genresDto)
-                        ? genresDto
-                            .map(g => g)
-                            .slice(0, 2)
-                            .join(" / ")
-                        : "Unknown Genre"
-                    } ‧ ${duration}`}
+                    {`${Array.isArray(genresDto)
+                      ? genresDto
+                        .map(g => g)
+                        .slice(0, 2)
+                        .join(" / ")
+                      : "Unknown Genre"
+                      } ‧ ${duration}`}
                   </p>
                 </div>
               )
