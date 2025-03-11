@@ -1,20 +1,22 @@
 import React, { useState } from "react"
 import "./TopLists.scss"
+import cs from "classnames"
 import MovieRecommendations from "../MovieRecommendations/MovieRecommendations"
+import { useNavigate } from "react-router-dom"
+import { RoutesPath } from "../../utils/enumRouts"
 
 const topLists = [
   {
     title: "Iconic Movies of the 21st Century",
   },
   {
-    title: "Top Masterpieces",
-
+    title: "Top Oscar-Winning Masterpieces",
   },
   {
-    title: "Most-Watched Blockbusters of the Decade",
+    title: "Top Most-Watched Blockbusters of the Decade",
   },
   {
-    title: "Viral Hits That Everyone Is Talking About",
+    title: "Top 100 Superhero Movies",
   },
   {
     title: "Top-Rated IMDb Movies of All Time",
@@ -23,10 +25,21 @@ const topLists = [
 
 const TopLists: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
+  const navigate = useNavigate();
+  const handleSectionClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (!(e.target as HTMLElement).closest(".top-lists-item")) {
+      setSelectedIndex(null);
+    }
+  };
+  const handleGoToList = () => {
+    console.log(`click`);
+    navigate(`../${RoutesPath.SHOWTOPLISTS}?id${RoutesPath.SHOWTOPLISTS}=${selectedIndex}`, { replace: true });
+  };
   return (
     <>
-      <section className="top-lists">
+      <section className="top-lists"
+        onClick={handleSectionClick}
+      >
         <h2 className="top-lists-title">TOP LISTS</h2>
         <p className="top-lists-description">
           Here are ideas for various movie top lists based on different criteria
@@ -46,9 +59,13 @@ const TopLists: React.FC = () => {
             ))}
           </ul>
         </div>
-      </section>
+      </section >
+      <div
+        className={cs("selection-arrow", { sellected: selectedIndex !== null })}
+        onClick={handleGoToList}
+      />
     </>
   )
 }
 
-export default TopLists
+export default TopLists;

@@ -21,6 +21,7 @@ import MovieRecommendations from "./components/MovieRecommendations/MovieRecomme
 import GalleryPage from "./components/GalleryPage/GalleryPage"
 import { RoutesPath } from "./utils/enumRouts"
 import TopLists from "./components/TopLists/TopLists"
+import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopList"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -68,7 +69,10 @@ const App = () => {
           <Route path={`${RoutesPath.MOVIE}/:idMovie`} element={<Movie />} />
           <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />
           <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
-          <Route path={RoutesPath.TOPLISTS} element={<TopLists />} />.
+          <Route path={RoutesPath.TOPLISTS} element={<TopLists />} />
+          <Route path={`${RoutesPath.SHOWTOPLISTS}`} element={<ShowListTopList />} />
+          <Route path={`${RoutesPath.SHOWTOPLISTS}/:id${RoutesPath.SHOWTOPLISTS}`} element={<ShowListTopList />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       )}

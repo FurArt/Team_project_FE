@@ -54,11 +54,10 @@
       color: $color-picker-black;
     }
   }
+  
 
-  &-arrow {
-    font-size: 1rem;
-    color: white;
-  }
+  
+   
 
   &-image {
     position: relative;
@@ -82,4 +81,35 @@
       border-radius: 50%;
     }
   }
+}
+
+.selection-arrow {
+  font-size: 1rem;
+  background-color: $main-text-color;
+  width: 90px;
+  height: 90px;
+  position: fixed;
+  bottom: 30%;
+  right: 47%;
+  border-radius: 90px;
+  display: none;
+  z-index: 1000;
+  cursor: pointer;
+  &::before {
+    content: '';
+    background: url(../../images/icon/arrow-right.svg) no-repeat;
+    background-size:contain;
+    background-position: center;
+    width: 38px;
+    height: 45px;
+    display: block;
+    position: absolute;
+    top: 24%;
+    right: 27%;
+  }
+  
+}
+
+.selection-arrow.sellected {
+  display: block;
 }

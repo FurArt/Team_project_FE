@@ -45,7 +45,7 @@ const Movie = () => {
     overview = '',
     photos = [],
     posterPath = '',
-    producer = '',
+    director = '',
     rating = 0,
     releaseYear = 0,
     reviewsDto = [],
@@ -129,7 +129,7 @@ const Movie = () => {
               <div className="movie-meta-item">
                 <strong>Director:</strong>
                 <br />
-                {producer}
+                {director}
               </div>
               <div className="movie-meta-item">
                 <strong>Duration:</strong>

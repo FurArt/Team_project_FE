@@ -1,0 +1,60 @@
+@import "../../../features/styles/variables";
+@import "../../../features/styles/typograf";
+
+.show-top-lists {
+  @extend %CENTRE_WITH;
+  color: $main-text-color;
+  &-link {
+    color: $main-text-color;
+    text-decoration: none;
+    @extend %AG_H6;
+    line-height: 40px;
+    border-bottom: 2px solid $main-text-color;
+    width: fit-content;
+    display: block;
+    padding-inline: 3px;
+    margin: 0 0 24px 0;
+  }
+  h2 {
+    @extend %AG_H1;
+  }
+  p {
+    @extend %AG_H2;
+    margin-bottom: 42px;
+  }
+  .movie-list {
+    .movie-card {
+      padding: 8px 16px;
+      display: flex;
+      width: 100%;
+      margin-bottom: 16px;
+      .movie-index { 
+        @extend %AG_H2;
+        padding: 0 24px 0 0;
+      }
+      img {
+        height: 224px;
+        width: auto;
+        margin-inline-end: 48px;
+      }
+      .movie-info {
+        display: block;
+        h4 {
+          @extend %AG_H4;
+          text-transform: uppercase;
+          padding-top: 55px;
+        }
+        p {
+          @extend %AG_H5;
+          color: $hover;
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  p {
+    margin: 0;
+  }
+}

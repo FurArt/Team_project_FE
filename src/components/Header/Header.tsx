@@ -67,13 +67,13 @@ const Header = () => {
               </li>
               <li
                 className={classNames("menu-item", {
-                  active: location.pathname === `/${RoutesPath.TOP_LISTS}`,
+                  active: location.pathname === `/${RoutesPath.TOPLISTS}`,
                 })}
               >
                 <a
                   href="#"
                   className="menu-link"
-                  onClick={e => handleMenuClick(e, RoutesPath.TOP_LISTS)}
+                  onClick={e => handleMenuClick(e, RoutesPath.TOPLISTS)}
                 >
                   TOP lists
                 </a>

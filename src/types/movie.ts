@@ -26,7 +26,7 @@ export interface MovieData {
   overview: string
   photos: string[]
   posterPath: string
-  producer: string
+  director: string
   rating: number
   releaseYear: number
   reviewsDto: Array<{
