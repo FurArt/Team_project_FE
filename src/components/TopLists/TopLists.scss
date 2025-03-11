@@ -24,8 +24,12 @@
   &-menu {
     list-style: none;
     padding: 0;
-    width: 50%;
+    width: 100%;
     text-align: left;
+    display: grid;
+    gap: 20px; 
+    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   &-item {
@@ -39,13 +43,15 @@
     border-left: solid $button-hover 1px;
     cursor: pointer;
     transition: 0.3s;
+    height: 165px;
 
     &.active {
       background: $button-hover;
     }
 
     &:hover {
-      background: $stroke;
+      background: $separetors;
+      color: $color-picker-black;
     }
   }
 
