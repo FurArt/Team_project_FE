@@ -1,22 +1,16 @@
 import { Input, Popover } from "@base-ui-components/react";
 import "./PopoverSearch.scss"
-import { useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useState } from "react";
+import { useAppSelector } from "../../../app/hooks";
 import { MovieData } from "../../../types/movie";
 import { Autocomplete, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setLoading } from "../../../app/store";
 
 export default function PopoverSearch() {
-  const dispatch = useAppDispatch();
-  const popoverRef = useRef(null);
-
   const { data: movies, loading, error } = useAppSelector(
     (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
   );
-  const [search, setSearch] = useState("");
-  const [showPopover, setShowPopover] = useState(false);
-
+  const [search, setSearch] = useState("")
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
   const navigate = useNavigate();
 
@@ -24,27 +18,33 @@ export default function PopoverSearch() {
   const handleSearchChange = (_: any, value: MovieData | null) => {
     setSearchMovies(value);
     if (value) {
-      navigate(`../movie?idMovie=${value?.id}`, { replace: true });
+      navigate(`../movie?idMovie=${value?.id}`)
     }
   };
 
+  const handleEndSearch = () => {
+    if (!search.trim()) {
+      setSearchMovies(null)
+    } else {
+      const filteredMovies: MovieData[] | null = movies.filter(movie =>
+        movie.title.toLowerCase().includes(search.toLowerCase()),
+      )
+      console.log();
 
+    }
+
+  }
 
   return (
-    <Popover.Root
-      open={showPopover}
-    >
+    <Popover.Root>
       <Popover.Trigger className={"popover"}>
         <BellIcon className={"popover-icon"} />
       </Popover.Trigger>
       {!loading && (
-        <Popover.Portal
-          className={"popover-portal-container"}
-        >
+        <Popover.Portal className={"popover-portal-container"}>
           <Popover.Positioner sideOffset={12}>
             <Popover.Popup className={"popover-portal"}>
               <div className="popover-portal-search">
-
                 <Autocomplete
 
                   options={movies}
@@ -53,15 +53,12 @@ export default function PopoverSearch() {
                   renderInput={(params) => <TextField {...params} label="Search Movies" variant="outlined" />}
                   noOptionsText="No movie"
                   sx={{
-                    // backgroundColor: '#ffffff33',
                     backgroundColor: '#d9d9d9',
                     borderRadius: '8px',
                     width: 300,
                     color: '#e83f14',
                     zIndex: 1000,
                     "& .MuiInputLabel-root": {
-                      // color: '#000',
-                      // zIndex: 1000,
                       display: "none",
                       "& .MuiFormLabel-root ": {
                         color: "#fff",
@@ -130,4 +127,3 @@ function ArrowSvg(props: React.ComponentProps<'svg'>) {
     </svg>
   );
 }
-
