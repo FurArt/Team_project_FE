@@ -1,23 +1,29 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import "./Wrapper.scss"
-import { ReactNode } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
-import { useAppSelector } from "../../app/hooks"
 import { scrollToHandler } from "../../utils/scrollToHandler"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { handleSelectMovie } from "../../app/store"
 
 interface WrapperProps {
   children?: ReactNode
 }
 
 const Wrapper = ({ children }: WrapperProps) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
-
   const { data: movies } = useAppSelector(state => state.movies);
-  const handleSelectMovie = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
-    navigate(`../movie?idMovie=${id}`)
+  const [showMovies, setShowMovies] = useState(movies);
 
-    scrollToHandler(e)
-  }
+  const handleClick = (e: React.MouseEvent, id: string) => {
+    dispatch(handleSelectMovie(e, id, navigate));
+  };
+
+
+  useEffect(() => {
+    setShowMovies([...movies].sort(() => Math.random() - 0.5))
+  }, [movies])
   return (
     <main className="wrapper">
       <MadeInUkraine />
@@ -97,12 +103,12 @@ const Wrapper = ({ children }: WrapperProps) => {
 
         ) : (
 
-          movies.slice(0, 70).map((movie, index) => (
+          showMovies.slice(0, 70).map((movie, index) => (
             <div
               key={index}
               className={`wrapper-img`}
               style={{ backgroundImage: `url(${movie.posterPath})` }}
-              onClick={(e) => handleSelectMovie(e, movie.id)}
+              onClick={(e) => handleClick(e, movie.id)}
             ></div>
           ))
         )}

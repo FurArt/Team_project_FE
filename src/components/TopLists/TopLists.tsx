@@ -55,15 +55,15 @@ const TopLists: React.FC = () => {
                 <span className="top-lists-text">
                   {`0${index + 1}.`} {item.title}
                 </span>
+                <div
+                  className={cs("selection-arrow", { sellected: selectedIndex === index })}
+                  onClick={handleGoToList}
+                />
               </li>
             ))}
           </ul>
         </div>
       </section >
-      <div
-        className={cs("selection-arrow", { sellected: selectedIndex !== null })}
-        onClick={handleGoToList}
-      />
     </>
   )
 }

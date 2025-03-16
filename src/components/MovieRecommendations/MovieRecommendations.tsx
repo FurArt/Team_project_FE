@@ -3,12 +3,13 @@ import Typography from "@mui/material/Typography"
 import Pagination from "@mui/material/Pagination"
 import Stack from "@mui/material/Stack"
 import "./MovieRecommendations.scss"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { PaginationItem } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { main } from "framer-motion/client"
 import { scrollToHandler } from "../../utils/scrollToHandler"
 import { MovieData } from "../../types/movie"
+import { handleSelectMovie } from "../../app/store"
 
 const itemsPerPage = 6
 const NextText = () => (
@@ -19,6 +20,7 @@ const NextText = () => (
 
 const MovieRecommendations: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch();
 
   const { data: movies, loading, error } = useAppSelector(
     (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
@@ -32,6 +34,10 @@ const MovieRecommendations: React.FC = () => {
   const handlerBack = () => {
     navigate(-1)
   }
+
+  const handleClick = (e: React.MouseEvent, id: string) => {
+    dispatch(handleSelectMovie(e, id, navigate));
+  };
 
   const startIndex = (page - 1) * itemsPerPage
   const displayedMovies = movies.slice(0, itemsPerPage)
@@ -50,9 +56,9 @@ const MovieRecommendations: React.FC = () => {
         <p>Muvio offers the following movies for you to watch</p>
         <div className="movies-container">
           {displayedMovies.map((movie, index) => {
-            const { posterPath, title, rating, genresDto, duration } = movie
+            const { posterPath, title, rating, genresDto, duration, id } = movie
             return (
-              <div key={index} className="movie-card">
+              <div key={index} className="movie-card" onClick={e => handleClick(e, id)}>
                 <img src={posterPath} alt={title} />
                 <div className="movie-info">
                   <h3>{title}</h3>

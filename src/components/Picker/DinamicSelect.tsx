@@ -47,16 +47,18 @@ type DinamicSelectProps = {
 
 const DinamicSelect: React.FC<DinamicSelectProps> = (props) => {
   const {
-    defaultValue, 
-    placeholder, 
-    options, 
-    onValueChange, 
+    defaultValue,
+    placeholder,
+    options,
+    onValueChange,
   } = props
 
   return (
     <Select.Root defaultValue={defaultValue} onValueChange={onValueChange}>
       <Select.Trigger className="select-trigger">
-        <Select.Value placeholder={placeholder} />
+        <Select.Value
+          placeholder={placeholder}
+        />
         <Select.Icon className="select-arrow">
           <SelectIcon />
         </Select.Icon>

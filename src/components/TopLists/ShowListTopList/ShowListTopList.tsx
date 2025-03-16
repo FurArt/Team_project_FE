@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import "./ShowListTopList.scss";
 import { RoutesPath } from "../../../utils/enumRouts";
 import { MovieData } from "../../../types/movie";
@@ -7,8 +7,9 @@ import { MovieData } from "../../../types/movie";
 import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import { PaginationItem, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { scrollToHandler } from "../../../utils/scrollToHandler";
+import { handleSelectMovie } from "../../../app/store";
 
 const itemsPerPage = 6;
 
@@ -50,6 +51,7 @@ const ShowListTopList = () => {
   };
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+
     setPage(value);
   };
 
@@ -58,11 +60,14 @@ const ShowListTopList = () => {
     navigate(`../${RoutesPath.TOPLISTS}`);
   };
 
-  const handleSelectMovie = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
-    navigate(`../movie?idMovie=${id}`)
+  const dispatch = useAppDispatch();
+  const handleClick = (e: React.MouseEvent, id: string) => {
+    dispatch(handleSelectMovie(e, id, navigate));
+  };
 
-    scrollToHandler(e)
-  }
+  useEffect(() => {
+    scrollToHandler(null)
+  }, [page])
 
   return (
     <section className="conteiner">
@@ -81,7 +86,7 @@ const ShowListTopList = () => {
               <div
                 className="movie-card"
                 key={index}
-                onClick={(e) => handleSelectMovie(e, id)}
+                onClick={(e) => handleClick(e, id)}
               >
                 <span className="movie-index">{`0${index + 1 + startIndex}`}</span>
                 <img src={posterPath} alt={title} className="movie-poster" />
@@ -120,7 +125,7 @@ const ShowListTopList = () => {
             );
           })}
         </div>
-        <Stack spacing={2} className="pagination">
+        {displayedMovies.length < 6 ? null : (<Stack spacing={2} className="pagination">
           <Pagination
             count={getPageCount(movies, searchMovies, itemsPerPage)}
             page={page}
@@ -133,7 +138,7 @@ const ShowListTopList = () => {
               <PaginationItem slots={{ next: NextText }} {...item} />
             )}
           />
-        </Stack>
+        </Stack>)}
       </div>
     </section>
   );

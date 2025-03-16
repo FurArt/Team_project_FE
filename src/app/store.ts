@@ -8,6 +8,8 @@ import {
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { getMovies } from "../api/movie"
 import randomNumbersReducer from "./randomNumbersSlice"
+import { NavigateFunction } from "react-router-dom"
+import { scrollToHandler } from "../utils/scrollToHandler"
 
 const fetchMoviesStore = createAsyncThunk(
   "movies/fetchMovies",
@@ -65,6 +67,13 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
 }
 
 export const store = makeStore()
+
+export const handleSelectMovie =
+  (e: React.MouseEvent, id: string, navigate: NavigateFunction): AppThunk =>
+  dispatch => {
+    navigate(`../movie?idMovie=${id}`)
+    scrollToHandler(e)
+  }
 
 export type AppStore = typeof store
 export type AppDispatch = AppStore["dispatch"]

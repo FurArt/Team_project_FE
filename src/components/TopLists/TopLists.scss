@@ -44,7 +44,7 @@
     cursor: pointer;
     transition: 0.3s;
     height: 165px;
-
+    position: relative;
     &.active {
       background: $button-hover;
     }
@@ -88,9 +88,9 @@
   background-color: $main-text-color;
   width: 90px;
   height: 90px;
-  position: fixed;
-  bottom: 30%;
-  right: 47%;
+  position: absolute;
+  bottom: -10%;
+  right: -3%;
   border-radius: 90px;
   display: none;
   z-index: 1000;

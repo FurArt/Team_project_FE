@@ -33,7 +33,10 @@ const Movie = () => {
   const params = new URLSearchParams(location.search);
   const idMovie = params.get("idMovie");
 
-
+  const stripHTML = (text: any) => {
+    if (typeof text !== 'string') return '';
+    return text.replace(/<\/?[a-z][\s\S]*?>/gi, '');
+  };
   const movieShow = movies?.[numberRandomMovie]
 
   const {
@@ -58,7 +61,7 @@ const Movie = () => {
     .slice(0, 3)
 
   const handlerBack = () => {
-    navigate(-1)
+    navigate("../")
   }
 
   useEffect(() => {
@@ -68,10 +71,10 @@ const Movie = () => {
   useEffect(() => {
     if (movieShow) {
       const timer = setTimeout(() => {
-        dispatch(setLoading(false)); // Stop loading after 2 seconds
+        dispatch(setLoading(false));
       }, 2000);
 
-      return () => clearTimeout(timer); // Clear timer if component unmounts or re-renders
+      return () => clearTimeout(timer);
     }
   }, [movieShow]);
 
@@ -99,7 +102,7 @@ const Movie = () => {
       <div className="movie-content">
         <div className="movie-header">
           <a href="#" className="movie-link" onClick={handlerBack}>
-            ← BACK
+            ← GO HOME
           </a>
           <h1 className="movie-page-title">Film for you</h1>
         </div>
@@ -110,10 +113,10 @@ const Movie = () => {
           <div className="movie-container">
             <div className="movie-details">
               <h1 className="movie-title item-1">
-                {`${title} ${releaseYear}`}
+                {`${title} ( ${releaseYear} )`}
               </h1>
               <p className="movie-description item-2">
-                {overview}
+                {`${overview.slice(0, 550)} ...`}
               </p>
 
               <div className="movie-tags item-3">
@@ -153,27 +156,26 @@ const Movie = () => {
           </div>
         </div>
       </div>
-
-      <div className="movie-photos">
+      {photos.length > 1 && (<div className="movie-photos">
         <div className="movie-row">
           <h2 className="movie-section-title">
             Photos
           </h2>
-          <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
+          {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
-          </a>
+          </a> */}
         </div>
         <GalleryComponent photos={photos} />
-      </div>
+      </div>)}
 
       <div className="movie-cast">
         <div className="movie-row">
           <h2 className="movie-section-title">
-            Top Cast TODO NEED DATA FROM SERVER
+            Top Cast
           </h2>
-          <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
+          {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
-          </a>
+          </a> */}
         </div>
 
         <div className="movie-cast-list">
@@ -195,27 +197,32 @@ const Movie = () => {
 
       {reviewsDto.length > 1 && (
         <div className="movie-reviews">
-          <h2 className="movie-section-title">User Reviews</h2>
-          <div className="movie-review">
-            {reviewsDto.slice(0, 3).map((review) => (
-              <div key={review.id} className="movie-review-item">
-                <h3 className="movie-review-title">"{`${review.content.slice(0, 20)}...`}"</h3>
-                <div className="movie-review-item--author-block">
-                  <Avatar
-                    src={review.avatarPath || undefined}
-                    alt={review.author}
-                  >
-                    {!review.avatarPath && review.author.charAt(0).toUpperCase()}
-                  </Avatar>
-                  <p className="movie-review-author">
-                    {review.author}
-                    <br />
-                    {review.content.slice(0, 120) + '..'}
-                  </p>
+          <div className="movie-row">
+            <h2 className="movie-section-title">User Reviews</h2>
+          </div>
+          {reviewsDto.slice(0, 3).map((review) => {
+            let clerText = stripHTML(review.content)
+            return (
+              <div className="movie-review">
+                <div key={review.id} className="movie-review-item">
+                  <h3 className="movie-review-title">"{`${clerText.slice(0, 20)}...`}"</h3>
+                  <div className="movie-review-item--author-block">
+                    <Avatar
+                      src={review.avatarPath || undefined}
+                      alt={review.author}
+                    >
+                      {!review.avatarPath && review.author.charAt(0).toUpperCase()}
+                    </Avatar>
+                    <p className="movie-review-author">
+                      {review.author}
+                      <br />
+                      {clerText.slice(0, 120) + '..'}
+                    </p>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            )
+          })}
         </div>
       )}
 

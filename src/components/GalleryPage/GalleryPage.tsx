@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Typography from "@mui/material/Typography"
 import Pagination from "@mui/material/Pagination"
 import Stack from "@mui/material/Stack"
 import "./GalleryPage.scss"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { PaginationItem } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { main } from "framer-motion/client"
@@ -12,6 +12,7 @@ import { Input } from "@base-ui-components/react"
 import DinamicSelect from "../Picker/DinamicSelect"
 import { MovieTypeOptions, ReleaseYearOptions } from "../Picker"
 import { MovieData } from "../../types/movie"
+import { handleSelectMovie } from "../../app/store"
 
 const itemsPerPage = 6
 const NextText = () => (
@@ -22,6 +23,7 @@ const NextText = () => (
 
 const GalleryPage: React.FC = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch();
 
   const { data: movies, loading, error } = useAppSelector(state => state.movies)
   const [search, setSearch] = useState("")
@@ -44,11 +46,9 @@ const GalleryPage: React.FC = () => {
     setSearch(event.target.value)
   }
 
-  const handleSelectMovie = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
-    navigate(`../movie?idMovie=${id}`)
-
-    scrollToHandler(e)
-  }
+  const handleClick = (e: React.MouseEvent, id: string) => {
+    dispatch(handleSelectMovie(e, id, navigate));
+  };
 
   const handleYearChange = () => { }
   const handleTypeChange = () => { }
@@ -78,6 +78,11 @@ const GalleryPage: React.FC = () => {
         : movies.length
     return Math.ceil(totalItems / itemsPerPage)
   }
+
+  useEffect(() => {
+    scrollToHandler(null)
+  }, [page])
+
 
   return (
     <main>
@@ -141,7 +146,7 @@ const GalleryPage: React.FC = () => {
               return (
                 <div
                   key={index} className="movie-card"
-                  onClick={(e) => handleSelectMovie(e, id)}
+                  onClick={(e) => handleClick(e, id)}
                 >
                   <img src={posterPath} alt={title} />
                   <div className="movie-info">
@@ -161,7 +166,7 @@ const GalleryPage: React.FC = () => {
               )
             })}
           </div>
-          <Stack spacing={2} className="pagination">
+          {displayedMovies.length < 6 ? null : (<Stack spacing={2} className="pagination">
             <Pagination
               count={getPageCount(movies, searchMovies, itemsPerPage)}
               page={page}
@@ -174,7 +179,7 @@ const GalleryPage: React.FC = () => {
                 <PaginationItem slots={{ next: NextText }} {...item} />
               )}
             />
-          </Stack>
+          </Stack>)}
         </div>
       </div>
     </main>

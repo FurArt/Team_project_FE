@@ -42,13 +42,16 @@ const App = () => {
     let timer: number;
     if (movies?.length) {
       timer = setTimeout(() => {
-        dispatch(setLoading(false)); // Stop loading after 2 seconds
+        dispatch(setLoading(false));
       }, 2000);
 
     }
-
-    return () => clearTimeout(timer); // Clear timer if component unmounts or re-renders
+    return () => clearTimeout(timer);
   }, [movies, location]);
+
+  useEffect(() => {
+
+  }, [movies])
 
   return (
     <>
@@ -63,8 +66,8 @@ const App = () => {
             </Wrapper>
           }>
             <Route index element={<Mood />} />
-            <Route path={RoutesPath.PICKER} element={<Picker />} />
           </Route>
+          <Route path={RoutesPath.PICKER} element={<Picker />} />
           <Route path={`${RoutesPath.MOVIE}`} element={<Movie />} />
           <Route path={`${RoutesPath.MOVIE}/:idMovie`} element={<Movie />} />
           <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />

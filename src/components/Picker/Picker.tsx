@@ -44,6 +44,13 @@ const Picker = () => {
   const dispatch = useDispatch();
   const { data: movies, loading } = useAppSelector((state) => state.movies);
 
+  // const MovieTypeOptions = [
+  //   { value: "tv_shows", label: "TV Shows" },
+  //   { value: "movies", label: "Movies" },
+  //   { value: "shorts", label: "Shorts" },
+  //   { value: "no_matter", label: "No matter" },
+  // ]
+
   const [movieCategories, setMovieCategories] = useState([
     { label: "Movies based on a true story", checked: false },
     { label: "Spy movies & Cop movies", checked: true },
