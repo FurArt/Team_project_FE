@@ -170,6 +170,16 @@
     box-sizing: border-box;
     .top-bar-button {
       width: 100%;
+      max-width: 355px;
+      height: 44px;
+      margin-top: 40px;
+      .top-bar-button--link {
+        margin: 0 auto;
+      height: 44px;
+      line-height: 44px;
+
+      }
+
     }
     &-active {
       .footer {
@@ -186,6 +196,7 @@
       .menu {
         &-list {
           flex-direction: column;
+          margin-top: 86px;
         }
 
         &-item {
@@ -218,6 +229,31 @@
       max-width: 768px;
       height: 64px;
       padding-inline: 16px;
+      border-bottom: 1px solid $main-text-color;
+    }
+
+    .search {
+      margin-top: 46px;
+      position: relative;
+      .gallery-header-search-input{
+        width: 355px;
+        height: 44px;
+
+        
+      }
+      .search-icon {
+        position: absolute;
+        z-index: 1;
+        display: block;
+        width: 16px;
+        height: 16px;
+        background: url(../../images/icon/search-black.svg) no-repeat;
+            right: 0;
+            top: 0;
+            padding: 22px;
+            background-position: 14px;
+            cursor: pointer;
+      }
     }
   }
 }

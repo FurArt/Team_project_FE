@@ -11,6 +11,7 @@ import { scrollToHandler } from "../../utils/scrollToHandler"
 import Footer from "../Footer/Footer"
 import { Autocomplete, TextField } from "@mui/material"
 import { MovieData } from "../../types/movie"
+import { Input } from "@base-ui-components/react"
 
 const Header = () => {
   const navigate = useNavigate()
@@ -19,9 +20,13 @@ const Header = () => {
   const { data: movies, loading } = useAppSelector(state => state.movies)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
+  const [search, setSearch] = useState("")
 
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const closeMenu = (e) => {
+    e.preventDefault()
+    setIsMenuOpen(false)
+  };
 
   // const handleMenuClick = (
   //   e: React.MouseEvent<HTMLAnchorElement>,
@@ -65,12 +70,34 @@ const Header = () => {
 
   }
 
-  const handleSearchChange = (_: any, value: MovieData | null) => {
-    setSearchMovies(value);
-    if (value) {
-      navigate(`../movie?idMovie=${value?.id}`)
-    }
-  };
+  // const handleSearchChange = (_: any, value: MovieData | null) => {
+  //   console.log(`value`);
+
+  //   setSearchMovies(value);
+  //   if (value) {
+  //     navigate(`../movie?idMovie=${value?.id}`)
+  //   }
+  // };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value)
+  }
+
+  const handleEndSearch = () => {
+    console.log(`work`);
+
+    // if (!search.trim()) {
+    //   console.log(movies)
+    //   setSearchMovies(null)
+    // } else {
+    //   const filteredMovies: MovieData[] | null = movies?.filter(movie =>
+    //     movie.title.toLowerCase().includes(search.toLowerCase()),
+    //   )
+
+    //   setSearchMovies(filteredMovies)
+    //   setPage(1)
+    // }
+  }
 
   return (
     <header className="header-page" id="header">
@@ -157,7 +184,7 @@ const Header = () => {
       <aside className={classNames("menu-aside", { "menu-aside-active": isMenuOpen })}>
         <div className="menu-aside-full">
           <a href="#" className="icons-logo"></a>
-          <a href="#" className="icons icons--close" onClick={closeMenu}></a>
+          <a href="#" className="icons icons--close" onClick={(e) => closeMenu(e)}></a>
         </div>
 
         <ul className="menu-list">
@@ -186,53 +213,74 @@ const Header = () => {
             PUSH THE LUCK
           </a>
 
-          <div className="popover-portal-search">
-            <Autocomplete
+        </div>
+        <div className="search">
+          {/* <Autocomplete
 
-              options={movies}
-              getOptionLabel={(option) => option.title}
-              onChange={handleSearchChange}
-              renderInput={(params) => <TextField {...params} label="Search Movies" variant="outlined" />}
-              noOptionsText="No movie"
-              sx={{
-                backgroundColor: '#d9d9d9',
-                borderRadius: '8px',
-                width: 300,
-                color: '#e83f14',
+            options={movies}
+            getOptionLabel={(option) => option.title}
+            onChange={handleSearchChange}
+            renderInput={(params) => <TextField {...params} label="Search Movies" variant="outlined" />}
+            noOptionsText="No movie"
+            sx={{
+              backgroundColor: '#d9d9d9',
+              borderRadius: '8px',
+              width: 300,
+              color: '#e83f14',
+              zIndex: 1000000,
+              "& .MuiInputLabel-root": {
+                display: "none",
+                "& .MuiFormLabel-root ": {
+                  color: "#fff",
+                },
+              },
+              "& .MuiOutlinedInput-root": {
                 zIndex: 1000000,
-                "& .MuiInputLabel-root": {
-                  display: "none",
-                  "& .MuiFormLabel-root ": {
-                    color: "#fff",
-                  },
-                },
-                "& .MuiOutlinedInput-root": {
-                  zIndex: 1000000,
 
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#fff",
-                    borderRadius: '8px',
-
-                  },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#fff",
-                    borderRadius: '8px',
-                  },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#fff",
-                    borderRadius: '8px',
-
-                  },
-                  color: '#000',
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#fff",
+                  borderRadius: '8px',
 
                 },
-                "& .MuiAutocomplete-option": {
-                  // color: '#000',
-                  color: '#e83f14',
-                }
-              }}
-            />
-          </div>
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#fff",
+                  borderRadius: '8px',
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#fff",
+                  borderRadius: '8px',
+
+                },
+                color: '#000',
+
+              },
+              "& .MuiAutocomplete-option": {
+                // color: '#000',
+                color: '#e83f14',
+              }
+            }}
+          /> */}
+          <Input
+            placeholder="Search"
+            value={search}
+            onChange={handleSearchChange}
+            onKeyUp={e => {
+              if (e.key === "Enter") {
+                handleEndSearch()
+              }
+            }}
+            className="search-input"
+            data-filled={search ? "true" : undefined}
+            render={(props, state) => (
+              <div className="input-wrapper">
+                <input {...props} className="gallery-header-search-input" />
+                <span
+                  className="search-icon"
+                  onClick={handleEndSearch}
+                ></span>
+              </div>
+            )}
+          />
         </div>
         <Footer />
       </aside>
