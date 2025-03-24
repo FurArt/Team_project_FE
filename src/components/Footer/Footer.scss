@@ -4,17 +4,16 @@
 
 .footer {
   @extend %AG_H4;
-  // margin: 20vh 0 0;
   background-color: $heder-black;
   width: 100%;
   min-height: 150px;
 
   padding: 13px 0 30px;
   color: $main-text-color;
+  border-top: 1px solid $main-text-color;
   &-container {
     max-width: 1200px;
     margin: 0 auto;
-    // background-color: red;
   }
   &-logo {
     text-align: center;
