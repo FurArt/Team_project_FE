@@ -2,7 +2,7 @@
 @import "../../features/styles/typograf";
 
 .mood {
-  position: absolute;  
+  position: absolute;
   display: block;
   z-index: 0;
   top: 0;
@@ -13,14 +13,30 @@
   width: 100%;
   text-align: center;
   padding: 30vh 0 30vh;
+
+  @include respond(tablet) {
+    height: $height_mood--tablet;
+    padding: 10vh 0 30vh;
+  }
+
+  @include respond(mobile) {
+    height: $height_mood--tablet;
+    padding: 10vh 0 15vh;
+  }
+
   &-head {
     @extend %AG_H1;
+    @include respond(mobile) {
+      // @extend %AG_H4;
+    }
   }
   &-title {
     width: 80%;
     margin: 24px auto;
     @extend %AG_H2;
+    @include respond(mobile) {
+      // @extend %AG_H5;
+    }
   }
-  &-link {
-  }
+ 
 }

@@ -10,6 +10,10 @@
   padding-inline: 40px;
   padding-block-end: 40px;
 
+  @include respond(mobile) {
+    margin-top: 0;
+    }
+
   &-container,  &-content, &-arrow {
     padding: 85px 0 0;
     display: flex;
