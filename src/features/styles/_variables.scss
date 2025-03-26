@@ -1,9 +1,4 @@
-// $accent-orange: #f9512e;
-// $focus-color-but: #b2341a;
-// $height-mobile-top-bar: 64px;
 $page-back-color: #eef7ff;
-// $color-text-focus: #fff;
-
 
 $main-text-color: #fff;
 $heder-black: #14181a;
@@ -11,7 +6,7 @@ $heder-black-0_6:rgba(20,24,26, 0.6);
 $stroke: #5B6060;
 $hover: #979B9B;
 $separetors: #f1f3f3;
-
+$height_mood--tablet:50vh;
 $height_wrapper: 100vh;
 $height_mood: 86vh;
 $height-picker: 150vh;
@@ -35,3 +30,22 @@ $button-hover: #ce3710;
     margin: 0 auto;
     width: 1140px;
   }
+
+  @mixin respond($breakpoint) {
+    @if $breakpoint == desktop {
+        @media (min-width: 1024px) { @content; }
+    } @else if $breakpoint == tablet {
+        @media (max-width: 1023px) and (min-width: 600px) { @content; }
+    } @else if $breakpoint == mobile {
+        @media (max-width: 599px) { @content; }
+    }
+
+    // @include respond(desktop) {
+    // }
+
+    // @include respond(tablet) {
+    // }
+
+    // @include respond(mobile) {
+    // }
+}

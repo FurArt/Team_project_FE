@@ -188,6 +188,7 @@
       }
       opacity: 1;
       pointer-events: auto;
+      overflow: auto;
 
       .icons {
         pointer-events: visible;
@@ -214,6 +215,10 @@
             }
           }
         }
+      }
+
+      .footer {
+        margin-top: 162px;
       }
     }
 
@@ -254,6 +259,8 @@
             background-position: 14px;
             cursor: pointer;
       }
+
+        
     }
   }
 }
