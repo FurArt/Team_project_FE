@@ -1,8 +1,12 @@
 import { MovieData } from "../types/movie"
 import { client } from "../utils/fetchData"
 
-export const getMovies = (n: number) => {
-  return client.getMovies<MovieData[]>(n)
+export const getMovies = (
+  page: number = 0,
+  size: number = 10,
+  sort: string[] = [],
+) => {
+  return client.getMovies<MovieData[]>(page, size, sort)
 }
 
 export const getMovie = (id: string) => {
@@ -19,4 +23,13 @@ export const updateMovie = (id: string, data: MovieData) => {
 
 export const deleteMovie = (id: string) => {
   return client.deleteMovie(id)
+}
+
+export const getMoviesByVibe = (
+  data: { vibe: string; years: string; type: string; categories: string[] },
+  page: number = 0,
+  size: number = 10,
+  sort: string[] = [],
+) => {
+  return client.getMoviesByVibe<MovieData[]>(data, page, size, sort)
 }

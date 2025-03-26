@@ -6,7 +6,7 @@ import {
   combineReducers,
 } from "@reduxjs/toolkit"
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
-import { getMovies } from "../api/movie"
+import { getMovies, getMoviesByVibe } from "../api/movie"
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
 import { scrollToHandler } from "../utils/scrollToHandler"
@@ -16,6 +16,23 @@ const fetchMoviesStore = createAsyncThunk(
   async (n: number = 100) => {
     const movies = await getMovies(n)
     return movies
+  },
+)
+
+const fetchMoviesByVibe = createAsyncThunk(
+  "movies/fetchMoviesByVibe",
+  async ({
+    filters,
+    page = 0,
+    size = 10,
+    sort = [],
+  }: {
+    filters: { vibe: string; years: string; type: string; categories: string[] }
+    page?: number
+    size?: number
+    sort?: string[]
+  }) => {
+    return await getMoviesByVibe(filters, page, size, sort)
   },
 )
 
@@ -84,6 +101,6 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   Action
 >
 
-export { fetchMoviesStore }
+export { fetchMoviesStore, fetchMoviesByVibe }
 
 export const { setLoading } = moviesSlice.actions

@@ -11,6 +11,7 @@ import { RoutesPath } from "../../utils/enumRouts"
 import { useDispatch } from "react-redux"
 import { useAppSelector } from "../../app/hooks"
 import { generateRandomNumber } from "../../app/randomNumbersSlice"
+import { fetchMoviesByVibe } from "../../app/store"
 
 export const Vibes = [
   "make me chill",
@@ -86,9 +87,18 @@ const Picker = () => {
       return
     }
     e.preventDefault()
-    dispatch(generateRandomNumber(movies.length))
-    navigate(`../${RoutesPath.MOVIE}`)
-    scrollToHandler(e)
+    // dispatch(generateRandomNumber(movies.length))
+    dispatch(
+      fetchMoviesByVibe({
+        filters: { vibe: "chill", years: "2020s", type: "movie", categories: ["comedy"] },
+        page: 1,
+        size: 5,
+        sort: ["rating"],
+      })
+    )
+
+    // navigate(`../${RoutesPath.MOVIE}`)
+    // scrollToHandler(e)
   }
 
 
