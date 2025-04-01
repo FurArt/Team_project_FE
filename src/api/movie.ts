@@ -1,4 +1,5 @@
-import { MovieData } from "../types/movie"
+import { MovieData, MoviesData } from "../types/movie"
+import { VibeMoviesData } from "../types/vibe"
 import { client } from "../utils/fetchData"
 
 export const getMovies = (
@@ -6,7 +7,7 @@ export const getMovies = (
   size: number = 100,
   sort: string[] = [],
 ) => {
-  return client.getMovies<MovieData[]>(page, size, sort)
+  return client.getMovies(page, size, sort) as Promise<MoviesData>
 }
 
 export const getMovie = (id: string) => {
@@ -34,10 +35,6 @@ export const getMoviesByVibe = (
   page: number = 0,
   size: number = 10,
   sort: string[] = [],
-) => {
-  // console.log(`work at movie`);
-  // console.log(data);
-
-  
-  return client.getMoviesByVibe<MovieData[]>(data, page, size, sort)
+): Promise<VibeMoviesData> => {
+  return client.getMoviesByVibe<VibeMoviesData>(data, page, size, sort)
 }

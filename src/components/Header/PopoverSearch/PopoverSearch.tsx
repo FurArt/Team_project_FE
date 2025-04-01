@@ -7,8 +7,11 @@ import { Autocomplete, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function PopoverSearch() {
+  // const { data: movies, loading, error } = useAppSelector(
+  //   (state) => state.movies as { data: MoviesState[]; loading: boolean; error: string | null }
+  // );
   const { data: movies, loading, error } = useAppSelector(
-    (state) => state.movies as { data: MoviesState[]; loading: boolean; error: string | null }
+    (state) => state
   );
   const [search, setSearch] = useState("")
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
