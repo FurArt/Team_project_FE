@@ -1,9 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom"
 import classNames from "classnames"
 import "./Header.scss"
-import { useDispatch } from "react-redux"
 import { generateRandomNumber } from "../../app/randomNumbersSlice"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { RoutesPath } from "../../utils/enumRouts"
 import PopoverSearch from "./PopoverSearch/PopoverSearch"
 import { useState } from "react"
@@ -12,18 +11,19 @@ import Footer from "../Footer/Footer"
 import { Autocomplete, TextField } from "@mui/material"
 import { MovieData } from "../../types/movie"
 import { Input } from "@base-ui-components/react"
+import { fetchMovieByLuck } from "../../app/store"
 
 const Header = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const { data: movies, loading } = useAppSelector(state => state.movies)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
   const [search, setSearch] = useState("")
 
 
-  const closeMenu = (e) => {
+  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setIsMenuOpen(false)
   };
@@ -37,7 +37,7 @@ const Header = () => {
   //   }
   //   e.preventDefault()
   //   navigate(`${target}`)
-  //   console.log(
+  //   // console.log(
   //     RoutesPath.HOME,
 
   //   );
@@ -51,7 +51,7 @@ const Header = () => {
     if (loading) return;
     e.preventDefault();
     navigate(target);
-    closeMenu();
+    closeMenu(e);
     scrollToHandler(null)
   };
 
@@ -61,17 +61,16 @@ const Header = () => {
       return
     }
     e.preventDefault()
-    console.log(movies.length);
 
-    dispatch(generateRandomNumber((movies.length - 1)))
+    dispatch(fetchMovieByLuck(1))
     navigate(`${RoutesPath.MOVIE}/`)
-    closeMenu();
+    closeMenu(e);
     scrollToHandler(null);
 
   }
 
   // const handleSearchChange = (_: any, value: MovieData | null) => {
-  //   console.log(`value`);
+  //   // console.log(`value`);
 
   //   setSearchMovies(value);
   //   if (value) {
@@ -84,10 +83,10 @@ const Header = () => {
   }
 
   const handleEndSearch = () => {
-    console.log(`work`);
+    // console.log(`work`);
 
     // if (!search.trim()) {
-    //   console.log(movies)
+    //   // console.log(movies)
     //   setSearchMovies(null)
     // } else {
     //   const filteredMovies: MovieData[] | null = movies?.filter(movie =>
@@ -291,3 +290,4 @@ const Header = () => {
 }
 
 export default Header
+

@@ -23,7 +23,7 @@ const MovieRecommendations: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { data: movies, loading, error } = useAppSelector(
-    (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
+    (state) => state.movies as { data: MovieState[]; loading: boolean; error: string | null }
   );
 
   const [page, setPage] = useState(1)
@@ -56,7 +56,7 @@ const MovieRecommendations: React.FC = () => {
         <p>Muvio offers the following movies for you to watch</p>
         <div className="movies-container">
           {displayedMovies.map((movie, index) => {
-            const { posterPath, title, rating, genresDto, duration, id } = movie
+            const { posterPath, title, rating, genres, duration, id } = movie
             return (
               <div key={index} className="movie-card" onClick={e => handleClick(e, id)}>
                 <img src={posterPath} alt={title} />
@@ -65,8 +65,8 @@ const MovieRecommendations: React.FC = () => {
                   <span className="rating">{rating.toFixed(1)}/10</span>
                 </div>
                 <p>
-                  {`${Array.isArray(genresDto)
-                    ? genresDto.map(g => g).slice(0, 3).join(" / ")
+                  {`${Array.isArray(genres)
+                    ? genres.map(g => g).slice(0, 3).join(" / ")
                     : "Unknown Genre"} ‧ ${duration}`}
                 </p>
               </div>

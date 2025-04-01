@@ -32,7 +32,7 @@ const TopLists: React.FC = () => {
     }
   };
   const handleGoToList = () => {
-    console.log(`click`);
+    // console.log(`click`);
     navigate(`../${RoutesPath.SHOWTOPLISTS}?id${RoutesPath.SHOWTOPLISTS}=${selectedIndex}`, { replace: true });
   };
   return (

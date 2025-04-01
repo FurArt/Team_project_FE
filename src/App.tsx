@@ -11,9 +11,9 @@ import NotFound from "./components/NotFound/NotFound"
 import Picker from "./components/Picker/Picker"
 import Stats from "./components/Stats/Stats"
 import Mood from "./components/Mood/Mood"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { fetchMoviesStore, setLoading } from "./app/store"
+import { fetchMovieById, fetchMoviesPoster, setLoading } from "./app/store"
 import Movie from "./components/Movie/Movie"
 import Loading from "./components/Loading/Loading"
 import { generateRandomNumber } from "./app/randomNumbersSlice"
@@ -25,33 +25,73 @@ import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopLi
 
 const App = () => {
   const dispatch = useAppDispatch()
-  const { data: movies, loading, error } = useAppSelector(state => state.movies)
+  const { movies } = useAppSelector(state => state)
   const location = useLocation();
+  const loading = movies?.loading
+  const params = new URLSearchParams(location.search)
+  const idMovie = params.get("idMovie")
 
   useEffect(() => {
-    dispatch(fetchMoviesStore(100))
-    dispatch(generateRandomNumber(movies.length))
-
+    
+    // dispatch(generateRandomNumber(movies.length))
   }, [dispatch])
+  
   useEffect(() => {
-    console.log(movies?.[0])
-    console.log(loading)
-  })
+    if (movies.loading) {
+      return  
+    }
+    console.log('location.pathname')   
+    
+    console.log(movies.loading) 
+    if (location.pathname === '/') {
+      dispatch(fetchMoviesPoster())
+      
+    }
 
-  useEffect(() => {
-    let timer: number;
-    if (movies?.length) {
-      timer = setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 2000);
+    if (location.pathname==='/movie') {
+      
+      if (idMovie) {
+        dispatch(fetchMovieById(idMovie))
+      } 
 
     }
-    return () => clearTimeout(timer);
-  }, [movies, location]);
+  }, [])
 
   useEffect(() => {
+    if (movies.loading) {
+      return  
+    }
+    
+    if (location.pathname === '/') {
+      dispatch(fetchMoviesPoster())
+      
+    }
 
-  }, [movies])
+    console.log(idMovie);
+    if (location.pathname==='/movie') {
+      
+      
+      if (idMovie) {
+        dispatch(fetchMovieById(idMovie))
+      } 
+
+    }
+  }, [location.pathname])
+
+  // useEffect(() => {
+  //   let timer: number;
+  //   if (movies?.length) {
+  //     timer = setTimeout(() => {
+  //       dispatch(setLoading(false));
+  //     }, 2000);
+
+  //   }
+  //   return () => clearTimeout(timer);
+  // }, [movies, location]);
+
+  // useEffect(() => {
+
+  // }, [movies])
 
   return (
     <>

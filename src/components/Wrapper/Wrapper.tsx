@@ -4,114 +4,79 @@ import { ReactNode, useEffect, useState } from "react"
 import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
 import { scrollToHandler } from "../../utils/scrollToHandler"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { handleSelectMovie } from "../../app/store"
+import { fetchMovieById, handleSelectMovie } from "../../app/store"
 
 interface WrapperProps {
   children?: ReactNode
 }
 
+interface Movie {
+  id: string;
+  posterPath: string;
+}
+
+interface MoviesState {
+  data?: Movie[];
+  selectedMovie?: Movie | null;
+  loading: boolean;
+  error?: string | null;
+}
+
+
 const Wrapper = ({ children }: WrapperProps) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { data: movies } = useAppSelector(state => state.movies);
-  const [showMovies, setShowMovies] = useState(movies);
+  // const { movies } = useAppSelector(state => state)
+  // const { movies }: { movies: MoviesState } = useAppSelector(state => state);
+  const movies = useAppSelector(state => state.movies);
+
+
+  const [showMovies, setShowMovies] = useState<Movie[]>([]);
+
 
   const handleClick = (e: React.MouseEvent, id: string) => {
-    dispatch(handleSelectMovie(e, id, navigate));
-  };
+    console.log(id)
+    e.preventDefault
+    dispatch(fetchMovieById(id))
 
+    dispatch(handleSelectMovie(e, id, navigate))
+  }
+
+  useEffect(()=>{
+    console.log(movies);
+    
+  })
 
   useEffect(() => {
-    setShowMovies([...movies].sort(() => Math.random() - 0.5))
-  }, [movies])
+    if (movies?.data && Array.isArray(movies.data.content)) {
+      setShowMovies(movies.data.content);
+    } else {
+      setShowMovies([]); // Ensure it's always an array
+    }
+    console.log(`Movies count: ${movies?.data?.content?.length || 0}`);
+  }, [movies.loading]);
+
   return (
     <main className="wrapper">
       <MadeInUkraine />
       <section className="conteiner-video">
-        {movies.length < 70 ? (<>
-          <div className="wrapper-img wrapper-img-1"></div>
-          <div className="wrapper-img wrapper-img-2"></div>
-          <div className="wrapper-img wrapper-img-3"></div>
-          <div className="wrapper-img wrapper-img-4"></div>
-          <div className="wrapper-img wrapper-img-5"></div>
-          <div className="wrapper-img wrapper-img-6"></div>
-          <div className="wrapper-img wrapper-img-7"></div>
-          <div className="wrapper-img wrapper-img-8"></div>
-          <div className="wrapper-img wrapper-img-9"></div>
-          <div className="wrapper-img wrapper-img-10"></div>
-          <div className="wrapper-img wrapper-img-11"></div>
-          <div className="wrapper-img wrapper-img-12"></div>
-          <div className="wrapper-img wrapper-img-13"></div>
-          <div className="wrapper-img wrapper-img-14"></div>
-          <div className="wrapper-img wrapper-img-15"></div>
-          <div className="wrapper-img wrapper-img-16"></div>
-          <div className="wrapper-img wrapper-img-17"></div>
-          <div className="wrapper-img wrapper-img-18"></div>
-          <div className="wrapper-img wrapper-img-19"></div>
-          <div className="wrapper-img wrapper-img-20"></div>
-          <div className="wrapper-img wrapper-img-21"></div>
-          <div className="wrapper-img wrapper-img-22"></div>
-          <div className="wrapper-img wrapper-img-23"></div>
-          <div className="wrapper-img wrapper-img-24"></div>
-          <div className="wrapper-img wrapper-img-25"></div>
-          <div className="wrapper-img wrapper-img-26"></div>
-          <div className="wrapper-img wrapper-img-27"></div>
-          <div className="wrapper-img wrapper-img-28"></div>
-          <div className="wrapper-img wrapper-img-29"></div>
-          <div className="wrapper-img wrapper-img-30"></div>
-          <div className="wrapper-img wrapper-img-31"></div>
-          <div className="wrapper-img wrapper-img-32"></div>
-          <div className="wrapper-img wrapper-img-33"></div>
-          <div className="wrapper-img wrapper-img-34"></div>
-          <div className="wrapper-img wrapper-img-35"></div>
-          <div className="wrapper-img wrapper-img-36"></div>
-          <div className="wrapper-img wrapper-img-37"></div>
-          <div className="wrapper-img wrapper-img-38"></div>
-          <div className="wrapper-img wrapper-img-39"></div>
-          <div className="wrapper-img wrapper-img-40"></div>
-          <div className="wrapper-img wrapper-img-41"></div>
-          <div className="wrapper-img wrapper-img-42"></div>
-          <div className="wrapper-img wrapper-img-43"></div>
-          <div className="wrapper-img wrapper-img-44"></div>
-          <div className="wrapper-img wrapper-img-45"></div>
-          <div className="wrapper-img wrapper-img-46"></div>
-          <div className="wrapper-img wrapper-img-47"></div>
-          <div className="wrapper-img wrapper-img-48"></div>
-          <div className="wrapper-img wrapper-img-49"></div>
-          <div className="wrapper-img wrapper-img-50"></div>
-          <div className="wrapper-img wrapper-img-51"></div>
-          <div className="wrapper-img wrapper-img-52"></div>
-          <div className="wrapper-img wrapper-img-53"></div>
-          <div className="wrapper-img wrapper-img-54"></div>
-          <div className="wrapper-img wrapper-img-55"></div>
-          <div className="wrapper-img wrapper-img-56"></div>
-          <div className="wrapper-img wrapper-img-57"></div>
-          <div className="wrapper-img wrapper-img-58"></div>
-          <div className="wrapper-img wrapper-img-59"></div>
-          <div className="wrapper-img wrapper-img-60"></div>
-          <div className="wrapper-img wrapper-img-61"></div>
-          <div className="wrapper-img wrapper-img-62"></div>
-          <div className="wrapper-img wrapper-img-63"></div>
-          <div className="wrapper-img wrapper-img-64"></div>
-          <div className="wrapper-img wrapper-img-65"></div>
-          <div className="wrapper-img wrapper-img-66"></div>
-          <div className="wrapper-img wrapper-img-67"></div>
-          <div className="wrapper-img wrapper-img-68"></div>
-          <div className="wrapper-img wrapper-img-69"></div>
-          <div className="wrapper-img wrapper-img-70"></div>
-        </>
-
-        ) : (
-
-          showMovies.slice(0, 70).map((movie, index) => (
-            <div
-              key={index}
-              className={`wrapper-img`}
-              style={{ backgroundImage: `url(${movie.posterPath})` }}
-              onClick={(e) => handleClick(e, movie.id)}
-            ></div>
-          ))
-        )}
+        {(showMovies?.length < 70 || showMovies?.length === undefined) 
+          ? Array.from({ length: 70 }).map((_, index) => (
+              <div
+                key={index}
+                className={`wrapper-img wrapper-img-${index + 1}`}
+              />
+            ))
+          : showMovies
+              ?.slice(0, 70)
+              .map((movie, index) => (
+                <div
+                  key={index}
+                  className={`wrapper-img`}
+                  style={{ backgroundImage: `url(${movie.posterPath})` }}
+                  onClick={e => handleClick(e, movie.id)}
+                ></div>
+              ))}
       </section>
       {children}
       {/* <Outlet /> */}

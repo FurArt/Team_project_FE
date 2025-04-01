@@ -2,13 +2,13 @@ import { Input, Popover } from "@base-ui-components/react";
 import "./PopoverSearch.scss"
 import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
-import { MovieData } from "../../../types/movie";
+import { MovieData, MoviesState } from "../../../types/movie";
 import { Autocomplete, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function PopoverSearch() {
   const { data: movies, loading, error } = useAppSelector(
-    (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
+    (state) => state.movies as { data: MoviesState[]; loading: boolean; error: string | null }
   );
   const [search, setSearch] = useState("")
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
@@ -29,7 +29,7 @@ export default function PopoverSearch() {
       const filteredMovies: MovieData[] | null = movies.filter(movie =>
         movie.title.toLowerCase().includes(search.toLowerCase()),
       )
-      console.log();
+      // console.log();
 
     }
 

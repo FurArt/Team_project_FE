@@ -81,7 +81,7 @@ const ShowListTopList = () => {
         </p>
         <div className="movie-list">
           {displayedMovies?.map((movie, index) => {
-            const { posterPath, title, rating, genresDto, duration, director, actorsDto, id } = movie;
+            const { posterPath, title, rating, genres, duration, director, actors, id } = movie;
             return (
               <div
                 className="movie-card"
@@ -93,8 +93,8 @@ const ShowListTopList = () => {
                 <div className="movie-info">
                   <h4>{title}</h4>
                   <p>
-                    {Array.isArray(genresDto)
-                      ? genresDto
+                    {Array.isArray(genres)
+                      ? genres
                         .map((g) => g)
                         .slice(0, 2)
                         .join(", ")
@@ -107,8 +107,8 @@ const ShowListTopList = () => {
                   </h4>
                   <p>
                     Cast:{" "}
-                    {Array.isArray(actorsDto)
-                      ? actorsDto
+                    {Array.isArray(actors)
+                      ? actors
                         .map((a) => a.name)
                         .slice(0, 4)
                         .join(", ")

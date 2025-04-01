@@ -1,41 +1,69 @@
-// export interface Movie {
-//   id: string
-//   title: string
-//   year: number
-//   director: string
-//   genre: string
-//   rating: number
-// }
+export interface Movie {
+  id: string;
+  posterPath: string;
+  title: string;
+}
 
-// export interface MovieData {
-//   title: string
-//   year: number
-//   director: string
-//   genre: string
-//   rating: number
-// }
 export interface MovieData {
-  actorsDto: Array<{
-    name: string
-    photo: string
-  }>
-  duration: string
-  genresDto: string[]
-  id: string
-  keywords: string | null
-  overview: string
-  photos: string[]
-  posterPath: string
-  director: string
-  rating: number
-  releaseYear: number
-  reviewsDto: Array<{
-    author: string
-    avatarPath: null | string
-    content: string
-    id: string
-    time: string
-  }>
-  title: string
-  trailer: string
+  id: string;
+  title: string;
+  overview: string;
+  posterPath: string;
+  trailer: string;
+  duration: string;
+  director: string;
+  rating: number;
+  releaseYear: number;
+  keywords: string | null;
+  genres: string[];
+
+  actors: Array<{
+    name: string;
+    photo: string;
+  }>;
+
+  photos: string[];
+
+  reviews: Array<{
+    author: string;
+    avatarPath: null | string;
+    content: string;
+    id: string;
+    time: string;
+  }>;
+}
+
+export interface MoviesData {
+  content: Movie[]; 
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  size: number;
+  
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    paged: boolean;
+  };
+
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  };
+}
+
+export interface MoviesState {
+  data: MoviesData | null; 
+  selectedMovie: MovieData | null;
+  loading: boolean;
+  error: string | null;
 }

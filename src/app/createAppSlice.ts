@@ -4,8 +4,8 @@ import { getMovies } from "../api/movie"
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (n: number) => {
-    const movies = await getMovies(n)
+  async () => {
+    const movies = await getMovies()
     return movies
   },
 )

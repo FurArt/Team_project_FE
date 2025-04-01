@@ -18,47 +18,58 @@ type Genre = {
 }
 
 const Movie = () => {
-  const dispatch = useAppDispatch();
-  const { data: movies, loading, error } = useAppSelector(
-    (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
-  );
+  const dispatch = useAppDispatch()
+  const { movies } = useAppSelector(state => state)
 
+  useEffect(() => {
+    console.log(`data`)
+
+    console.log(movies)
+  })
 
   const usedNumbers = useSelector(
     (state: RootState) => state.randomNumbers.usedNumbers,
   )
   const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
   const navigate = useNavigate()
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const idMovie = params.get("idMovie");
+  const location = useLocation()
+  const params = new URLSearchParams(location.search)
+  const idMovie = params.get("idMovie")
 
   const stripHTML = (text: any) => {
-    if (typeof text !== 'string') return '';
-    return text.replace(/<\/?[a-z][\s\S]*?>/gi, '');
-  };
-  const movieShow = movies?.[numberRandomMovie]
+    if (typeof text !== "string") return ""
+    return text.replace(/<\/?[a-z][\s\S]*?>/gi, "")
+  }
+  // const movieShow = movies?.[numberRandomMovie] || []
+
+  function isMovieArray(movie: unknown): movie is MovieData[] {
+    return Array.isArray(movie) && movie.length > 0;
+  }
+  
+  const movieShow = isMovieArray(movies.selectedMovie)
+    ? movies.selectedMovie[0]
+    : movies.selectedMovie;
+
+  // const movieShow = movies.selectedMovie
 
   const {
-    actorsDto = [],
-    duration = '',
-    genresDto = [],
-    id = '',
+    actors = [],
+    duration = "",
+    genres = [],
+    id = "",
     keywords = null,
-    overview = '',
+    overview = "",
     photos = [],
-    posterPath = '',
-    director = '',
+    posterPath = "",
+    director = "",
     rating = 0,
     releaseYear = 0,
-    reviewsDto = [],
-    title = 'Unknown title',
-    trailer = '',
-  } = movieShow ?? {};
+    reviews = [],
+    title = "Unknown title",
+    trailer = "",
+  } = movieShow ?? {}
 
-  const filteredActors = actorsDto
-    .filter((actor) => actor.photo)
-    .slice(0, 3)
+  const filteredActors = actors.filter(actor => actor.photo).slice(0, 3)
 
   const handlerBack = () => {
     navigate("../")
@@ -71,31 +82,29 @@ const Movie = () => {
   useEffect(() => {
     if (movieShow) {
       const timer = setTimeout(() => {
-        dispatch(setLoading(false));
-      }, 2000);
+        dispatch(setLoading(false))
+      }, 2000)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [movieShow]);
+  }, [movieShow])
 
-  const arryGenres: string[] = genresDto;
+  const arryGenres: string[] = genres
 
-  useEffect(() => {
-    const indexShow = movies.findIndex(movie => movie?.id === idMovie);
-    if (indexShow === -1) {
-      setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
-      return;
-    }
-    setNumberRandomMovie(indexShow);
-  }, [idMovie]);
-
-
+  // useEffect(() => {
+  //   const indexShow = movies.findIndex(movie => movie?.id === idMovie)
+  //   if (indexShow === -1) {
+  //     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
+  //     return
+  //   }
+  //   setNumberRandomMovie(indexShow)
+  // }, [idMovie])
 
   const handleRecommend = () => {
     navigate(`../${RoutesPath.RECOMMENDATIONS}`)
   }
 
-  return loading ? (
+  return movies.loading ? (
     <Loading />
   ) : (
     <div className="movie">
@@ -145,34 +154,29 @@ const Movie = () => {
                 {rating}
               </div>
             </div>
-            <button className="movie-button" >
-
+            <button className="movie-button">
               <a href={trailer} target="_blank">
-
                 WATCH TRAILER
               </a>
-
             </button>
           </div>
         </div>
       </div>
-      {photos.length > 1 && (<div className="movie-photos">
-        <div className="movie-row">
-          <h2 className="movie-section-title">
-            Photos
-          </h2>
-          {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
+      {photos.length > 1 && (
+        <div className="movie-photos">
+          <div className="movie-row">
+            <h2 className="movie-section-title">Photos</h2>
+            {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
           </a> */}
+          </div>
+          <GalleryComponent photos={photos.slice(0,4)} />
         </div>
-        <GalleryComponent photos={photos} />
-      </div>)}
+      )}
 
       <div className="movie-cast">
         <div className="movie-row">
-          <h2 className="movie-section-title">
-            Top Cast
-          </h2>
+          <h2 className="movie-section-title">Top Cast</h2>
           {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
             VIEW ALL
           </a> */}
@@ -195,28 +199,31 @@ const Movie = () => {
         </div>
       </div>
 
-      {reviewsDto.length > 1 && (
+      {reviews.length > 1 && (
         <div className="movie-reviews">
           <div className="movie-row">
             <h2 className="movie-section-title">User Reviews</h2>
           </div>
-          {reviewsDto.slice(0, 3).map((review) => {
+          {reviews.slice(0, 3).map(review => {
             let clerText = stripHTML(review.content)
             return (
               <div className="movie-review">
                 <div key={review.id} className="movie-review-item">
-                  <h3 className="movie-review-title">"{`${clerText.slice(0, 20)}...`}"</h3>
+                  <h3 className="movie-review-title">
+                    "{`${clerText.slice(0, 20)}...`}"
+                  </h3>
                   <div className="movie-review-item--author-block">
                     <Avatar
                       src={review.avatarPath || undefined}
                       alt={review.author}
                     >
-                      {!review.avatarPath && review.author.charAt(0).toUpperCase()}
+                      {!review.avatarPath &&
+                        review.author.charAt(0).toUpperCase()}
                     </Avatar>
                     <p className="movie-review-author">
                       {review.author}
                       <br />
-                      {clerText.slice(0, 120) + '..'}
+                      {clerText.slice(0, 120) + ".."}
                     </p>
                   </div>
                 </div>

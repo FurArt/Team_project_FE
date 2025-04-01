@@ -8,8 +8,7 @@ import { ReactElement, ReactEventHandler, useState } from "react"
 import { scrollToHandler } from "../../utils/scrollToHandler"
 import { useNavigate } from "react-router-dom"
 import { RoutesPath } from "../../utils/enumRouts"
-import { useDispatch } from "react-redux"
-import { useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { generateRandomNumber } from "../../app/randomNumbersSlice"
 import { fetchMoviesByVibe } from "../../app/store"
 
@@ -42,7 +41,7 @@ export const ReleaseYearOptions = [
 
 const Picker = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { data: movies, loading } = useAppSelector((state) => state.movies);
 
   // const MovieTypeOptions = [
@@ -65,37 +64,43 @@ const Picker = () => {
 
   // const handleClick = async () => {
   //   getMovies().then(movies => {
-  //     console.log(movies)
+  //     // console.log(movies)
   //   })
   // }
 
   const handleYearChange = (value: string) => {
-    console.log("Selected Year:", value)
+    // console.log("Selected Year:", value)
   }
 
   const handleTypeChange = (value: string) => {
-    console.log("Selected Movie Type:", value)
+    // console.log("Selected Movie Type:", value)
   }
 
   const handleVibeClick = (vibe: string) => {
-    console.log(`You selected: ${vibe}`)
+    // console.log(`You selected: ${vibe}`)
   }
 
 
   const handleLuckClick = (e: React.MouseEvent) => {
-    if (loading) {
-      return
-    }
+    // console.log(`WORK`);
+    
     e.preventDefault()
     // dispatch(generateRandomNumber(movies.length))
     dispatch(
       fetchMoviesByVibe({
-        filters: { vibe: "chill", years: "2020s", type: "movie", categories: ["comedy"] },
+        filters: { vibe: "chill", years: "2020", type: "movie", categories: ["MOVIES_BASED_ON_A_TRUE_STORY"] },
         page: 1,
         size: 5,
         sort: ["rating"],
       })
     )
+      .unwrap()
+      .then((data) => {
+        console.log("Movies fetched:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+      });
 
     // navigate(`../${RoutesPath.MOVIE}`)
     // scrollToHandler(e)
@@ -159,7 +164,7 @@ const Picker = () => {
           </div>
           <button
             className="movie-picker--btn movie-picker--btn-primary"
-            onClick={handleLuckClick}
+            onClick={e=>handleLuckClick(e)}
           >
             PICK MY FILM
           </button>

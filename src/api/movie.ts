@@ -3,7 +3,7 @@ import { client } from "../utils/fetchData"
 
 export const getMovies = (
   page: number = 0,
-  size: number = 10,
+  size: number = 100,
   sort: string[] = [],
 ) => {
   return client.getMovies<MovieData[]>(page, size, sort)
@@ -11,6 +11,10 @@ export const getMovies = (
 
 export const getMovie = (id: string) => {
   return client.getMovieById<MovieData>(id)
+}
+
+export const getMovieByLuck = (size: number) => {
+  return client.getMovieByLuck<MovieData>(size)
 }
 
 export const addMovie = (data: MovieData) => {
@@ -31,5 +35,9 @@ export const getMoviesByVibe = (
   size: number = 10,
   sort: string[] = [],
 ) => {
+  // console.log(`work at movie`);
+  // console.log(data);
+
+  
   return client.getMoviesByVibe<MovieData[]>(data, page, size, sort)
 }
