@@ -13,7 +13,12 @@ import Stats from "./components/Stats/Stats"
 import Mood from "./components/Mood/Mood"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { fetchMovieById, fetchMoviesPoster, setLoading } from "./app/store"
+import {
+  fetchMovieById,
+  fetchMoviesAllTitle,
+  fetchMoviesPoster,
+  setLoading,
+} from "./app/store"
 import Movie from "./components/Movie/Movie"
 import Loading from "./components/Loading/Loading"
 import { generateRandomNumber } from "./app/randomNumbersSlice"
@@ -26,57 +31,55 @@ import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopLi
 const App = () => {
   const dispatch = useAppDispatch()
   const { movies } = useAppSelector(state => state)
-  const location = useLocation();
+  const location = useLocation()
   const loading = movies?.loading
   const params = new URLSearchParams(location.search)
   const idMovie = params.get("idMovie")
 
+  useEffect(() => {}, [dispatch])
+
   useEffect(() => {
-    
-    // dispatch(generateRandomNumber(movies.length))
-  }, [dispatch])
-  
-  useEffect(() => {
-    if (movies.loading) {
-      return  
-    }
-    console.log('location.pathname')   
-    
-    console.log(movies.loading) 
-    if (location.pathname === '/') {
+    // if (movies.loading) {
+    //   return
+    // }
+    dispatch(fetchMoviesAllTitle())
+
+    console.log("location.pathname")
+    console.log()
+
+    if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
-      
     }
 
-    if (location.pathname==='/movie') {
-      
+    if (location.pathname === "/movie") {
       if (idMovie) {
         dispatch(fetchMovieById(idMovie))
-      } 
-
+      }
     }
   }, [])
 
   useEffect(() => {
     if (movies.loading) {
-      return  
-    }
-    
-    if (location.pathname === '/') {
-      dispatch(fetchMoviesPoster())
-      
+      return
     }
 
-    console.log(idMovie);
-    if (location.pathname==='/movie') {
-      
-      
+    if (location.pathname === "/") {
+      dispatch(fetchMoviesPoster())
+    }
+
+    console.log(idMovie)
+    if (location.pathname === "/movie") {
       if (idMovie) {
         dispatch(fetchMovieById(idMovie))
-      } 
-
+      }
     }
   }, [location.pathname])
+
+  useEffect(() => {
+    if (idMovie) {
+      dispatch(fetchMovieById(idMovie))
+    }
+  }, [idMovie])
 
   // useEffect(() => {
   //   let timer: number;
@@ -100,21 +103,33 @@ const App = () => {
         <Loading />
       ) : (
         <Routes>
-          <Route path={RoutesPath.HOME} element={
-            <Wrapper>
-              <Stats />
-            </Wrapper>
-          }>
+          <Route
+            path={RoutesPath.HOME}
+            element={
+              <Wrapper>
+                <Stats />
+              </Wrapper>
+            }
+          >
             <Route index element={<Mood />} />
           </Route>
           <Route path={RoutesPath.PICKER} element={<Picker />} />
           <Route path={`${RoutesPath.MOVIE}`} element={<Movie />} />
           <Route path={`${RoutesPath.MOVIE}/:idMovie`} element={<Movie />} />
-          <Route path={RoutesPath.RECOMMENDATIONS} element={<MovieRecommendations />} />
+          <Route
+            path={RoutesPath.RECOMMENDATIONS}
+            element={<MovieRecommendations />}
+          />
           <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
           <Route path={RoutesPath.TOPLISTS} element={<TopLists />} />
-          <Route path={`${RoutesPath.SHOWTOPLISTS}`} element={<ShowListTopList />} />
-          <Route path={`${RoutesPath.SHOWTOPLISTS}/:id${RoutesPath.SHOWTOPLISTS}`} element={<ShowListTopList />} />
+          <Route
+            path={`${RoutesPath.SHOWTOPLISTS}`}
+            element={<ShowListTopList />}
+          />
+          <Route
+            path={`${RoutesPath.SHOWTOPLISTS}/:id${RoutesPath.SHOWTOPLISTS}`}
+            element={<ShowListTopList />}
+          />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

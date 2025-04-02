@@ -11,17 +11,27 @@ import {
   getMovies,
   getMoviesByVibe,
   getMovieByLuck,
+  titleMovie,
 } from "../api/movie"
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
 import { scrollToHandler } from "../utils/scrollToHandler"
 import { MovieData, MoviesData, MoviesState } from "../types/movie"
 import { VibeMoviesData } from "../types/vibe"
+import { TitleData } from "../types/title"
 
 // const fetchMoviesPoster = createAsyncThunk("movies/fetchMovies", async () => {
 //   const movies = await getMovies()
 //   return movies
 // })
+
+const fetchMoviesAllTitle = createAsyncThunk<TitleData, void>(
+  "movies/fetchTitleMovies",
+  async () => {
+    const movies = await titleMovie()
+    return movies
+  },
+)
 
 const fetchMoviesPoster = createAsyncThunk<MoviesData, void>(
   "movies/fetchMovies",
@@ -70,6 +80,7 @@ const moviesSlice = createSlice({
     loading: false,
     error: null as string | null,
     vibe: null as VibeMoviesData | null,
+    title: null as TitleData | null,
   },
   reducers: {
     setLoading(state, action: PayloadAction<boolean>) {
@@ -78,17 +89,11 @@ const moviesSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchMoviesPoster.pending, state => {
+      .addCase(
+        fetchMoviesPoster.pending, state => {
         state.loading = true
         state.error = null
       })
-      // .addCase(
-      //   fetchMoviesPoster.fulfilled,
-      //   (state, action: PayloadAction<MoviesData | null>) => {
-      //     state.loading = false
-      //     state.data = action.payload
-      //   },
-      // )
       .addCase(
         fetchMoviesPoster.fulfilled,
         (state, action: PayloadAction<MoviesData>) => {
@@ -96,10 +101,30 @@ const moviesSlice = createSlice({
           state.data = action.payload
         },
       )
-      .addCase(fetchMoviesPoster.rejected, (state, action) => {
+      .addCase(
+        fetchMoviesPoster.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message || "Failed to load movies"
       })
+      
+      .addCase(
+        fetchMoviesAllTitle.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(
+        fetchMoviesAllTitle.fulfilled,
+        (state, action: PayloadAction<TitleData>) => {
+          state.loading = false
+          state.title = action.payload
+        },
+      )
+      .addCase(
+        fetchMoviesAllTitle.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.error.message || "Failed to load movies"
+      })
+
       .addCase(fetchMoviesByVibe.pending, state => {
         state.loading = true
         state.error = null
@@ -186,6 +211,7 @@ export {
   fetchMovieById,
   fetchMoviesByVibe,
   fetchMovieByLuck,
+  fetchMoviesAllTitle,
 }
 
 export const { setLoading } = moviesSlice.actions

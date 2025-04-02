@@ -22,18 +22,18 @@ const NextText = () => (
 const ShowListTopList = () => {
   const navigate = useNavigate();
 
-  const { data: movies, loading, error } = useAppSelector(
-    (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
-  );
+  // const { data: movies, loading, error } = useAppSelector(
+  //   (state) => state.movies as { data: MovieData[]; loading: boolean; error: string | null }
+  // );
   const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
   const [page, setPage] = useState(1);
   const startIndex = (page - 1) * itemsPerPage
 
-  const displayedMovies = (searchMovies !== null ? searchMovies : movies).slice(
-    startIndex,
-    startIndex + itemsPerPage,
-  )
-
+  // const displayedMovies = (searchMovies !== null ? searchMovies : movies).slice(
+  //   startIndex,
+  //   startIndex + itemsPerPage,
+  // )
+  const displayedMovies = []
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const idlist = params.get(`id${RoutesPath.SHOWTOPLISTS}`);
@@ -79,7 +79,7 @@ const ShowListTopList = () => {
         <p>
           We have compiled a list of the 50 best superhero movies ever made, according to IMDb. From Marvel to DC and even some unexpected ones.
         </p>
-        <div className="movie-list">
+        {/* <div className="movie-list">
           {displayedMovies?.map((movie, index) => {
             const { posterPath, title, rating, genres, duration, director, actors, id } = movie;
             return (
@@ -138,7 +138,7 @@ const ShowListTopList = () => {
               <PaginationItem slots={{ next: NextText }} {...item} />
             )}
           />
-        </Stack>)}
+        </Stack>)} */}
       </div>
     </section>
   );

@@ -27,7 +27,7 @@ function request<T>(
   const queryString = new URLSearchParams(params).toString()
   const fullUrl = `${BASE_URL}${url}${queryString ? `?${queryString}` : ""}`
 
-  // console.log(`fullUrl`);
+  console.log(queryString);
   // console.log(data);
   
   return wait(300)
@@ -42,6 +42,9 @@ function request<T>(
 
 export const client = {
   addMovie: <T>(data: any) => request<T>("/media", "POST", data),
+  titleMovie: <T>(page: number = 0, size: number = 10000, sort: string = 'rating') => 
+    request<T>("/media/titles", "GET", null, { page, size, sort }),
+
 
   updateMovie: <T>(id: string, data: any) =>
     request<T>(`/media/${id}`, "PUT", data),
@@ -59,7 +62,7 @@ export const client = {
     data: { vibe: string; years: string; type: string; categories: string[] },
     page: number = 0,
     size: number = 6,
-    sort: string[] = []
+    sort: string[] = ['rating']
   ) => {
     const queryParams = new URLSearchParams({
       vibe: data.vibe,
@@ -79,3 +82,7 @@ export const client = {
     }).then((response) => response.json() as Promise<T>);
   },
 }
+
+
+// https://backend-muvio.onrender.com/api/media/titles?page=0&size=1
+// https://backend-muvio.onrender.com/api/media/title?page=0&size=100&sort=rating
