@@ -45,11 +45,11 @@
     width: 16px;
     height: 16px;
     background: url(../../images/icon/search-black.svg) no-repeat;
-        right: 010px;
-        top: 12px;
-        padding: 20px;
-        background-position: 14px;
-        cursor: pointer;
+    right: 010px;
+    top: 12px;
+    padding: 20px;
+    background-position: 14px;
+    cursor: pointer;
   }
 }
 
@@ -62,17 +62,40 @@
   color: white;
   padding: 20px;
   @extend %CENTRE_WITH;
+  // gallery-page--btn gallery-page--btn-primary
+  &--btn {
+    // width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    @extend %AG_H5;
+    text-align: center;
+    margin-top: 5px;
+  }
+  &--btn-primary {
+    width: 264px;
+    height: 56px;
+    @extend %BTN-bg-grad;
+    @extend %AG_H5;
+    color: #fff;
+    margin-top: 30px;
+  }
 
   &--filters {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     margin-bottom: 10px;
-    gap: 24px;
+    gap: 20px;
     @extend %AG_H4;
 
     // text-align: left;
     label {
       @extend %AG_H4;
+      
+    }
+    label:last-child{
+      width: 160px;
     }
   }
   &-link {
@@ -94,9 +117,9 @@
 
 .movies-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   margin-top: 20px;
   width: 100%;
 }
@@ -105,7 +128,7 @@
   background: $heder-black;
   padding: 10px;
   border-radius: 8px;
-  width: 345px;
+  width: 265px;
   text-align: center;
   padding: 24px 24px 9px;
   cursor: pointer;

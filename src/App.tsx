@@ -11,11 +11,12 @@ import NotFound from "./components/NotFound/NotFound"
 import Picker from "./components/Picker/Picker"
 import Stats from "./components/Stats/Stats"
 import Mood from "./components/Mood/Mood"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
 import {
   fetchMovieById,
   fetchMoviesAllTitle,
+  fetchMoviesGllery,
   fetchMoviesPoster,
   setLoading,
 } from "./app/store"
@@ -35,17 +36,23 @@ const App = () => {
   const loading = movies?.loading
   const params = new URLSearchParams(location.search)
   const idMovie = params.get("idMovie")
+  const firstRenderRef = useRef(true)
 
   useEffect(() => {}, [dispatch])
 
   useEffect(() => {
-    // if (movies.loading) {
-    //   return
-    // }
+    if (location.pathname === "/gallery") {
+      const params = new URLSearchParams(location.search)
+      const year = params.get("year") || ""
+      const type = params.get("type") || ""
+
+      dispatch(fetchMoviesGllery({ years: year, type: type }))
+    }
+
     dispatch(fetchMoviesAllTitle())
 
     console.log("location.pathname")
-    console.log()
+    console.log(location.pathname)
 
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
@@ -72,6 +79,10 @@ const App = () => {
       if (idMovie) {
         dispatch(fetchMovieById(idMovie))
       }
+    }
+
+    if (location.pathname === "/gallery") {
+      dispatch(fetchMoviesGllery({}))
     }
   }, [location.pathname])
 
@@ -121,6 +132,8 @@ const App = () => {
             element={<MovieRecommendations />}
           />
           <Route path={RoutesPath.GALLERY} element={<GalleryPage />} />
+          <Route path={`${RoutesPath.GALLERY}`} element={<GalleryPage />} />
+
           <Route path={RoutesPath.TOPLISTS} element={<TopLists />} />
           <Route
             path={`${RoutesPath.SHOWTOPLISTS}`}

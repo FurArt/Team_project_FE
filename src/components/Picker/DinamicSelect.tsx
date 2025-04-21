@@ -42,6 +42,7 @@ type DinamicSelectProps = {
   placeholder?: string;
   options: Option[];
   onValueChange?: (value: string) => void;
+  styling?:string
 };
 
 

@@ -11,7 +11,8 @@ import {
   getMovies,
   getMoviesByVibe,
   getMovieByLuck,
-  titleMovie,
+  getTitleMovie,
+  getMediaGallery,
 } from "../api/movie"
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
@@ -19,16 +20,26 @@ import { scrollToHandler } from "../utils/scrollToHandler"
 import { MovieData, MoviesData, MoviesState } from "../types/movie"
 import { VibeMoviesData } from "../types/vibe"
 import { TitleData } from "../types/title"
+import { FetchGalleryParams, GalleryData } from "../types/gallery"
 
 // const fetchMoviesPoster = createAsyncThunk("movies/fetchMovies", async () => {
 //   const movies = await getMovies()
 //   return movies
 // })
 
+const fetchMoviesGllery = createAsyncThunk<GalleryData, FetchGalleryParams>(
+  "movies/fetchGlleryMovies",
+  async ({ title = "", years = "", type = "", page = 0, size = 100, sort = [""] }) => {
+    const movies = await getMediaGallery(title, years, type, page, size, sort) as GalleryData;
+    return movies;
+  }
+);
+
+
 const fetchMoviesAllTitle = createAsyncThunk<TitleData, void>(
   "movies/fetchTitleMovies",
   async () => {
-    const movies = await titleMovie()
+    const movies = await getTitleMovie()
     return movies
   },
 )
@@ -81,6 +92,8 @@ const moviesSlice = createSlice({
     error: null as string | null,
     vibe: null as VibeMoviesData | null,
     title: null as TitleData | null,
+    gallery: null as GalleryData | null,
+
   },
   reducers: {
     setLoading(state, action: PayloadAction<boolean>) {
@@ -89,6 +102,24 @@ const moviesSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+    .addCase(
+      fetchMoviesGllery.pending, state => {
+      state.loading = true
+      state.error = null
+    })
+    .addCase(
+      fetchMoviesGllery.fulfilled,
+      (state, action: PayloadAction<GalleryData>) => {
+        state.loading = false
+        state.gallery = action.payload
+      },
+    )
+    .addCase(
+      fetchMoviesGllery.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.error.message || "Failed to load movies"
+    })
+
       .addCase(
         fetchMoviesPoster.pending, state => {
         state.loading = true
@@ -212,6 +243,7 @@ export {
   fetchMoviesByVibe,
   fetchMovieByLuck,
   fetchMoviesAllTitle,
+  fetchMoviesGllery,
 }
 
 export const { setLoading } = moviesSlice.actions

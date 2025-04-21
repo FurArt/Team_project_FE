@@ -3,12 +3,10 @@ import { TitleData } from "../types/title"
 import { VibeMoviesData } from "../types/vibe"
 import { client } from "../utils/fetchData"
 
-export const titleMovie = (
-  page: number = 0,
-  size: number = 10000,
-  sort: string = '',
+export const getTitleMovie = (
+  years?: string, page?: number, size?: number, sort?: string
 ) => {
-  return client.titleMovie(page, size, sort) as Promise<TitleData>
+  return client.getTitleMovie(page, size, sort) as Promise<TitleData>
 }
 
 export const getMovies = (
@@ -49,3 +47,14 @@ export const getMoviesByVibe = (
 ): Promise<VibeMoviesData> => {
   return client.getMoviesByVibe<VibeMoviesData>(data, page, size, sort)
 }
+
+export const getMediaGallery = (
+  title?: string,
+  years?: string,
+  type?: string,
+  page: number = 0,
+  size: number = 100,
+  sort: string[] = []
+) => {
+  return client.getMediaGallery(title, years, type, page, size, sort);
+};

@@ -27,7 +27,9 @@ export const MovieTypeOptions = [
   { value: "tv_shows", label: "TV Shows" },
   { value: "movies", label: "Movies" },
   { value: "shorts", label: "Shorts" },
-  { value: "no_matter", label: "No matter" },
+  { value: "", label: "Select a movie type" },
+  // { value: "no_matter", label: "No matter" },
+
 ]
 export const ReleaseYearOptions = [
   { value: "2020-2025", label: "2020-2025" },
@@ -36,7 +38,9 @@ export const ReleaseYearOptions = [
   { value: "2002-2007", label: "2002-2007" },
   { value: "1996-2001", label: "1996-2001" },
   { value: "1990-1995", label: "1990-1995" },
-  { value: "no_matter", label: "No matter" },
+  // { value: "no_matter", label: "No matter" },
+  { value: "", label: "Select a year" },
+
 ]
 
 const Picker = () => {
@@ -62,11 +66,7 @@ const Picker = () => {
     { label: "IMDB Top 250 movies", checked: true },
   ]);
 
-  // const handleClick = async () => {
-  //   getMovies().then(movies => {
-  //     // console.log(movies)
-  //   })
-  // }
+  
 
   const handleYearChange = (value: string) => {
     // console.log("Selected Year:", value)
@@ -96,7 +96,7 @@ const Picker = () => {
     )
       .unwrap()
       .then((data) => {
-        console.log("Movies fetched:", data);
+        // console.log("Movies fetched:", data);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);

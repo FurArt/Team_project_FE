@@ -12,9 +12,13 @@
   display: flex;
   justify-content: space-between;
   max-width: 320px;
-  width: 60vw;
+  width: 265px;
   @extend %AG_H5;
-
+  position: relative;
+  // &:last-of-type{
+  //   width: 160px;
+  //   background-color: red;
+  // }
 }
 
 .select-positioner {
@@ -25,17 +29,14 @@
 .select-popup {
   max-width: 340px;
   width: 70vw;
-outline-style: none;
+  outline-style: none;
   background-color: $heder-black;
   padding: 8px;
   color: $main-text-color;
   border-radius: 4px;
-  // &:focus-visible{
-  //   border: none;
-  // }
+  
   &:hover {
     outline-style: none;
-
   }
 }
 
@@ -45,14 +46,14 @@ outline-style: none;
   display: flex;
   justify-content: space-between;
   @extend %AG_H5;
-position: relative;
-z-index: 1;
+  position: relative;
+  z-index: 1;
 
   &:hover {
     &::after {
-      content: '';
-width: inherit;
-height: inherit;
+      content: "";
+      width: inherit;
+      height: inherit;
       border: 2px solid $stroke;
       border-radius: 5px;
       position: absolute;
@@ -72,9 +73,7 @@ height: inherit;
     color: $heder-black;
   }
   .select-popup {
-    
     background-color: $main-text-color;
     color: $heder-black;
   }
-  
 }

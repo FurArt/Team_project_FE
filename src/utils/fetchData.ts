@@ -1,5 +1,3 @@
-import { getMovie } from "../api/movie"
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = "https://backend-muvio.onrender.com/api"
 
@@ -27,9 +25,7 @@ function request<T>(
   const queryString = new URLSearchParams(params).toString()
   const fullUrl = `${BASE_URL}${url}${queryString ? `?${queryString}` : ""}`
 
-  console.log(queryString);
-  // console.log(data);
-  
+
   return wait(300)
     .then(() => fetch(fullUrl, options))
     .then(response => {
@@ -42,9 +38,11 @@ function request<T>(
 
 export const client = {
   addMovie: <T>(data: any) => request<T>("/media", "POST", data),
-  titleMovie: <T>(page: number = 0, size: number = 10000, sort: string = 'rating') => 
-    request<T>("/media/titles", "GET", null, { page, size, sort }),
-
+  getTitleMovie: <T>(
+    page: number = 0,
+    size: number = 10000,
+    sort: string = "rating",
+  ) => request<T>("/media/titles", "GET", null, { page, size, sort }),
 
   updateMovie: <T>(id: string, data: any) =>
     request<T>(`/media/${id}`, "PUT", data),
@@ -57,32 +55,34 @@ export const client = {
 
   getMovies: <T>(page: number = 0, size: number = 100, sort: string[] = []) =>
     request<T>("/media/posters", "GET", null, { page, size, sort }),
-  
-   getMoviesByVibe: <T>(
+
+  getMoviesByVibe: <T>(
     data: { vibe: string; years: string; type: string; categories: string[] },
     page: number = 0,
     size: number = 6,
-    sort: string[] = ['rating']
+    sort: string[] = ["rating"],
   ) => {
     const queryParams = new URLSearchParams({
       vibe: data.vibe,
       years: data.years,
       type: data.type,
-      categories: JSON.stringify(data.categories), 
+      categories: JSON.stringify(data.categories),
       page: page.toString(),
       size: size.toString(),
       sort: JSON.stringify(sort),
-    });
-  
-    const url = `https://backend-muvio.onrender.com/api/media/vibe?${queryParams}`;
-  
+    })
+
+    const url = `https://backend-muvio.onrender.com/api/media/vibe?${queryParams}`
+
     return fetch(url, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    }).then((response) => response.json() as Promise<T>);
+    }).then(response => response.json() as Promise<T>)
   },
+  
+  getMediaGallery: <T>(title?: string, years?: string, type?: string, page: number = 0, size: number = 100, sort: string[] = []) =>
+    request<T>("/media/gallery", "GET", null, { title, years, type, page, size, sort }),
 }
-
 
 // https://backend-muvio.onrender.com/api/media/titles?page=0&size=1
 // https://backend-muvio.onrender.com/api/media/title?page=0&size=100&sort=rating

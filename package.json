@@ -16,9 +16,6 @@
   },
   "dependencies": {
     "@base-ui-components/react": "^1.0.0-alpha.6",
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.4.6",
     "@reduxjs/toolkit": "^2.0.1",
     "classnames": "^2.5.1",
     "framer-motion": "^12.4.1",
@@ -29,10 +26,15 @@
     "react-router-dom": "^7.1.4"
   },
   "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
+    "@types/lodash": "^4.17.16",
     "@types/react": "^18.2.47",
     "@types/react-dom": "^18.2.18",
     "@vitejs/plugin-react": "^4.2.1",

@@ -1,33 +1,77 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import Typography from "@mui/material/Typography"
 import Pagination from "@mui/material/Pagination"
 import Stack from "@mui/material/Stack"
 import "./GalleryPage.scss"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { PaginationItem } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { debounce, PaginationItem } from "@mui/material"
+import { useLocation, useNavigate } from "react-router-dom"
 import { main } from "framer-motion/client"
 import { scrollToHandler } from "../../utils/scrollToHandler"
 import { Input } from "@base-ui-components/react"
 import DinamicSelect from "../Picker/DinamicSelect"
 import { MovieTypeOptions, ReleaseYearOptions } from "../Picker"
 import { Movie, MovieData } from "../../types/movie"
-import { handleSelectMovie } from "../../app/store"
+import { fetchMoviesGllery, handleSelectMovie } from "../../app/store"
+import {
+  ContentGallery,
+  FiltersOptions,
+  GalleryData,
+} from "../../types/gallery"
+import DinamicSort from "./DinamicSort"
 
-const itemsPerPage = 6
+const itemsPerPage = 12
 const NextText = () => (
   <>
     <Typography>Next</Typography>
   </>
 )
+const sortOptions = [
+  { value: '1', label: "Newest" },
+  { value: '0', label: "Oldest" },
+  { value: '2', label: "Sort" },
+
+]
 
 const GalleryPage: React.FC = () => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch();
+  const location = useLocation()
+  const firstRenderRef = useRef(true)
 
-  // const { data: movies, loading, error } = useAppSelector(state => state.movies)
+  const dispatch = useAppDispatch()
+
+  const { data: loading, error } = useAppSelector(state => state.movies)
+  const { gallery } = useAppSelector(state => state.movies)
+  const movies = gallery?.content
+
+  const [selectedYear, setSelectedYear] = useState<FiltersOptions | null>(null)
+  const [selectedType, setSelectedType] = useState<FiltersOptions | null>(null)
+  const [selectedSort, setSelectedSort] = useState<FiltersOptions | null>({ value: '2', label: "Sort" })
+
+  const debouncedFetch = useCallback(
+    debounce((year: string = "", type: string = "") => {
+      // if (year !== "" || type !== "") {
+      dispatch(fetchMoviesGllery({ size: 1000, years: year, type }))
+      // }
+    }, 500),
+    [dispatch],
+  )
+
+  const setOption = (
+    value: string,
+    setArray: {
+      value: string
+      label: string
+    }[],
+  ) => {
+    const result = setArray?.find(opt => opt.value === value)
+    return result || null
+  }
+
   const [search, setSearch] = useState("")
-  const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null)
+  const [searchMovies, setSearchMovies] = useState<ContentGallery[] | null>(
+    null,
+  )
 
   const [page, setPage] = useState(1)
 
@@ -36,46 +80,107 @@ const GalleryPage: React.FC = () => {
   }
   const startIndex = (page - 1) * itemsPerPage
 
-  const displayedMovies = []
-  // const displayedMovies = (searchMovies !== null ? searchMovies : movies).slice(
-  //   startIndex,
-  //   startIndex + itemsPerPage,
-  // )
+  useEffect(() => {
+  })
+
+  const displayedMovies = (searchMovies ?? movies ?? []).slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  )
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
   }
 
   const handleClick = (e: React.MouseEvent, id: string) => {
-    dispatch(handleSelectMovie(e, id, navigate));
-  };
+    dispatch(handleSelectMovie(e, id, navigate))
+  }
 
-  const handleYearChange = () => { }
-  const handleTypeChange = () => { }
+  const handleYearChange = (value: string) => {
+    const setYear = setOption(value, ReleaseYearOptions)
+    if (setYear) {
+      setSelectedYear(setYear)
+    }
+
+    // if (selectedType?.value) {
+    //   debouncedFetch(value, selectedType.value)
+    //   navigate(`/gallery?type=${selectedType?.value}&year=${value}`)
+    // }
+  }
+
+  const handleTypeChange = (value: string) => {
+    const setType = setOption(value, MovieTypeOptions)
+
+    if (setType) {
+      setSelectedType(setType)
+    }
+
+    // if (selectedYear?.value) {
+    //   debouncedFetch(selectedYear.value, value)
+    //   navigate(`/gallery?type=${value}&year=${selectedYear.value}`)
+    // }
+  }
+
+  
+
+  const handleSortChange = (value: string) => {
+    const selected = setOption(value, sortOptions); 
+  
+    if (selected) {
+      setSelectedSort(selected); 
+  
+      const sorted = [...(searchMovies ?? movies ?? [])];
+  
+      if (value === '1') {
+        sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
+      } else if (value === '0') {
+        sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
+      }
+  
+      setSearchMovies(sorted); 
+    }
+  };
+  
 
   const handleEndSearch = () => {
     if (!search.trim()) {
-      // console.log(movies)
       setSearchMovies(null)
     } else {
-      // const filteredMovies: MovieData[] | null = movies?.filter(movie MovieData =>
-      //   movie?.title.toLowerCase().includes(search.toLowerCase()),
-      // )
-
-      // setSearchMovies(filteredMovies)
-      setPage(1)
+      const filteredMovies: ContentGallery[] | undefined = movies?.filter(
+        movie => movie?.title.toLowerCase().includes(search.toLowerCase()),
+      )
+      if (!filteredMovies) {
+        setSearchMovies(null)
+      } else {
+        setSearchMovies(filteredMovies)
+        setPage(1)
+      }
     }
+  }
+  const handleSendFiltering = () => {
+    if (!selectedType?.value) {
+      debouncedFetch(selectedYear?.value, "")
+      navigate(`/gallery?type=&year=${selectedYear?.value}`)
+      return
+    }
+    if (!selectedYear?.value) {
+      debouncedFetch("", selectedType?.value)
+      navigate(`/gallery?type=${selectedType?.value}&year=`)
+      return
+    }
+    debouncedFetch(selectedYear?.value, selectedType?.value)
+    navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
   }
 
   const getPageCount = (
-    movies: MovieData[],
-    searchMovies: MovieData[] | null,
+    movies: ContentGallery[] | undefined,
+    searchMovies: ContentGallery[] | null,
     itemsPerPage: number,
   ): number => {
     const totalItems =
       searchMovies && searchMovies.length > 0
         ? searchMovies.length
-        : movies.length
+        : (movies?.length ?? 0)
     return Math.ceil(totalItems / itemsPerPage)
   }
 
@@ -83,6 +188,28 @@ const GalleryPage: React.FC = () => {
     scrollToHandler(null)
   }, [page])
 
+  // useEffect(() => {
+  //   console.log(`useEffect 1`);
+
+  //   debouncedFetch()
+  //   // dispatch(fetchMoviesGllery({size: 1000}))
+  // }, []);
+
+  useEffect(() => {
+    if (!selectedYear?.value || !selectedType?.value) {
+      return
+    }
+    console.log(`useEffect 2`)
+  }, [selectedYear?.value, selectedType?.value, debouncedFetch])
+
+  useEffect(() => {
+    if (!firstRenderRef.current) return
+    const params = new URLSearchParams(location.search)
+    const year = params.get("year") || ""
+    const type = params.get("type") || ""
+    setSelectedYear(setOption(year, ReleaseYearOptions))
+    setSelectedType(setOption(type, MovieTypeOptions))
+  }, [])
 
   return (
     <main>
@@ -124,8 +251,8 @@ const GalleryPage: React.FC = () => {
             <label>
               Release year
               <DinamicSelect
-                defaultValue="2023"
-                placeholder="Select a year"
+                defaultValue={selectedYear?.value}
+                placeholder={selectedYear?.label || `Select a year`}
                 options={ReleaseYearOptions}
                 onValueChange={handleYearChange}
               />
@@ -133,20 +260,38 @@ const GalleryPage: React.FC = () => {
             <label>
               Types
               <DinamicSelect
-                defaultValue="action"
-                placeholder="Select a movie type"
+                defaultValue={selectedType?.value}
+                placeholder={selectedType?.label || `Select a movie type`}
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
+                
               />
             </label>
+            <label>
+              Sort by
+              <DinamicSort
+                defaultValue={selectedSort?.value}
+                placeholder={selectedSort?.label || `Sort`}
+                options={sortOptions}
+                onValueChange={handleSortChange}
+              />
+            </label>
+
+            <button
+              className="gallery-page--btn gallery-page--btn-primary"
+              onClick={handleSendFiltering}
+            >
+              Apply now
+            </button>
           </div>
           <div className="movies-container">
-            {/* {displayedMovies.map((movie, index) => {
-              const { posterPath, title, rating, genresDto, duration, id } = movie
+            {displayedMovies.map((movie, index) => {
+              const { posterPath, title, rating, genres, duration, id } = movie
               return (
                 <div
-                  key={index} className="movie-card"
-                  onClick={(e) => handleClick(e, id)}
+                  key={index}
+                  className="movie-card"
+                  onClick={e => handleClick(e, id)}
                 >
                   <img src={posterPath} alt={title} />
                   <div className="movie-info">
@@ -154,32 +299,35 @@ const GalleryPage: React.FC = () => {
                     <span className="rating">{rating.toFixed(1)}/10</span>
                   </div>
                   <p>
-                    {`${Array.isArray(genresDto)
-                      ? genresDto
-                        .map(g => g)
-                        .slice(0, 2)
-                        .join(" / ")
-                      : "Unknown Genre"
-                      } ‧ ${duration}`}
+                    {`${
+                      Array.isArray(genres)
+                        ? genres
+                            .map(g => g)
+                            .slice(0, 2)
+                            .join(" / ")
+                        : "Unknown Genre"
+                    } ‧ ${duration}`}
                   </p>
                 </div>
               )
-            })} */}
+            })}
           </div>
-          {displayedMovies.length < 6 ? null : (<Stack spacing={2} className="pagination">
-            <Pagination
-              // count={getPageCount(movies, searchMovies, itemsPerPage)}
-              page={page}
-              onChange={handleChange}
-              onClick={scrollToHandler}
-              hideNextButton={false}
-              shape="rounded"
-              showLastButton
-              renderItem={item => (
-                <PaginationItem slots={{ next: NextText }} {...item} />
-              )}
-            />
-          </Stack>)}
+          {
+            <Stack spacing={2} className="pagination">
+              <Pagination
+                count={getPageCount(movies, searchMovies, itemsPerPage)}
+                page={page}
+                onChange={handleChange}
+                onClick={scrollToHandler}
+                hideNextButton={false}
+                shape="rounded"
+                showLastButton
+                renderItem={item => (
+                  <PaginationItem slots={{ next: NextText }} {...item} />
+                )}
+              />
+            </Stack>
+          }
         </div>
       </div>
     </main>
@@ -187,177 +335,3 @@ const GalleryPage: React.FC = () => {
 }
 
 export default GalleryPage
-
-
-// import React, { useEffect, useState } from "react";
-// import Typography from "@mui/material/Typography";
-// import Pagination from "@mui/material/Pagination";
-// import Stack from "@mui/material/Stack";
-// import "./GalleryPage.scss";
-// import { useAppDispatch, useAppSelector } from "../../app/hooks";
-// import { PaginationItem } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-// import { scrollToHandler } from "../../utils/scrollToHandler";
-// import { Input } from "@base-ui-components/react";
-// import DinamicSelect from "../Picker/DinamicSelect";
-// import { MovieTypeOptions, ReleaseYearOptions } from "../Picker";
-// import { Movie, MovieData, MoviesData, MoviesState } from "../../types/movie";
-// import { handleSelectMovie } from "../../app/store";
-
-// const itemsPerPage = 6;
-
-// const NextText: React.FC = () => <Typography>Next</Typography>;
-
-// const GalleryPage: React.FC = () => {
-//   const navigate = useNavigate();
-//   const dispatch = useAppDispatch();
-
-//   const { data, loading, error } = useAppSelector(
-//     (state) => state.movies
-//   );
-
-//   const movies: Movie[] | [] = data?.content || [];
-
-//   const [search, setSearch] = useState<string>("");
-//   const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
-//   const [page, setPage] = useState<number>(1);
-
-//   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
-//     setPage(value);
-//   };
-
-//   const startIndex = (page - 1) * itemsPerPage;
-//   const displayedMovies: MovieData[] = (searchMovies ?? movies).slice(
-//     startIndex,
-//     startIndex + itemsPerPage
-//   );
-
-//   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setSearch(event.target.value);
-//   };
-
-//   const handleClick = (e: React.MouseEvent, id: string) => {
-//     dispatch(handleSelectMovie(e, id, navigate));
-//   };
-
-//   const handleYearChange = () => { };
-//   const handleTypeChange = () => { };
-
-//   const handleEndSearch = () => {
-//     if (!search.trim()) {
-//       setSearchMovies(null);
-//     } else {
-//       const filteredMovies: MovieData[] = movies.filter((movie) =>
-//         movie.title.toLowerCase().includes(search.toLowerCase())
-//       );
-//       setSearchMovies(filteredMovies);
-//       setPage(1);
-//     }
-//   };
-
-//   const getPageCount = (items: MovieData[]): number =>
-//     Math.ceil(items.length / itemsPerPage);
-
-//   useEffect(() => {
-//     scrollToHandler(null);
-//   }, [page]);
-
-//   return (
-//     <main>
-//       <div className="gallery-header">
-//         <div className="gallery-header-background">
-//           <h1 className="gallery-header-title">GALLERY</h1>
-//           <p className="gallery-header-description">
-//             Welcome to the Movio Library collection of films tailored to your
-//             preferences.
-//           </p>
-//           <div className="gallery-header-search">
-//             <Input
-//               placeholder="Search"
-//               value={search}
-//               onChange={handleSearchChange}
-//               onKeyUp={(e) => e.key === "Enter" && handleEndSearch()}
-//               className="gallery-header-search-input"
-//               data-filled={search ? "true" : undefined}
-//               render={(props) => (
-//                 <div className="input-wrapper">
-//                   <input {...props} className="gallery-header-search-input" />
-//                   <span
-//                     className="gallery-header-search-icon"
-//                     onClick={handleEndSearch}
-//                   ></span>
-//                 </div>
-//               )}
-//             />
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="container">
-//         <div className="gallery-page">
-//           <div className="gallery-page--filters">
-//             <label>
-//               Release year
-//               <DinamicSelect
-//                 defaultValue="2023"
-//                 placeholder="Select a year"
-//                 options={ReleaseYearOptions}
-//                 onValueChange={handleYearChange}
-//               />
-//             </label>
-//             <label>
-//               Types
-//               <DinamicSelect
-//                 defaultValue="action"
-//                 placeholder="Select a movie type"
-//                 options={MovieTypeOptions}
-//                 onValueChange={handleTypeChange}
-//               />
-//             </label>
-//           </div>
-
-//           <div className="movies-container">
-//             {displayedMovies.map((movie) => {
-//               const { posterPath, title, rating, genres, duration, id } = movie;
-//               return (
-//                 <div
-//                   key={id}
-//                   className="movie-card"
-//                   onClick={(e) => handleClick(e, id)}
-//                 >
-//                   <img src={posterPath} alt={title} />
-//                   <div className="movie-info">
-//                     <h3>{title}</h3>
-//                     <span className="rating">{rating.toFixed(1)}/10</span>
-//                   </div>
-//                   <p>
-//                     {`${Array.isArray(genres) ? genres.slice(0, 2).join(" / ") : "Unknown Genre"
-//                       } ‧ ${duration}`}
-//                   </p>
-//                 </div>
-//               );
-//             })}
-//           </div>
-
-//           {displayedMovies.length >= itemsPerPage && (
-//             <Stack spacing={2} className="pagination">
-//               <Pagination
-//                 count={getPageCount(searchMovies ?? movies)}
-//                 page={page}
-//                 onChange={handleChange}
-//                 onClick={scrollToHandler}
-//                 shape="rounded"
-//                 showLastButton
-//                 renderItem={(item) => (
-//                   <PaginationItem slots={{ next: NextText }} {...item} />
-//                 )}
-//               />
-//             </Stack>
-//           )}
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default GalleryPage;
