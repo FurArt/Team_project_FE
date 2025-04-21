@@ -28,22 +28,6 @@ const Header = () => {
     setIsMenuOpen(false)
   };
 
-  // const handleMenuClick = (
-  //   e: React.MouseEvent<HTMLAnchorElement>,
-  //   target: string,
-  // ) => {
-  //   if (loading) {
-  //     return
-  //   }
-  //   e.preventDefault()
-  //   navigate(`${target}`)
-  //   // console.log(
-  //     RoutesPath.HOME,
-
-  //   );
-
-  // }
-
   const handleMenuClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     target: string
@@ -69,33 +53,11 @@ const Header = () => {
 
   }
 
-  // const handleSearchChange = (_: any, value: MovieData | null) => {
-  //   // console.log(`value`);
-
-  //   setSearchMovies(value);
-  //   if (value) {
-  //     navigate(`../movie?idMovie=${value?.id}`)
-  //   }
-  // };
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
   }
 
   const handleEndSearch = () => {
-    // console.log(`work`);
-
-    // if (!search.trim()) {
-    //   // console.log(movies)
-    //   setSearchMovies(null)
-    // } else {
-    //   const filteredMovies: MovieData[] | null = movies?.filter(movie =>
-    //     movie.title.toLowerCase().includes(search.toLowerCase()),
-    //   )
-
-    //   setSearchMovies(filteredMovies)
-    //   setPage(1)
-    // }
   }
 
   return (

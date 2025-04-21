@@ -188,18 +188,10 @@ const GalleryPage: React.FC = () => {
     scrollToHandler(null)
   }, [page])
 
-  // useEffect(() => {
-  //   console.log(`useEffect 1`);
-
-  //   debouncedFetch()
-  //   // dispatch(fetchMoviesGllery({size: 1000}))
-  // }, []);
-
   useEffect(() => {
     if (!selectedYear?.value || !selectedType?.value) {
       return
     }
-    console.log(`useEffect 2`)
   }, [selectedYear?.value, selectedType?.value, debouncedFetch])
 
   useEffect(() => {

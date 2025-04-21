@@ -22,9 +22,6 @@ const Movie = () => {
   const { movies } = useAppSelector(state => state)
 
   useEffect(() => {
-    console.log(`data`)
-
-    console.log(movies)
   })
 
   const usedNumbers = useSelector(

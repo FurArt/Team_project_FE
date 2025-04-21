@@ -82,10 +82,8 @@ const Picker = () => {
 
 
   const handleLuckClick = (e: React.MouseEvent) => {
-    // console.log(`WORK`);
     
     e.preventDefault()
-    // dispatch(generateRandomNumber(movies.length))
     dispatch(
       fetchMoviesByVibe({
         filters: { vibe: "chill", years: "2020", type: "movie", categories: ["MOVIES_BASED_ON_A_TRUE_STORY"] },

@@ -53,6 +53,10 @@
       background: $separetors;
       color: $color-picker-black;
     }
+
+    &:hover .selection-arrow {
+      display: block;
+    }
   }
   
 

@@ -82,6 +82,13 @@ export const client = {
   
   getMediaGallery: <T>(title?: string, years?: string, type?: string, page: number = 0, size: number = 100, sort: string[] = []) =>
     request<T>("/media/gallery", "GET", null, { title, years, type, page, size, sort }),
+
+  getTopListMovies: <T>(
+    listType: string,
+    page: number = 0,
+    size: number = 10,
+    sort: string[] = ["rating"]
+  ) => request<T>(`/media/top-list/${listType}`, "GET", null, { page, size, sort }),
 }
 
 // https://backend-muvio.onrender.com/api/media/titles?page=0&size=1

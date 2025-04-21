@@ -13,6 +13,7 @@ import {
   getMovieByLuck,
   getTitleMovie,
   getMediaGallery,
+  getTopListMovies,
 } from "../api/movie"
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
@@ -21,11 +22,30 @@ import { MovieData, MoviesData, MoviesState } from "../types/movie"
 import { VibeMoviesData } from "../types/vibe"
 import { TitleData } from "../types/title"
 import { FetchGalleryParams, GalleryData } from "../types/gallery"
+import { TopListMovieResponse, TopListTypes } from "../types/TopListTypes"
 
-// const fetchMoviesPoster = createAsyncThunk("movies/fetchMovies", async () => {
-//   const movies = await getMovies()
-//   return movies
-// })
+
+
+const fetchTopListMovies = createAsyncThunk<
+  TopListMovieResponse, 
+  {
+    listType: TopListTypes;
+    page?: number;
+    size?: number;
+    sort?: string[];
+  },
+  { rejectValue: string } 
+>(
+  "movies/fetchTopListMovies",
+  async ({ listType, page = 0, size = 100, sort = ["rating"] }, { rejectWithValue }) => {
+    try {
+      const response = await getTopListMovies(listType, page, size, sort);
+      return response as TopListMovieResponse; 
+    } catch (err) {
+      return rejectWithValue("Failed to fetch top list movies");
+    }
+  }
+);
 
 const fetchMoviesGllery = createAsyncThunk<GalleryData, FetchGalleryParams>(
   "movies/fetchGlleryMovies",
@@ -89,6 +109,7 @@ const moviesSlice = createSlice({
     data: null as MoviesData | null,
     selectedMovie: null as MovieData | null,
     loading: false,
+    topLists: null as TopListMovieResponse | null,
     error: null as string | null,
     vibe: null as VibeMoviesData | null,
     title: null as TitleData | null,
@@ -102,6 +123,20 @@ const moviesSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+
+    .addCase(fetchTopListMovies.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+    .addCase(fetchTopListMovies.fulfilled, (state, action) => {
+      state.loading = false;
+      state.topLists = action.payload;
+    })
+    .addCase(fetchTopListMovies.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload || "Unknown error occurred";
+    })
+
     .addCase(
       fetchMoviesGllery.pending, state => {
       state.loading = true
@@ -244,6 +279,7 @@ export {
   fetchMovieByLuck,
   fetchMoviesAllTitle,
   fetchMoviesGllery,
+  fetchTopListMovies,
 }
 
 export const { setLoading } = moviesSlice.actions

@@ -1,5 +1,6 @@
 import { MovieData, MoviesData } from "../types/movie"
 import { TitleData } from "../types/title"
+import { TopListTypes } from "../types/TopListTypes"
 import { VibeMoviesData } from "../types/vibe"
 import { client } from "../utils/fetchData"
 
@@ -57,4 +58,15 @@ export const getMediaGallery = (
   sort: string[] = []
 ) => {
   return client.getMediaGallery(title, years, type, page, size, sort);
+};
+
+
+
+export const getTopListMovies = (
+  listType: TopListTypes, 
+  page: number = 0,
+  size: number = 10,
+  sort: string[] = ["rating"]
+) => {
+  return client.getTopListMovies(listType, page, size, sort);
 };

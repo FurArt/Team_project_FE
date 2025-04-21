@@ -18,6 +18,7 @@ import {
   fetchMoviesAllTitle,
   fetchMoviesGllery,
   fetchMoviesPoster,
+  fetchTopListMovies,
   setLoading,
 } from "./app/store"
 import Movie from "./components/Movie/Movie"
@@ -28,6 +29,7 @@ import GalleryPage from "./components/GalleryPage/GalleryPage"
 import { RoutesPath } from "./utils/enumRouts"
 import TopLists from "./components/TopLists/TopLists"
 import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopList"
+import { TopListTypes } from "./types/TopListTypes"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -41,6 +43,17 @@ const App = () => {
   useEffect(() => {}, [dispatch])
 
   useEffect(() => {
+    if (location.pathname === "/show-top-lists") {
+      const params = new URLSearchParams(location.search)
+      const id = params.get("id") as TopListTypes
+      dispatch(fetchTopListMovies({
+        listType: id,
+        size: 100
+      }));
+      console.log(id);
+    }
+    
+    
     if (location.pathname === "/gallery") {
       const params = new URLSearchParams(location.search)
       const year = params.get("year") || ""
@@ -51,8 +64,6 @@ const App = () => {
 
     dispatch(fetchMoviesAllTitle())
 
-    console.log("location.pathname")
-    console.log(location.pathname)
 
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
@@ -70,11 +81,20 @@ const App = () => {
       return
     }
 
+    if (location.pathname === "/show-top-lists") {
+      const params = new URLSearchParams(location.search)
+      const id = params.get("id") as TopListTypes
+      dispatch(fetchTopListMovies({
+        listType: id,
+        size: 100
+      }));
+      console.log(id);
+    }
+
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
     }
 
-    console.log(idMovie)
     if (location.pathname === "/movie") {
       if (idMovie) {
         dispatch(fetchMovieById(idMovie))

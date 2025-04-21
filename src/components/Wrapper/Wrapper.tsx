@@ -21,7 +21,6 @@ const Wrapper = ({ children }: WrapperProps) => {
   const [showMovies, setShowMovies] = useState<Movie[]>([]);
 
   const handleClick = (e: React.MouseEvent, id: string) => {
-    console.log(id)
     e.preventDefault()
     dispatch(fetchMovieById(id))
 
@@ -29,7 +28,6 @@ const Wrapper = ({ children }: WrapperProps) => {
   }
 
   useEffect(() => {
-    console.log(moviesData);
   })
 
   useEffect(() => {
@@ -38,7 +36,6 @@ const Wrapper = ({ children }: WrapperProps) => {
     } else {
       setShowMovies([]);
     }
-    console.log(`Movies count: ${content?.length || 0}`);
   }, []);
 
   return (
