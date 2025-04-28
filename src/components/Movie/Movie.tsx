@@ -22,6 +22,10 @@ const Movie = () => {
   const { movies } = useAppSelector(state => state)
 
   useEffect(() => {
+    console.log(
+      movies
+
+    );
   })
 
   const usedNumbers = useSelector(
@@ -189,7 +193,7 @@ const Movie = () => {
               />
               <div>
                 <span className="movie-cast-name">{actor.name}</span>
-                <span className="movie-cast-role">{actor.name}</span>
+                <span className="movie-cast-role">{actor.character}</span>
               </div>
             </div>
           ))}

@@ -1,7 +1,7 @@
 import { MovieData, MoviesData } from "../types/movie"
 import { TitleData } from "../types/title"
 import { TopListTypes } from "../types/TopListTypes"
-import { VibeMoviesData } from "../types/vibe"
+import { CategoryTypes, MediaTypes, VibeMoviesData, VibeTypes } from "../types/vibe"
 import { client } from "../utils/fetchData"
 
 export const getTitleMovie = (
@@ -40,14 +40,19 @@ export const deleteMovie = (id: string) => {
   return client.deleteMovie(id)
 }
 
-export const getMoviesByVibe = (
-  data: { vibe: string; years: string; type: string; categories: string[] },
-  page: number = 0,
-  size: number = 10,
-  sort: string[] = [],
-): Promise<VibeMoviesData> => {
-  return client.getMoviesByVibe<VibeMoviesData>(data, page, size, sort)
-}
+  export const getMoviesByVibe = (
+    data: {
+      vibe?: VibeTypes;
+      years?: string;
+      type: MediaTypes;
+      categories?: string[];
+    },
+    page: number = 0,
+    size: number = 7,
+    sort: string[] = ["rating"]
+  ): Promise<VibeMoviesData> => {
+    return client.getMoviesByVibe<VibeMoviesData>(data, page, size, sort);
+  }
 
 export const getMediaGallery = (
   title?: string,

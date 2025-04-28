@@ -11,16 +11,21 @@ import { RoutesPath } from "../../utils/enumRouts"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { generateRandomNumber } from "../../app/randomNumbersSlice"
 import { fetchMoviesByVibe } from "../../app/store"
+import { CategoryTypes, MediaTypes, VibeTypes } from "../../types/vibe"
+import classNames from "classnames"
 
 export const Vibes = [
-  "make me chill",
-  "scary me silly",
-  "make me feel good",
-  "make me dream",
-  "make me curious",
-  "take me to another world",
-  "blow my mind",
-  "keep me on edge",
+  { label: "make me chill", value: VibeTypes.MAKE_ME_CHILL },
+  { label: "scary me silly", value: VibeTypes.SCARY_ME_SILLY },
+  { label: "make me feel good", value: VibeTypes.MAKE_ME_FEEL_GOOD },
+  { label: "make me dream", value: VibeTypes.MAKE_ME_DREAM },
+  { label: "make me curious", value: VibeTypes.MAKE_ME_CURIOUS },
+  {
+    label: "take me to another world",
+    value: VibeTypes.TAKE_ME_TO_ANOTHER_WORLD,
+  },
+  { label: "blow my mind", value: VibeTypes.BLOW_MY_MIND },
+  { label: "keep me on edge", value: VibeTypes.KEEP_ME_ON_EDGE },
 ]
 
 export const MovieTypeOptions = [
@@ -29,7 +34,6 @@ export const MovieTypeOptions = [
   { value: "shorts", label: "Shorts" },
   { value: "", label: "Select a movie type" },
   // { value: "no_matter", label: "No matter" },
-
 ]
 export const ReleaseYearOptions = [
   { value: "2020-2025", label: "2020-2025" },
@@ -40,13 +44,20 @@ export const ReleaseYearOptions = [
   { value: "1990-1995", label: "1990-1995" },
   // { value: "no_matter", label: "No matter" },
   { value: "", label: "Select a year" },
-
 ]
 
 const Picker = () => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch();
-  const { data: movies, loading } = useAppSelector((state) => state.movies);
+  const dispatch = useAppDispatch()
+  const { data, vibe, selectedMovie } = useAppSelector(state => state.movies)
+  // const { contents } = useAppSelectoбr(state => state.vibe)
+
+  const [filters, setFilters] = useState({
+    vibe: "",
+    years: "",
+    type: "",
+    categories: [] as string[],
+  })
 
   // const MovieTypeOptions = [
   //   { value: "tv_shows", label: "TV Shows" },
@@ -56,56 +67,98 @@ const Picker = () => {
   // ]
 
   const [movieCategories, setMovieCategories] = useState([
-    { label: "Movies based on a true story", checked: false },
-    { label: "Spy movies & Cop movies", checked: true },
-    { label: "Movies based on a book", checked: true },
-    { label: "Must watch list", checked: true },
-    { label: "Girl Power movies", checked: false },
-    { label: "Life-changing movies", checked: false },
-    { label: "Sport-life movies", checked: false },
-    { label: "IMDB Top 250 movies", checked: true },
-  ]);
+    {
+      label: "Movies based on a true story",
+      checked: false,
+      value: "MOVIES_BASED_ON_A_TRUE_STORY",
+    },
+    {
+      label: "Movies based on a book",
+      checked: false,
+      value: "MOVIES_BASED_ON_A_BOOK",
+    },
+    {
+      label: "Must watch list",
+      checked: false,
+      value: "MUST_WATCH_LIST",
+    },
+    {
+      label: "Girl Power movies",
+      checked: false,
+      value: "GIRL_POWER_MOVIES",
+    },
+    {
+      label: "Life-changing movies",
+      checked: false,
+      value: "LIFE_CHANGING_MOVIES",
+    },
+    {
+      label: "IMDB Top 250 movies",
+      checked: false,
+      value: "IMD_TOP_250_MOVIES",
+    },
+  ])
 
-  
+  // const handleYearChange = (value: string) => {
+  //   // console.log("Selected Year:", value)
+  // }
+
+  // const handleTypeChange = (value: string) => {
+  //   // console.log("Selected Movie Type:", value)
+  // }
 
   const handleYearChange = (value: string) => {
-    // console.log("Selected Year:", value)
+    setFilters(prev => ({ ...prev, years: value }))
   }
 
   const handleTypeChange = (value: string) => {
-    // console.log("Selected Movie Type:", value)
+    setFilters(prev => ({ ...prev, type: value }))
   }
 
   const handleVibeClick = (vibe: string) => {
-    // console.log(`You selected: ${vibe}`)
+    setFilters(prev => ({ ...prev, vibe }))
   }
 
+  const handleCategoryChange = (updatedCategories: typeof movieCategories) => {
+    setMovieCategories(updatedCategories)
+
+    const selectedCategories = updatedCategories
+      .filter(cat => cat.checked)
+      .map(cat => cat.label.toUpperCase().replace(/\s|&/g, "_"))
+
+    setFilters(prev => ({ ...prev, categories: selectedCategories }))
+  }
+
+  // const handleVibeClick = (vibe: string) => {
+  //   console.log(`You selected: ${vibe}`)
+  // dispatch(fetchMoviesByVibe({
+  //   data:
+  //    {vibe: vibe as VibeTypes,
+  //   type: "movie" as MediaTypes,}
+  // }))
+  // }
 
   const handleLuckClick = (e: React.MouseEvent) => {
-    
     e.preventDefault()
+    // console.log(filters.categories.join(','))
+    console.log(filters.type)
+
     dispatch(
       fetchMoviesByVibe({
-        filters: { vibe: "chill", years: "2020", type: "movie", categories: ["MOVIES_BASED_ON_A_TRUE_STORY"] },
-        page: 1,
-        size: 5,
-        sort: ["rating"],
-      })
-    )
-      .unwrap()
-      .then((data) => {
-        // console.log("Movies fetched:", data);
-      })
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-      });
+        data: {
+          vibe: filters.vibe as VibeTypes,
+          type: filters.type as MediaTypes,
+          years: filters.years,
+          categories: filters?.categories,
+        },
+      }),
+    ).finally(() => {
+      navigate(`../movie`)
+    })
 
     // navigate(`../${RoutesPath.MOVIE}`)
-    // scrollToHandler(e)
+    scrollToHandler(e)
   }
-
-
-
 
   return (
     <>
@@ -123,10 +176,13 @@ const Picker = () => {
             {Vibes.map((vibe, index) => (
               <button
                 key={index}
-                className="movie-picker--vibe-btn"
-                onClick={() => handleVibeClick(vibe)}
+                // className="movie-picker--vibe-btn"
+                className={classNames("movie-picker--vibe-btn", {
+                  "active-vibe": filters.vibe === vibe.value,
+                })}
+                onClick={() => handleVibeClick(vibe.value)}
               >
-                {vibe}
+                {vibe.label}
               </button>
             ))}
           </div>
@@ -151,18 +207,20 @@ const Picker = () => {
             </label>
           </div>
           <p className="movie-picker--subtext">
-            Additional preferences{" "}
-            <br />
+            Additional preferences <br />
             <span className="movie-picker--info">
               Multiple answers are available
             </span>
           </p>
           <div className="movie-picker--preferences">
-            <CheckboxMap categories={movieCategories} onCategoryChange={setMovieCategories} />
+            <CheckboxMap
+              categories={movieCategories}
+              onCategoryChange={handleCategoryChange}
+            />
           </div>
           <button
             className="movie-picker--btn movie-picker--btn-primary"
-            onClick={e=>handleLuckClick(e)}
+            onClick={e => handleLuckClick(e)}
           >
             PICK MY FILM
           </button>

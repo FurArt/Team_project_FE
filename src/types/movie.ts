@@ -19,6 +19,8 @@ export interface MovieData {
   actors: Array<{
     name: string
     photo: string
+    character: string
+
   }>
 
   photos: string[]

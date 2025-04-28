@@ -62,9 +62,7 @@
   color: white;
   padding: 20px;
   @extend %CENTRE_WITH;
-  // gallery-page--btn gallery-page--btn-primary
   &--btn {
-    // width: 100%;
     padding: 10px;
     border: none;
     cursor: pointer;

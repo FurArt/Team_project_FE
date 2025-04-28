@@ -4,6 +4,7 @@ import { SelectedIcon } from "./DinamicSelect";
 
 interface Category {
   label: string;
+  value: string;
   checked: boolean;
 }
 

@@ -1,3 +1,5 @@
+import { VibeFilters } from "../types/vibe"
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = "https://backend-muvio.onrender.com/api"
 
@@ -55,30 +57,6 @@ export const client = {
 
   getMovies: <T>(page: number = 0, size: number = 100, sort: string[] = []) =>
     request<T>("/media/posters", "GET", null, { page, size, sort }),
-
-  getMoviesByVibe: <T>(
-    data: { vibe: string; years: string; type: string; categories: string[] },
-    page: number = 0,
-    size: number = 6,
-    sort: string[] = ["rating"],
-  ) => {
-    const queryParams = new URLSearchParams({
-      vibe: data.vibe,
-      years: data.years,
-      type: data.type,
-      categories: JSON.stringify(data.categories),
-      page: page.toString(),
-      size: size.toString(),
-      sort: JSON.stringify(sort),
-    })
-
-    const url = `https://backend-muvio.onrender.com/api/media/vibe?${queryParams}`
-
-    return fetch(url, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    }).then(response => response.json() as Promise<T>)
-  },
   
   getMediaGallery: <T>(title?: string, years?: string, type?: string, page: number = 0, size: number = 100, sort: string[] = []) =>
     request<T>("/media/gallery", "GET", null, { title, years, type, page, size, sort }),
@@ -89,7 +67,63 @@ export const client = {
     size: number = 10,
     sort: string[] = ["rating"]
   ) => request<T>(`/media/top-list/${listType}`, "GET", null, { page, size, sort }),
+
+  // getMoviesByVibe: <T>(
+  //   filters: VibeFilters,
+  //   page: number = 0,
+  //   size: number = 10,
+  //   sort: string[] = ["rating"]
+  // ): Promise<T> => {
+  //   const params = {
+  //     vibe: filters.vibe || "",
+  //     years: filters.years || "",
+  //     type: filters.type,
+  //     categories: filters.categories ? JSON.stringify(filters.categories) : "[]",
+  //     page: page.toString(),
+  //     size: size.toString(),
+  //     sort: JSON.stringify(sort)
+  //   };
+
+  //   return request<T>("/media/vibe", "GET", null, params);
+  // },
+
+  getMoviesByVibe: <T>(
+    filters: VibeFilters,
+    page: number = 0,
+    size: number = 10,
+    sort: string[] = ["rating,desc"]
+  ): Promise<T> => {
+    const params: Record<string, string | number> = {
+      page,
+      size,
+      vibe: filters.vibe || "",
+      years: filters.years || "",
+      type: filters.type || "",
+      categories: filters.categories?.join(",") || "",
+    };
+  
+    const searchParams = new URLSearchParams();
+  
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== "") {
+        searchParams.append(key, String(value));
+      }
+    });
+  
+    sort.forEach(sortParam => {
+      searchParams.append("sort", sortParam);
+    });
+  
+    const queryString = searchParams.toString();
+  
+    return request<T>(`/media/vibe?${queryString}`, "GET");
+  },
+  
+  
 }
 
+
+
+  
 // https://backend-muvio.onrender.com/api/media/titles?page=0&size=1
 // https://backend-muvio.onrender.com/api/media/title?page=0&size=100&sort=rating

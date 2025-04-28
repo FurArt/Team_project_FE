@@ -12,7 +12,7 @@
 //   top: 0;
 // }
 .picker {
-  height: 50vh;
+  // height: 50vh;
   text-align: center;
   // background-color: $heder-black-0_6;
   color: $main-text-color;
@@ -21,21 +21,21 @@
   width: 100%;
   z-index: 1;
   // height: 100vh;
-  background: url(../../images/load-bg.jpg) no-repeat;
+  background: url(../../images/picking_page_1200.JPG) no-repeat;
   background-size: cover;
   top: 0;
 
-  &::after {
-    content: '';
-    width: 100%;
-    height: 950px;
-    background: url(../../images/stats-bg.jpg) no-repeat;
-    background-size: cover;
-    top: 50vh;
-    position: absolute;
-    right: 0;
-    z-index: -1;
-  }
+  // &::after {
+  //   content: '';
+  //   width: 100%;
+  //   height: 950px;
+  //   background: url(../../images/stats-bg.jpg) no-repeat;
+  //   background-size: cover;
+  //   top: 50vh;
+  //   position: absolute;
+  //   right: 0;
+  //   z-index: -1;
+  // }
 
   &-head {
     @extend %AG_H1;
@@ -115,32 +115,10 @@ $images: (
       background: #fff;
       color: #14181a;
     }
-
-    // @for $i from 1 through list.length($images) {
-    //   &:nth-child(#{$i})::after {
-    //     content: "";
-    //     display: block;
-    //     width: 110px;
-    //     height: 110px;
-    //     background: no-repeat center;
-    //     background-image: url("../../images/face/#{list.nth($images, $i)}");
-    //     background-size: cover;
-    //     background-position: center;
-    //     position: absolute;
-    //     top: 0px;
-    //     left: 0px;
-    //     z-index: 1;
-    //     opacity: 0;
-    //     transition: opacity 0.3s ease;
-    //   }
-
-    //   &:nth-child(#{$i}):hover {
-    //     color: #14181a;
-    //     &::after {
-    //       opacity: 1;
-    //     }
-    //   }
-    // }
+    &.active-vibe {
+      background: #fff;
+      color: #14181a;
+    }
   }
 
   &--filters {
@@ -205,6 +183,7 @@ $images: (
   }
 }
 
+
 .movie-picker--btn {
   width: 100%;
   padding: 10px;
@@ -225,3 +204,8 @@ $images: (
   border-radius: 8;
   color: $heder-black;
 }
+
+// .movie-picker--vibe-btn .active-vibe {
+//   background: #fff;
+//   color: #14181a;
+// }

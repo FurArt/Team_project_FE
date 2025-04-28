@@ -4,10 +4,8 @@ import { useEffect } from "react";
 
 const Footer = () => {
   const location = useLocation();
-  const { pathname } = location
-  const isPickerPage = location.pathname === '/picker/';
   return (
-    <footer className="footer" style={isPickerPage ? { margin: '950px 0 0' } : {}}>
+    <footer className="footer">
       <div className="footer-container">
         <div className="footer-logo"></div>
         <div>
