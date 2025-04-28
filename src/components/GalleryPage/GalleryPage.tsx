@@ -50,9 +50,7 @@ const GalleryPage: React.FC = () => {
 
   const debouncedFetch = useCallback(
     debounce((year: string = "", type: string = "") => {
-      // if (year !== "" || type !== "") {
       dispatch(fetchMoviesGllery({ size: 1000, years: year, type }))
-      // }
     }, 500),
     [dispatch],
   )
@@ -101,11 +99,6 @@ const GalleryPage: React.FC = () => {
     if (setYear) {
       setSelectedYear(setYear)
     }
-
-    // if (selectedType?.value) {
-    //   debouncedFetch(value, selectedType.value)
-    //   navigate(`/gallery?type=${selectedType?.value}&year=${value}`)
-    // }
   }
 
   const handleTypeChange = (value: string) => {
@@ -114,14 +107,7 @@ const GalleryPage: React.FC = () => {
     if (setType) {
       setSelectedType(setType)
     }
-
-    // if (selectedYear?.value) {
-    //   debouncedFetch(selectedYear.value, value)
-    //   navigate(`/gallery?type=${value}&year=${selectedYear.value}`)
-    // }
   }
-
-  
 
   const handleSortChange = (value: string) => {
     const selected = setOption(value, sortOptions); 

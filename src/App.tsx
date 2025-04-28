@@ -6,7 +6,7 @@ import "./features/styles/reset.scss"
 import Header from "./components/Header/Header"
 import Wrapper from "./components/Wrapper/Wrapper"
 import Footer from "./components/Footer/Footer"
-import { Route, Routes, useLocation } from "react-router"
+import { Route, Routes, useLocation, useNavigate } from "react-router"
 import NotFound from "./components/NotFound/NotFound"
 import Picker from "./components/Picker/Picker"
 import Stats from "./components/Stats/Stats"
@@ -35,10 +35,14 @@ const App = () => {
   const dispatch = useAppDispatch()
   const { movies } = useAppSelector(state => state)
   const location = useLocation()
+  const navigate = useNavigate()
   const loading = movies?.loading
   const params = new URLSearchParams(location.search)
   const idMovie = params.get("idMovie")
   const firstRenderRef = useRef(true)
+  const [isMovieLoaded, setIsMovieLoaded] = useState<boolean>(
+    !!movies.selectedMovie?.id || false,
+  )
 
   useEffect(() => {}, [dispatch])
 
@@ -46,14 +50,15 @@ const App = () => {
     if (location.pathname === "/show-top-lists") {
       const params = new URLSearchParams(location.search)
       const id = params.get("id") as TopListTypes
-      dispatch(fetchTopListMovies({
-        listType: id,
-        size: 100
-      }));
-      console.log(id);
+      dispatch(
+        fetchTopListMovies({
+          listType: id,
+          size: 100,
+        }),
+      )
+      console.log(id)
     }
-    
-    
+
     if (location.pathname === "/gallery") {
       const params = new URLSearchParams(location.search)
       const year = params.get("year") || ""
@@ -64,13 +69,14 @@ const App = () => {
 
     dispatch(fetchMoviesAllTitle())
 
-
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
     }
 
     if (location.pathname === "/movie") {
-      if (idMovie) {
+      console.log(movies.selectedMovie?.id)
+
+      if (isMovieLoaded) {
         dispatch(fetchMovieById(idMovie))
       }
     }
@@ -84,11 +90,13 @@ const App = () => {
     if (location.pathname === "/show-top-lists") {
       const params = new URLSearchParams(location.search)
       const id = params.get("id") as TopListTypes
-      dispatch(fetchTopListMovies({
-        listType: id,
-        size: 100
-      }));
-      console.log(id);
+      dispatch(
+        fetchTopListMovies({
+          listType: id,
+          size: 100,
+        }),
+      )
+      console.log(id)
     }
 
     if (location.pathname === "/") {
@@ -96,8 +104,16 @@ const App = () => {
     }
 
     if (location.pathname === "/movie") {
+      console.log(movies.selectedMovie?.id)
+
       if (idMovie) {
-        dispatch(fetchMovieById(idMovie))
+        if (movies.selectedMovie?.id !== idMovie) {
+          dispatch(fetchMovieById(idMovie))
+        }
+      } else if (movies.selectedMovie?.id) {
+        const params = new URLSearchParams()
+        params.set("idMovie", String(movies.selectedMovie.id))
+        navigate(`/movie?${params.toString()}`, { replace: true })
       }
     }
 
@@ -106,26 +122,11 @@ const App = () => {
     }
   }, [location.pathname])
 
-  useEffect(() => {
-    if (idMovie) {
-      dispatch(fetchMovieById(idMovie))
-    }
-  }, [idMovie])
-
   // useEffect(() => {
-  //   let timer: number;
-  //   if (movies?.length) {
-  //     timer = setTimeout(() => {
-  //       dispatch(setLoading(false));
-  //     }, 2000);
-
+  //   if (idMovie) {
+  //     dispatch(fetchMovieById(idMovie))
   //   }
-  //   return () => clearTimeout(timer);
-  // }, [movies, location]);
-
-  // useEffect(() => {
-
-  // }, [movies])
+  // }, [idMovie])
 
   return (
     <>

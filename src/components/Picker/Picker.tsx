@@ -153,10 +153,10 @@ const Picker = () => {
         },
       }),
     ).finally(() => {
+      
       navigate(`../movie`)
     })
 
-    // navigate(`../${RoutesPath.MOVIE}`)
     scrollToHandler(e)
   }
 

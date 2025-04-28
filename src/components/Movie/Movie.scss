@@ -302,6 +302,14 @@ $border-radius: 8px;
     &-item--author-block {
       display: flex;
     }
+    .movie-review-author--link-more {
+      @extend %AG_H5;
+      color: $stroke;
+      cursor: pointer;
+      &:hover {
+        color: $main-text-color;
+      }
+    }
     .movie-section-title {
       margin-bottom: 48px;
       display: block;

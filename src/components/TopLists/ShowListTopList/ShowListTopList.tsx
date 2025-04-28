@@ -45,7 +45,13 @@ const ShowListTopList = () => {
   const handlerBack = (e: React.MouseEvent) => {
     e.preventDefault();
     navigate(`../${RoutesPath.TOPLISTS}`);
+    
   };
+
+  const handlerSetMovie = (e: React.MouseEvent, id:string) => {
+     navigate(`../${RoutesPath.MOVIE}?idMovie=${id}`)
+     scrollToHandler(e)
+    }
 
   useEffect(() => {
     scrollToHandler(null);
@@ -104,7 +110,7 @@ const ShowListTopList = () => {
               <div
                 className="movie-card"
                 key={`${id}-${index}`}
-                onClick={() => navigate(`../${RoutesPath.MOVIE}?idMovie=${id}`)}
+                onClick={(e)=>handlerSetMovie(e, id)}
               >
                 <span className="movie-index">{`0${index + 1 + startIndex}`}</span>
                 <img src={posterPath} alt={title} className="movie-poster" />
