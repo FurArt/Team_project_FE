@@ -32,7 +32,7 @@ const Movie = () => {
     (state: RootState) => state.randomNumbers.usedNumbers,
   )
   const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
-  const [expandedReviewId, setExpandedReviewId] = useState(null);
+  const [expandedReviewId, setExpandedReviewId] = useState<null | string>(null);
 
   const navigate = useNavigate()
   const location = useLocation()

@@ -76,7 +76,7 @@ const App = () => {
     if (location.pathname === "/movie") {
       console.log(movies.selectedMovie?.id)
 
-      if (isMovieLoaded) {
+      if (isMovieLoaded && idMovie) {
         dispatch(fetchMovieById(idMovie))
       }
     }
