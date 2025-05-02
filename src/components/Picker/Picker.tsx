@@ -1,5 +1,5 @@
 import { Select } from "@base-ui-components/react/select"
-
+import { Dialog } from "@base-ui-components/react/dialog"
 import { getMovies } from "../../api/movie"
 import "./Picker.scss"
 import DinamicSelect from "./DinamicSelect"
@@ -13,6 +13,7 @@ import { generateRandomNumber } from "../../app/randomNumbersSlice"
 import { fetchMoviesByVibe } from "../../app/store"
 import { CategoryTypes, MediaTypes, VibeTypes } from "../../types/vibe"
 import classNames from "classnames"
+import ErorrDialog from "./ErorrDialog"
 
 export const Vibes = [
   { label: "make me chill", value: VibeTypes.MAKE_ME_CHILL },
@@ -51,6 +52,8 @@ const Picker = () => {
   const dispatch = useAppDispatch()
   const { data, vibe, selectedMovie } = useAppSelector(state => state.movies)
   // const { contents } = useAppSelectoбr(state => state.vibe)
+  const [error, setError] = useState<string | null>(null)
+  const [open, setOpen] = useState(false)
 
   const [filters, setFilters] = useState({
     vibe: "",
@@ -70,42 +73,34 @@ const Picker = () => {
     {
       label: "Movies based on a true story",
       checked: false,
-      value: "MOVIES_BASED_ON_A_TRUE_STORY",
+      value: CategoryTypes.MOVIES_BASED_ON_A_TRUE_STORY,
     },
     {
       label: "Movies based on a book",
       checked: false,
-      value: "MOVIES_BASED_ON_A_BOOK",
+      value: CategoryTypes.MOVIES_BASED_ON_A_BOOK,
     },
     {
       label: "Must watch list",
       checked: false,
-      value: "MUST_WATCH_LIST",
+      value: CategoryTypes.MUST_WATCH_LIST,
     },
     {
       label: "Girl Power movies",
       checked: false,
-      value: "GIRL_POWER_MOVIES",
+      value: CategoryTypes.GIRL_POWER_MOVIES,
     },
     {
       label: "Life-changing movies",
       checked: false,
-      value: "LIFE_CHANGING_MOVIES",
+      value: CategoryTypes.LIFE_CHANGING_MOVIES,
     },
     {
       label: "IMDB Top 250 movies",
       checked: false,
-      value: "IMD_TOP_250_MOVIES",
+      value: CategoryTypes.IMD_TOP_250_MOVIES,
     },
   ])
-
-  // const handleYearChange = (value: string) => {
-  //   // console.log("Selected Year:", value)
-  // }
-
-  // const handleTypeChange = (value: string) => {
-  //   // console.log("Selected Movie Type:", value)
-  // }
 
   const handleYearChange = (value: string) => {
     setFilters(prev => ({ ...prev, years: value }))
@@ -120,29 +115,22 @@ const Picker = () => {
   }
 
   const handleCategoryChange = (updatedCategories: typeof movieCategories) => {
-    setMovieCategories(updatedCategories)
-
+    setMovieCategories(updatedCategories);
+  
     const selectedCategories = updatedCategories
       .filter(cat => cat.checked)
-      .map(cat => cat.label.toUpperCase().replace(/\s|&/g, "_"))
-
-    setFilters(prev => ({ ...prev, categories: selectedCategories }))
+      .map(cat => cat.value);
+  
+    setFilters(prev => ({ ...prev, categories: selectedCategories }));
   }
-
-  // const handleVibeClick = (vibe: string) => {
-  //   console.log(`You selected: ${vibe}`)
-  // dispatch(fetchMoviesByVibe({
-  //   data:
-  //    {vibe: vibe as VibeTypes,
-  //   type: "movie" as MediaTypes,}
-  // }))
-  // }
 
   const handleLuckClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    // console.log(filters.categories.join(','))
-    console.log(filters.type)
-
+    if (!filters.vibe) {
+      setError("Add_vibe")
+      setOpen(true)
+      return
+    }
     dispatch(
       fetchMoviesByVibe({
         data: {
@@ -153,7 +141,10 @@ const Picker = () => {
         },
       }),
     ).finally(() => {
-      
+      console.log(error)
+      if (error) {
+        return
+      }
       navigate(`../movie`)
     })
 
@@ -234,6 +225,7 @@ const Picker = () => {
           onClick={scrollToHandler}
         ></a>
       </section>
+      <ErorrDialog open={open} handleClose={() => setOpen(false)} error={error} />
     </>
   )
 }

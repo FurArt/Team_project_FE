@@ -56,7 +56,6 @@ const App = () => {
           size: 100,
         }),
       )
-      console.log(id)
     }
 
     if (location.pathname === "/gallery") {
@@ -74,8 +73,6 @@ const App = () => {
     }
 
     if (location.pathname === "/movie") {
-      console.log(movies.selectedMovie?.id)
-
       if (isMovieLoaded && idMovie) {
         dispatch(fetchMovieById(idMovie))
       }
@@ -96,7 +93,6 @@ const App = () => {
           size: 100,
         }),
       )
-      console.log(id)
     }
 
     if (location.pathname === "/") {
@@ -104,8 +100,6 @@ const App = () => {
     }
 
     if (location.pathname === "/movie") {
-      console.log(movies.selectedMovie?.id)
-
       if (idMovie) {
         if (movies.selectedMovie?.id !== idMovie) {
           dispatch(fetchMovieById(idMovie))

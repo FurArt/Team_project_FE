@@ -209,3 +209,30 @@ $images: (
 //   background: #fff;
 //   color: #14181a;
 // }
+
+
+.dialog-portal {
+  position: fixed;
+  inset: 0; // shorthand for top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 9999; // Ensure it's above all other UI
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5); // semi-transparent background
+  z-index: 9998; // behind the popup but above rest of UI
+}
+
+.dialog-popup {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+}

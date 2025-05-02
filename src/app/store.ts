@@ -24,6 +24,32 @@ import { TitleData } from "../types/title"
 import { FetchGalleryParams, GalleryData } from "../types/gallery"
 import { TopListMovieResponse, TopListTypes } from "../types/TopListTypes"
 
+// const fetchMoviesByVibe = createAsyncThunk<
+//   VibeMoviesData,
+//   {
+//     data: {
+//       vibe?: VibeTypes;
+//       years?: string;
+//       type: MediaTypes;
+//       categories?: string[];
+//     };
+//     page?: number;
+//     size?: number;
+//     sort?: string[];
+//   },
+//   { rejectValue: string }
+// >(
+//   "movies/fetchMoviesByVibe",
+//   async ({ data, page = 0, size = 7, sort = ["rating"] }, { rejectWithValue }) => {
+//     try {
+//       const response = await getMoviesByVibe(data, page, size, sort);
+//       return response;
+//     } catch (err) {
+//       return rejectWithValue("Failed to load movies by vibe");
+//     }
+//   }
+// );
+
 const fetchMoviesByVibe = createAsyncThunk<
   VibeMoviesData,
   {
@@ -37,18 +63,21 @@ const fetchMoviesByVibe = createAsyncThunk<
     size?: number;
     sort?: string[];
   },
-  { rejectValue: string }
+  { rejectValue: string[] } // <- change to array of strings
 >(
   "movies/fetchMoviesByVibe",
   async ({ data, page = 0, size = 7, sort = ["rating"] }, { rejectWithValue }) => {
     try {
       const response = await getMoviesByVibe(data, page, size, sort);
       return response;
-    } catch (err) {
-      return rejectWithValue("Failed to load movies by vibe");
+    } catch (err: any) {
+      const errorResponse = await err?.response?.json?.();
+      const errors = errorResponse?.errors ?? ["Unknown error occurred"];
+      return rejectWithValue(errors);
     }
   }
 );
+
 
 const fetchTopListMovies = createAsyncThunk<
   TopListMovieResponse, 
@@ -146,15 +175,16 @@ const moviesSlice = createSlice({
         state.loading = false;
         state.vibe = action.payload;
         state.selectedMovie = state.vibe.content[0] as unknown as MovieData;
-
+        state.error = null
       }
     )
     .addCase(fetchMoviesByVibe.rejected, (state, action) => {
+      const payload = action.payload as string[] | undefined;
       state.loading = false;
-      state.error = action.payload || "Failed to load movies by vibe";
+      state.error = payload?.join("\n") || "Failed to load movies by vibe";
       state.vibe = null;
-    })
-
+    })    
+    
     .addCase(fetchTopListMovies.pending, (state) => {
       state.loading = true;
       state.error = null;

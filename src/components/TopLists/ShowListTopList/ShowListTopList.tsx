@@ -57,14 +57,6 @@ const ShowListTopList = () => {
     scrollToHandler(null);
   }, [page]);
 
-  useEffect(()=>{
-    console.log(
-      displayedMovies
-
-    );
-    
-  })
-
   if (loading) {
     return (
       <div className="loading-container">

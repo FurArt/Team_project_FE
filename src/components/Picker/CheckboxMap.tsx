@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Checkbox } from "@base-ui-components/react/checkbox";
 import { SelectedIcon } from "./DinamicSelect";
+import { CategoryTypes } from "../../types/vibe";
 
 interface Category {
   label: string;
-  value: string;
+  value: CategoryTypes;
   checked: boolean;
 }
 
