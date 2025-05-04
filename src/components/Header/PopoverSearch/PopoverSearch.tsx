@@ -95,14 +95,28 @@ export default function PopoverSearch() {
                   options={filteredMovies}
                   getOptionLabel={option => option.title}
                   onChange={handleSearchChange}
+                  renderOption={(props, option) => (
+                    <li {...props} key={option.id}>
+                      {option.title}
+                    </li>
+                  )}
                   renderInput={params => (
                     <TextField
                       {...params}
                       label=" "
                       onChange={handleInputChange}
                       value={search}
+                      onKeyDown={e => {
+                        if (e.key === "Enter") {
+                          navigate(`../gallery?search=${search}`)
+                          // console.log(search);
+                          
+                        }
+                      }}
                     />
                   )}
+
+                  
                   noOptionsText="No movies found"
                   sx={{
                     backgroundColor: "#d9d9d9",

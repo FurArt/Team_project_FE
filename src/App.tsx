@@ -113,14 +113,10 @@ const App = () => {
 
     if (location.pathname === "/gallery") {
       dispatch(fetchMoviesGllery({}))
+      const search = params.get("search")
+      console.log(search);
     }
   }, [location.pathname])
-
-  // useEffect(() => {
-  //   if (idMovie) {
-  //     dispatch(fetchMovieById(idMovie))
-  //   }
-  // }, [idMovie])
 
   return (
     <>

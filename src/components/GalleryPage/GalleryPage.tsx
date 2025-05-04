@@ -37,12 +37,14 @@ const GalleryPage: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const firstRenderRef = useRef(true)
+  const params = new URLSearchParams(location.search)
 
   const dispatch = useAppDispatch()
 
   const { data: loading, error } = useAppSelector(state => state.movies)
   const { gallery } = useAppSelector(state => state.movies)
   const movies = gallery?.content
+  const [searchMovieByTitle, setSearchMovieByTitle] = useState<string | null>(null)
 
   const [selectedYear, setSelectedYear] = useState<FiltersOptions | null>(null)
   const [selectedType, setSelectedType] = useState<FiltersOptions | null>(null)
@@ -185,8 +187,13 @@ const GalleryPage: React.FC = () => {
     const params = new URLSearchParams(location.search)
     const year = params.get("year") || ""
     const type = params.get("type") || ""
+    const search = params.get("search")
+
     setSelectedYear(setOption(year, ReleaseYearOptions))
     setSelectedType(setOption(type, MovieTypeOptions))
+    if (search) {
+      setSearch(search)
+    }
   }, [])
 
   return (

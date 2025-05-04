@@ -21,17 +21,15 @@ const Movie = () => {
   const { movies } = useAppSelector(state => state)
 
   useEffect(() => {
-    console.log(
-      movies
-
-    );
+    console.log(movies)
   })
 
   const usedNumbers = useSelector(
     (state: RootState) => state.randomNumbers.usedNumbers,
   )
   const [numberRandomMovie, setNumberRandomMovie] = useState(usedNumbers[0])
-  const [expandedReviewId, setExpandedReviewId] = useState<null | string>(null);
+  const [expandedReviewId, setExpandedReviewId] = useState<null | string>(null)
+  const [isOverviewExpanded, setIsOverviewExpanded] = useState(false)
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -45,12 +43,12 @@ const Movie = () => {
   // const movieShow = movies?.[numberRandomMovie] || []
 
   function isMovieArray(movie: unknown): movie is MovieData[] {
-    return Array.isArray(movie) && movie.length > 0;
+    return Array.isArray(movie) && movie.length > 0
   }
-  
+
   const movieShow = isMovieArray(movies.selectedMovie)
     ? movies.selectedMovie[0]
-    : movies.selectedMovie;
+    : movies.selectedMovie
 
   // const movieShow = movies.selectedMovie
 
@@ -117,8 +115,20 @@ const Movie = () => {
               <h1 className="movie-title item-1">
                 {`${title} ( ${releaseYear} )`}
               </h1>
-              <p className="movie-description item-2">
+              {/* <p className="movie-description item-2">
                 {`${overview.slice(0, 550)} ...`}
+              </p> */}
+              <p className="movie-description item-2">
+                {isOverviewExpanded ? overview : `${overview.slice(0, 550)}`}
+                {overview.length > 550 && (
+
+                <span
+                  className="movie-description--link-more"
+                  onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
+                >
+                  {isOverviewExpanded ? "See Less" : ".. See More"}
+                </span>
+                )}
               </p>
 
               <div className="movie-tags item-3">
@@ -163,7 +173,7 @@ const Movie = () => {
             VIEW ALL
           </a> */}
           </div>
-          <GalleryComponent photos={photos.slice(0,4)} />
+          <GalleryComponent photos={photos.slice(0, 4)} />
         </div>
       )}
 
@@ -226,52 +236,49 @@ const Movie = () => {
         </div>
       )} */}
 
-{reviews.length > 1 && (
-  <div className="movie-reviews">
-    <div className="movie-row">
-      <h2 className="movie-section-title">User Reviews</h2>
-    </div>
-    {reviews.slice(0, 3).map((review) => {
-      const clearText = stripHTML(review.content);
-      const isExpanded = expandedReviewId === review.id;
-
-      return (
-        <div key={review.id} className="movie-review">
-          <div className="movie-review-item">
-            <h3 className="movie-review-title">
-              "{`${clearText.slice(0, 20)}...`}"
-            </h3>
-            <div className="movie-review-item--author-block">
-              <Avatar
-                src={review.avatarPath || undefined}
-                alt={review.author}
-              >
-                {!review.avatarPath && review.author.charAt(0).toUpperCase()}
-              </Avatar>
-              <p className="movie-review-author">
-                {review.author}
-                <br />
-                {isExpanded
-                  ? clearText
-                  : `${clearText.slice(0, 120)}.. `}
-                {!isExpanded && clearText.length > 120 && (
-                  <span
-                    className="movie-review-author--link-more"
-                    // style={{ color: "blue", cursor: "pointer", marginLeft: "5px" }}
-                    onClick={() => setExpandedReviewId(review.id)}
-                  >
-                    See More
-                  </span>
-                )}
-              </p>
-            </div>
+      {reviews.length > 1 && (
+        <div className="movie-reviews">
+          <div className="movie-row">
+            <h2 className="movie-section-title">User Reviews</h2>
           </div>
-        </div>
-      );
-    })}
-  </div>
-)}
+          {reviews.slice(0, 3).map(review => {
+            const clearText = stripHTML(review.content)
+            const isExpanded = expandedReviewId === review.id
 
+            return (
+              <div key={review.id} className="movie-review">
+                <div className="movie-review-item">
+                  <h3 className="movie-review-title">
+                    "{`${clearText.slice(0, 20)}...`}"
+                  </h3>
+                  <div className="movie-review-item--author-block">
+                    <Avatar
+                      src={review.avatarPath || undefined}
+                      alt={review.author}
+                    >
+                      {!review.avatarPath &&
+                        review.author.charAt(0).toUpperCase()}
+                    </Avatar>
+                    <p className="movie-review-author">
+                      {review.author}
+                      <br />
+                      {isExpanded ? clearText : `${clearText.slice(0, 120)}.. `}
+                      {!isExpanded && clearText.length > 120 && (
+                        <span
+                          className="movie-review-author--link-more"
+                          onClick={() => setExpandedReviewId(review.id)}
+                        >
+                          See More
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
 
       <div className="movie-actions">
         <div>
