@@ -19,36 +19,11 @@ import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
 import { scrollToHandler } from "../utils/scrollToHandler"
 import { MovieData, MoviesData, MoviesState } from "../types/movie"
-import { CategoryTypes, MediaTypes, VibeMoviesData, VibeTypes } from "../types/vibe"
+import { CategoryTypes, MediaTypes, VibeMovie, VibeMoviesData, VibeTypes } from "../types/vibe"
 import { TitleData } from "../types/title"
 import { FetchGalleryParams, GalleryData } from "../types/gallery"
 import { TopListMovieResponse, TopListTypes } from "../types/TopListTypes"
 
-// const fetchMoviesByVibe = createAsyncThunk<
-//   VibeMoviesData,
-//   {
-//     data: {
-//       vibe?: VibeTypes;
-//       years?: string;
-//       type: MediaTypes;
-//       categories?: string[];
-//     };
-//     page?: number;
-//     size?: number;
-//     sort?: string[];
-//   },
-//   { rejectValue: string }
-// >(
-//   "movies/fetchMoviesByVibe",
-//   async ({ data, page = 0, size = 7, sort = ["rating"] }, { rejectWithValue }) => {
-//     try {
-//       const response = await getMoviesByVibe(data, page, size, sort);
-//       return response;
-//     } catch (err) {
-//       return rejectWithValue("Failed to load movies by vibe");
-//     }
-//   }
-// );
 
 const fetchMoviesByVibe = createAsyncThunk<
   VibeMoviesData,
@@ -63,10 +38,9 @@ const fetchMoviesByVibe = createAsyncThunk<
     size?: number;
     sort?: string[];
   },
-  { rejectValue: string[] } // <- change to array of strings
->(
+  { rejectValue: string[] }> (
   "movies/fetchMoviesByVibe",
-  async ({ data, page = 0, size = 7, sort = ["rating"] }, { rejectWithValue }) => {
+  async ({ data, page = 0, size = 8, sort = ["rating"] }, { rejectWithValue }) => {
     try {
       const response = await getMoviesByVibe(data, page, size, sort);
       return response;
@@ -160,6 +134,14 @@ const moviesSlice = createSlice({
     },
     setSelectedMovie(state, action: PayloadAction<MovieData | null>) {
       state.selectedMovie = action.payload;
+    },
+    setVibeMovie(state, action: PayloadAction<VibeMoviesData | null>) {
+      console.log(`setVibeMovie`);
+      
+      console.log(action.payload);
+      
+        state.vibe = action.payload ? action.payload  : null;
+      
     },
 
   },
@@ -329,4 +311,4 @@ export {
   fetchTopListMovies,
 }
 
-export const { setLoading, setSelectedMovie } = moviesSlice.actions
+export const { setLoading, setSelectedMovie, setVibeMovie } = moviesSlice.actions

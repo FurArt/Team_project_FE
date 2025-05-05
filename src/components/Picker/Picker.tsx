@@ -145,7 +145,9 @@ const Picker = () => {
       if (error) {
         return
       }
-      navigate(`../movie`)
+      // navigate(`../movie`)
+      navigate(`../movie?vibe=${filters.vibe}`)
+
     })
 
     scrollToHandler(e)

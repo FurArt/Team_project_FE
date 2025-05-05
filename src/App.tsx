@@ -20,6 +20,7 @@ import {
   fetchMoviesPoster,
   fetchTopListMovies,
   setLoading,
+  setVibeMovie,
 } from "./app/store"
 import Movie from "./components/Movie/Movie"
 import Loading from "./components/Loading/Loading"
@@ -30,6 +31,7 @@ import { RoutesPath } from "./utils/enumRouts"
 import TopLists from "./components/TopLists/TopLists"
 import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopList"
 import { TopListTypes } from "./types/TopListTypes"
+import { VibeMovie, VibeMoviesData } from "./types/vibe"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -77,6 +79,14 @@ const App = () => {
         dispatch(fetchMovieById(idMovie))
       }
     }
+
+    if (location.pathname === "/recommendations") {
+      const storedContent = sessionStorage.getItem("vibeData")
+      const initialContent = storedContent
+        ? (JSON.parse(storedContent) as VibeMoviesData)
+        : null
+      dispatch(setVibeMovie(initialContent))
+    }
   }, [])
 
   useEffect(() => {
@@ -113,8 +123,12 @@ const App = () => {
 
     if (location.pathname === "/gallery") {
       dispatch(fetchMoviesGllery({}))
-      const search = params.get("search")
-      console.log(search);
+    }
+
+    if (location.pathname === "/recommendations") {
+      if (movies.vibe?.content) {
+        sessionStorage.setItem("vibeData", JSON.stringify(movies?.vibe))
+      }
     }
   }, [location.pathname])
 
