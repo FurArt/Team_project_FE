@@ -5,7 +5,7 @@ interface RandomNumbersState {
 }
 
 const initialState: RandomNumbersState = {
-  usedNumbers: [], // Make sure this is always initialized
+  usedNumbers: [], 
 };
 
 const randomNumbersSlice = createSlice({

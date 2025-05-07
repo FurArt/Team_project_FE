@@ -9,7 +9,6 @@ import { RootState, setLoading } from "../../app/store"
 import { RoutesPath } from "../../utils/enumRouts"
 import { MovieData } from "../../types/movie"
 import { Avatar } from "@mui/material"
-// import { Avatar } from "@base-ui-components/react/avatar"
 
 type Genre = {
   id: string
@@ -40,7 +39,6 @@ const Movie = () => {
     if (typeof text !== "string") return ""
     return text.replace(/<\/?[a-z][\s\S]*?>/gi, "")
   }
-  // const movieShow = movies?.[numberRandomMovie] || []
 
   function isMovieArray(movie: unknown): movie is MovieData[] {
     return Array.isArray(movie) && movie.length > 0
@@ -49,8 +47,6 @@ const Movie = () => {
   const movieShow = isMovieArray(movies.selectedMovie)
     ? movies.selectedMovie[0]
     : movies.selectedMovie
-
-  // const movieShow = movies.selectedMovie
 
   const {
     actors = [],
@@ -75,6 +71,10 @@ const Movie = () => {
     navigate("../")
   }
 
+  const handleAnother = () => {
+    console.log(`click`)
+  }
+
   useEffect(() => {
     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
   }, [usedNumbers])
@@ -95,9 +95,11 @@ const Movie = () => {
     navigate(`../${RoutesPath.RECOMMENDATIONS}`)
   }
 
-  return movies.loading ? (
-    <Loading />
-  ) : (
+  // return movies.loading ? (
+  //   <Loading />
+  // ) : (
+
+  return (
     <div className="movie">
       <div className="movie-content">
         <div className="movie-header">
@@ -121,13 +123,12 @@ const Movie = () => {
               <p className="movie-description item-2">
                 {isOverviewExpanded ? overview : `${overview.slice(0, 550)}`}
                 {overview.length > 550 && (
-
-                <span
-                  className="movie-description--link-more"
-                  onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
-                >
-                  {isOverviewExpanded ? "See Less" : ".. See More"}
-                </span>
+                  <span
+                    className="movie-description--link-more"
+                    onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
+                  >
+                    {isOverviewExpanded ? "See Less" : ".. See More"}
+                  </span>
                 )}
               </p>
 
@@ -202,40 +203,6 @@ const Movie = () => {
         </div>
       </div>
 
-      {/* {reviews.length > 1 && (
-        <div className="movie-reviews">
-          <div className="movie-row">
-            <h2 className="movie-section-title">User Reviews</h2>
-          </div>
-          {reviews.slice(0, 3).map(review => {
-            let clerText = stripHTML(review.content)
-            return (
-              <div className="movie-review">
-                <div key={review.id} className="movie-review-item">
-                  <h3 className="movie-review-title">
-                    "{`${clerText.slice(0, 20)}...`}"
-                  </h3>
-                  <div className="movie-review-item--author-block">
-                    <Avatar
-                      src={review.avatarPath || undefined}
-                      alt={review.author}
-                    >
-                      {!review.avatarPath &&
-                        review.author.charAt(0).toUpperCase()}
-                    </Avatar>
-                    <p className="movie-review-author">
-                      {review.author}
-                      <br />
-                      {clerText.slice(0, 120) + ".."}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      )} */}
-
       {reviews.length > 1 && (
         <div className="movie-reviews">
           <div className="movie-row">
@@ -282,13 +249,18 @@ const Movie = () => {
 
       <div className="movie-actions">
         <div>
+          {movies.vibe && (
+            <button
+              onClick={handleRecommend}
+              className="movie-button movie-button--secondary"
+            >
+              EXPLORE LIST RECOMMENDATION
+            </button>
+          )}
           <button
-            onClick={handleRecommend}
+            onClick={handleAnother}
             className="movie-button movie-button--secondary"
           >
-            EXPLORE LIST RECOMMENDATION
-          </button>
-          <button className="movie-button movie-button--secondary">
             GET ANOTHER RECOMMENDATION
           </button>
         </div>
