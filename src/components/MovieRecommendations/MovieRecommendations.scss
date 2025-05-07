@@ -1,0 +1,120 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+.conteiner {
+  background-image: url(../../images/stats-bg.jpg);
+  @extend %AG_H4;
+}
+
+.movie-recommendations {
+  color: white;
+  padding: 20px;
+  @extend %CENTRE_WITH;
+  &-link {
+    color: $main-text-color;
+    text-decoration: none;
+    @extend %AG_H6;
+    line-height: 40px;
+    border-bottom: 2px solid $main-text-color;
+    width: fit-content;
+    display: block;
+    padding-inline: 3px;
+    margin: 0 0 24px 0;
+  }
+  text-align: left;
+  h2 {
+    @extend %AG_H1;
+  }
+}
+
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.movie-card {
+  background: $heder-black;
+  padding: 10px;
+  border-radius: 8px;
+  width: 362px;
+  text-align: center;
+  padding: 24px 24px 9px;
+  p {
+    @extend %AG_H6;
+    color: $hover
+  }
+}
+
+.movie-card img {
+  width: 314px;
+  border-radius: 8px;
+}
+
+.movie-info {
+  justify-content: space-between;
+  margin-top: 10px;
+  text-align: left;
+  width: 100%;
+  h3 {
+    @extend %AG_H5;
+  }
+  p {
+    color: $hover
+  }
+}
+
+.rating {
+  @extend %AG_H6;
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 105%;
+    top: 3px;
+    width: 17px;
+    height: 17px;
+    background: url(../../images/icon/star.svg) no-repeat center;
+  }
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .MuiPagination-outlined {
+  }
+  .MuiPagination-root {
+  }
+  .MuiPagination-text {
+  }
+  .MuiPagination-ul {
+  }
+  .MuiPaginationItem-root {
+    .MuiTypography-root {
+      @extend %AG_H6;
+    }
+    margin: 87px auto 56px;
+    color: $main-text-color;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+    &:hover {
+      background-color: $main-text-color;
+      color: $heder-black;
+    }
+    &.Mui-selected {
+      background-color: $main-text-color;
+      color: $heder-black;
+      &:hover {
+        color: $main-text-color;
+        background-color: $heder-black;
+      }
+    }
+  }
+}

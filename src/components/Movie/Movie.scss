@@ -1,0 +1,377 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+$border-radius: 8px;
+%LEFT_LINE {
+  border-left: solid 2px $red;
+}
+
+%CENTRE_WITH {
+  margin: 0 auto;
+  width: 1140px;
+}
+
+.movie {
+  background: url("../../images/movie-item/back-texture.jpg") no-repeat;
+  background-size: cover;
+  color: $main-text-color;
+  @extend %AG_H5;
+  padding-bottom: 70px;
+  &-row {
+    margin: 56px 0 48px;
+    display: flex;
+    justify-content: space-between;
+    .movie-link {
+      margin: 12px 0 12px 0;
+    }
+  }
+
+  &-header {
+    padding: 32px 0 24px;
+    // margin-bottom: 20px;
+    @extend %CENTRE_WITH;
+  }
+
+  &-link {
+    color: $main-text-color;
+    text-decoration: none;
+    @extend %AG_H6;
+    line-height: 40px;
+    border-bottom: 2px solid $main-text-color;
+    width: fit-content;
+    display: block;
+    padding-inline: 3px;
+    margin: 0 0 24px 0;
+  }
+
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: fit-content;
+  }
+
+  &-page-title {
+    @extend %AG_H1;
+  }
+  &-content {
+    background: url("../../images/movie-item/back-photo-movie-info.jpg")
+      no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: fit-content;
+    padding: 0 40px 125px;
+  }
+
+  &-coteiner-info {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 3fr;
+    @extend %CENTRE_WITH;
+  }
+
+  &-poster {
+    width: 100%;
+    img {
+      width: 265px;
+      border-radius: $border-radius;
+    }
+  }
+
+  &-details {
+    padding-inline-start: 20px;
+    @extend %LEFT_LINE;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 100px);
+    gap: 10px;
+    
+  }
+
+  &-title {
+    @extend %AG_H2;
+    margin-bottom: 10px;
+  }
+
+  .movie-description {
+    @extend %AG_H5;
+    font-size: 14px;
+    color: $hover;
+  
+    &--link-more {
+      cursor: pointer;
+      color: $main-text-color;
+      
+      &:hover {
+        color: $stroke;
+      }
+    }
+  }
+  
+
+  &-tags {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  &-tag {
+    background: transparent;
+    color: $hover;
+    border: 1px solid $stroke;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    text-transform: lowercase;
+    width: fit-content;
+    white-space: nowrap;
+  }
+
+  &-meta {
+    display: flex;
+
+    font-size: 14px;
+    color: $hover;
+    margin: 10px 0 25px;
+    @extend %AG_H5;
+    &-item {
+      padding-inline: 20px;
+      @extend %LEFT_LINE;
+    }
+  }
+
+  &-section-title {
+    @extend %AG_H2;
+    @extend %LEFT_LINE;
+    padding-inline: 20px;
+
+    line-height: 56px;
+    text-transform: uppercase;
+  }
+
+  &-button {
+    cursor: pointer;
+    background: $main-text-color;
+    width: 265px;
+    height: 48px;
+    border: none;
+    border-radius: $border-radius;
+    @extend %AG_H4;
+
+    a {
+      // padding: 10px 15px;
+      font-size: 14px;
+      // margin-top: 10px;
+      color: $heder-black;
+      position: relative;
+      @extend %AG_H4;
+      margin: 0 auto;
+      display: block;
+      width: 160px;
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 25%;
+        left: 0;
+        background: url("../../images/icon/icon-arrow-right.svg") no-repeat;
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    &--secondary {
+      background: transparent;
+      border-bottom: 1px solid $button-hover;
+      margin-right: 10px;
+      color: $main-text-color;
+      border-radius: 0;
+      position: relative;
+      padding-left: 40px;
+      width: 360px;
+      height: 54px;
+      // line-height: 54px;
+      &::before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        background: url(../../images/icon/expand.svg) no-repeat center;
+
+        position: absolute;
+        left: 40px;
+        top: 16px;
+      }
+      &:last-child {
+        &::before {
+          content: "";
+          // width: 20px;
+          // height: 20px;
+          background: url(../../images/icon/arrows_reload_01.svg) no-repeat
+            center;
+          // position: absolute;
+          // left: 40px;
+        }
+        margin-top: 24px;
+      }
+    }
+  }
+  .movie-button--primary {
+    @extend %BTN-bg-grad;
+    color: $main-text-color;
+  }
+
+  &-photos {
+    @extend %CENTRE_WITH;
+  }
+
+  &-photo-list {
+    display: flex;
+    gap: 10px;
+  }
+
+  &-photo {
+    width: 265px;
+    height: 311px;
+    border-radius: $border-radius;
+    // background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+
+    &--more {
+      @extend %EXTRA_Text;
+    }
+  }
+
+  &-cast {
+    @extend %CENTRE_WITH;
+  }
+
+  &-cast-list {
+    display: flex;
+    gap: 20px;
+  }
+
+  &-cast-item {
+    display: flex;
+    text-align: left;
+    div {
+      height: inherit;
+      padding: 45px 16px 0;
+    }
+  }
+
+  &-cast-photo {
+    // width: 140px;
+    // height: auto;
+    // resize: horizontal;
+    // border-radius: 50%;
+
+    width: 140px;
+    height: 140px; // Set both width and height to 140px
+    object-fit: cover; // Ensures the image scales correctly to fit the box while maintaining its aspect ratio
+    border-radius: 50%; // Optional: to make it circular
+    resize: horizontal;
+  }
+
+  &-cast-name {
+    @extend %AG_H4;
+
+    display: block;
+    font-size: 14px;
+    color: $main-text-color;
+  }
+
+  &-cast-role {
+    @extend %AG_H5;
+    color: $hover;
+  }
+
+  &-reviews {
+    @extend %CENTRE_WITH;
+
+    margin-top: 56px;
+  }
+
+  &-review {
+    background: rgba(#14181a, 0.6);
+    padding: 15px;
+    border-radius: $border-radius;
+
+    margin-bottom: 15px;
+    // border: line;
+    .MuiAvatar-root {
+      margin: 10px 5px 0 0;
+    }
+
+    &-item--author-block {
+      display: flex;
+    }
+    .movie-review-author--link-more {
+      @extend %AG_H5;
+      color: $stroke;
+      cursor: pointer;
+      &:hover {
+        color: $main-text-color;
+      }
+    }
+    .movie-section-title {
+      margin-bottom: 48px;
+      display: block;
+    }
+  }
+
+  &-review-text {
+    font-size: 14px;
+    color: $hover;
+  }
+
+  &-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    @extend %CENTRE_WITH;
+    color: $main-text-color;
+    div {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.item-1 {
+  grid-column: span 2;
+}
+
+.item-2 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.item-3 {
+  // grid-column: 3 span 2;
+  grid-column: 3 / span 2;
+
+  grid-row: 1 / span 2;
+}
+
+.photo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

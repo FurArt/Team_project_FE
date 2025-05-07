@@ -1,0 +1,22 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.made-in-ukraine {
+  background: url(/Team_project_FE/src/images/icon/ukraine.png) no-repeat;
+background-position: 50% 50%;
+background-size: cover;
+
+  position: fixed;
+
+  top: 65%;
+  right: 2%;
+  width: 130px;
+  height: 130px;
+  z-index: 10000;
+
+  @include respond(mobile) {
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+  }
+}

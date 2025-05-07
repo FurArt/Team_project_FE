@@ -1,0 +1,213 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.gallery-header {
+  width: 100%;
+  padding: 67px 0 0;
+  color: $main-text-color;
+  text-align: center;
+  background-image: url(../../images/gallery-header-bg.jpg);
+  @extend %AG_H2;
+  .input-wrapper {
+    position: relative;
+    width: 600px;
+    display: block;
+    margin: 0 auto;
+  }
+  &-title {
+    margin: 0 auto 24px;
+    @extend %AG_H1;
+  }
+  &-description {
+    display: block;
+    margin: 0 auto 24px;
+    width: 60%;
+  }
+  &-search-input {
+    outline: none;
+    width: 590px;
+    height: 62px;
+    padding: 16px 40px 16px;
+    border: solid $heder-black 1px;
+    border-radius: 8px;
+    background: rgba(#fff, 0.8);
+    outline-color: rgba(#fff, 0.8);
+
+    position: relative;
+
+    @extend %AG_H5;
+    z-index: 0;
+  }
+  &-search-icon {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url(../../images/icon/search-black.svg) no-repeat;
+    right: 010px;
+    top: 12px;
+    padding: 20px;
+    background-position: 14px;
+    cursor: pointer;
+  }
+}
+
+.conteiner {
+  background-image: url(../../images/stats-bg.jpg);
+  @extend %AG_H4;
+}
+
+.gallery-page {
+  color: white;
+  padding: 20px;
+  @extend %CENTRE_WITH;
+  &--btn {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    @extend %AG_H5;
+    text-align: center;
+    margin-top: 5px;
+  }
+  &--btn-primary {
+    width: 264px;
+    height: 56px;
+    @extend %BTN-bg-grad;
+    @extend %AG_H5;
+    color: #fff;
+    margin-top: 30px;
+  }
+
+  &--filters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: 10px;
+    gap: 20px;
+    @extend %AG_H4;
+
+    // text-align: left;
+    label {
+      @extend %AG_H4;
+      
+    }
+    label:last-child{
+      width: 160px;
+    }
+  }
+  &-link {
+    color: $main-text-color;
+    text-decoration: none;
+    @extend %AG_H6;
+    line-height: 40px;
+    border-bottom: 2px solid $main-text-color;
+    width: fit-content;
+    display: block;
+    padding-inline: 3px;
+    margin: 0 0 24px 0;
+  }
+  text-align: left;
+  h2 {
+    @extend %AG_H1;
+  }
+}
+
+.movies-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.movie-card {
+  background: $heder-black;
+  padding: 10px;
+  border-radius: 8px;
+  width: 265px;
+  text-align: center;
+  padding: 24px 24px 9px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.005);
+    border: 1px solid $main-text-color;
+  }
+  &:focus {
+    border: 1px solid $button-hover;
+  }
+  p {
+    @extend %AG_H6;
+    text-align: left;
+  }
+}
+
+.movie-card img {
+  width: 314px;
+  border-radius: 8px;
+}
+
+.movie-info {
+  justify-content: space-between;
+  margin-top: 10px;
+  text-align: left;
+  display: flex;
+  h3 {
+    @extend %AG_H5;
+  }
+}
+
+.rating {
+  @extend %AG_H6;
+  position: relative;
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 105%;
+    top: 3px;
+    width: 17px;
+    height: 17px;
+    background: url(../../images/icon/star.svg) no-repeat center;
+  }
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .MuiPagination-outlined {
+  }
+  .MuiPagination-root {
+  }
+  .MuiPagination-text {
+  }
+  .MuiPagination-ul {
+  }
+  .MuiPaginationItem-root {
+    .MuiTypography-root {
+      @extend %AG_H6;
+    }
+    margin: 87px auto 56px;
+    color: $main-text-color;
+    transition:
+      background-color 0.3s ease,
+      transform 0.2s ease;
+    &:hover {
+      background-color: $main-text-color;
+      color: $heder-black;
+    }
+    &.Mui-selected {
+      background-color: $main-text-color;
+      color: $heder-black;
+      &:hover {
+        color: $main-text-color;
+        background-color: $heder-black;
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.scroll-cont {
+  position: relative;
+}
+
+.scroll-button {
+  // margin: 0 36% 0 0;
+  position: absolute;
+  right: 36%;
+  width: 33%;
+  height: 77px;
+  @extend %BTN-bg-grad;
+  opacity: 1;
+
+  border-radius: 12px;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+  @include respond(tablet) {
+    right: 25%;
+  }
+  @include respond(mobile) {
+    right: 5%;
+    width: 85%;
+    height: 44px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &__circle {
+    position: absolute;
+
+    &::before {
+      opacity: 1;
+      left: -10px;
+      z-index: 1;
+      position: absolute;
+      top: -28px;
+      content: "";
+      display: block;
+      width: 80px;
+      height: 80px;
+      background: url("../../images/icon/start-button.png");
+      @include respond(mobile) {
+        width: 44px;
+        height: 44px;
+        background-size: cover;
+        top: -13px;
+        }
+      // border: 3px #FFF solid;
+    }
+  }
+
+  &__text {
+    flex-grow: 1;
+    margin-left: 20px;
+    @extend %AG_H4;
+  }
+}

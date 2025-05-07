@@ -1,0 +1,15 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.loading {
+  width: 100%;
+  height: 68vh;
+  display: flex;
+  flex-direction: column;
+  background: url(../../images/load-bg.jpg) no-repeat center;
+  background-size: cover; 
+  @extend %EXTRA_Text;
+  text-align: center;
+  justify-content: center;
+  color: $main-text-color;
+}

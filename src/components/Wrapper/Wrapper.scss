@@ -1,0 +1,57 @@
+@import '../../features/styles/variables';
+
+body {
+  font-family: Inter, serif;
+  background-color: $page-back-color;
+  font-style: normal;
+  font-weight: normal;
+  scroll-behavior: smooth;
+}
+
+main {
+  width: 100%;
+  position: relative;
+}
+$items: 70;
+$columns: 14;
+$row: 4;
+.conteiner-video {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  width: 99.5%;
+  position: sticky;
+  top: 0;
+  // z-index: -1;
+  height: $height_wrapper;
+}
+.wrapper {
+  // position: sticky;
+  // top: 0;
+  min-height: 50vh;
+  &-img {
+    display: block;
+    width: 107%;
+    height: auto;
+    transition: transform 0.2s ease-in-out; 
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    &:hover{
+      transform: scale(1.1);
+    }
+
+    @for $i from 1 through $items {
+      &-#{$i} {
+        background-image: url('../../images/movie/#{$i}.jpg');
+
+        @if $i % 7 == 0 { 
+          grid-row: 100%;
+        }
+        @if $i % 11 == 0 { 
+          grid-row: 115%;
+        }
+        
+      }
+    }
+  }
+}

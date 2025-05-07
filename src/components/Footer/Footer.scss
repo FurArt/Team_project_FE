@@ -1,0 +1,39 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+      
+
+.footer {
+  @extend %AG_H4;
+  background-color: $heder-black;
+  width: 100%;
+  min-height: 150px;
+
+  padding: 13px 0 30px;
+  color: $main-text-color;
+  border-top: 1px solid $main-text-color;
+  &-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  &-logo {
+    text-align: center;
+    display: block;
+    background: url(../../images/icon/Logo.svg) no-repeat;
+    width: 151px;
+      height: 66px;
+    margin: 0 auto;
+  }
+  &-menu {
+    margin: 15px auto;
+    width: 175px;
+    display: flex;
+    justify-content: space-around;
+    &-link {
+      @extend %AG_H5;
+      color: $stroke;
+      &:hover {
+        color: $main-text-color;
+      }
+    }
+  }
+}
