@@ -3,14 +3,15 @@
 
 .scroll-cont {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .scroll-button {
-  // margin: 0 36% 0 0;
   position: absolute;
-  right: 36%;
-  width: 33%;
-  height: 77px;
+  margin: 0 auto;
+  max-width: 432px;
+  height: 76px;
   @extend %BTN-bg-grad;
   opacity: 1;
 
@@ -29,8 +30,8 @@
     right: 25%;
   }
   @include respond(mobile) {
-    right: 5%;
-    width: 85%;
+
+    min-width: 327px;
     height: 44px;
   }
 
