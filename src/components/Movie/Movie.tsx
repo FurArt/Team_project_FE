@@ -5,23 +5,16 @@ import GalleryComponent from "./Gallery/GalleryComponent"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Loading from "../Loading/Loading"
 import { useSelector } from "react-redux"
-import { RootState, setLoading } from "../../app/store"
+import { fetchMovieByLuck, RootState, setLoading } from "../../app/store"
 import { RoutesPath } from "../../utils/enumRouts"
 import { MovieData } from "../../types/movie"
 import { Avatar } from "@mui/material"
-
-type Genre = {
-  id: string
-  name: string
-}
+import { scrollToHandler } from "../../utils/scrollToHandler"
 
 const Movie = () => {
   const dispatch = useAppDispatch()
   const { movies } = useAppSelector(state => state)
-
-  useEffect(() => {
-    console.log(movies)
-  })
+  const loading = movies.loading
 
   const usedNumbers = useSelector(
     (state: RootState) => state.randomNumbers.usedNumbers,
@@ -71,10 +64,6 @@ const Movie = () => {
     navigate("../")
   }
 
-  const handleAnother = () => {
-    console.log(`click`)
-  }
-
   useEffect(() => {
     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
   }, [usedNumbers])
@@ -95,9 +84,16 @@ const Movie = () => {
     navigate(`../${RoutesPath.RECOMMENDATIONS}`)
   }
 
-  // return movies.loading ? (
-  //   <Loading />
-  // ) : (
+  const handleLuckClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (loading) {
+      return
+    }
+    e.preventDefault()
+
+    dispatch(fetchMovieByLuck(1))
+    navigate(`../${RoutesPath.MOVIE}/`)
+    scrollToHandler(null)
+  }
 
   return (
     <div className="movie">
@@ -155,7 +151,7 @@ const Movie = () => {
               <div className="movie-meta-item">
                 <strong>IMDB Rating:</strong>
                 <br />
-                {rating}
+                {rating.toFixed(2)}
               </div>
             </div>
             <button className="movie-button">
@@ -211,35 +207,38 @@ const Movie = () => {
           {reviews.slice(0, 3).map(review => {
             const clearText = stripHTML(review.content)
             const isExpanded = expandedReviewId === review.id
+            const { id, avatarPath, author } = review
 
             return (
-              <div key={review.id} className="movie-review">
-                <div className="movie-review-item">
-                  <h3 className="movie-review-title">
-                    "{`${clearText.slice(0, 20)}...`}"
-                  </h3>
-                  <div className="movie-review-item--author-block">
-                    <Avatar
-                      src={review.avatarPath || undefined}
-                      alt={review.author}
-                    >
-                      {!review.avatarPath &&
-                        review.author.charAt(0).toUpperCase()}
-                    </Avatar>
-                    <p className="movie-review-author">
-                      {review.author}
-                      <br />
-                      {isExpanded ? clearText : `${clearText.slice(0, 120)}.. `}
-                      {!isExpanded && clearText.length > 120 && (
-                        <span
-                          className="movie-review-author--link-more"
-                          onClick={() => setExpandedReviewId(review.id)}
-                        >
-                          See More
-                        </span>
-                      )}
-                    </p>
+              <div className="movie-reviews-row">
+                <div key={id} className="movie-review">
+                  <div className="movie-review-item">
+                    <div className="movie-review-item--author-block">
+                      <Avatar src={avatarPath || undefined} alt={author}>
+                        {!avatarPath && author.charAt(0).toUpperCase()}
+                      </Avatar>
+                      <p className="movie-review-author">
+                        {author}
+                        <br />
+                        {isExpanded
+                          ? clearText
+                          : `${clearText.slice(0, 120)}.. `}
+                        {!isExpanded && clearText.length > 120 && (
+                          <span
+                            className="movie-review-author--link-more"
+                            onClick={() => setExpandedReviewId(id)}
+                          >
+                            See More
+                          </span>
+                        )}
+                      </p>
+                    </div>
                   </div>
+                </div>
+                <div className="movie-review movie-review--rating">
+                  <p>{`${rating}/10`}</p>
+                  
+                  <span>IMDb </span>
                 </div>
               </div>
             )
@@ -257,12 +256,15 @@ const Movie = () => {
               EXPLORE LIST RECOMMENDATION
             </button>
           )}
-          <button
-            onClick={handleAnother}
-            className="movie-button movie-button--secondary"
-          >
-            GET ANOTHER RECOMMENDATION
-          </button>
+
+          {!movies.vibe && (
+            <button
+              onClick={handleLuckClick}
+              className="movie-button movie-button--secondary"
+            >
+              GET ANOTHER RECOMMENDATION
+            </button>
+          )}
         </div>
         <button className="movie-button movie-button--primary">
           FIND THE WAY TO WATCH →

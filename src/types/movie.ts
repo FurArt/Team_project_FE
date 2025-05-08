@@ -20,7 +20,7 @@ export interface MovieData {
     name: string
     photo: string
     character: string
-
+    rating: string
   }>
 
   photos: string[]

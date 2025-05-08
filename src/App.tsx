@@ -20,6 +20,7 @@ import {
   fetchMoviesPoster,
   fetchTopListMovies,
   setLoading,
+  setSelectedMovie,
   setVibeMovie,
 } from "./app/store"
 import Movie from "./components/Movie/Movie"
@@ -32,6 +33,7 @@ import TopLists from "./components/TopLists/TopLists"
 import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopList"
 import { TopListTypes } from "./types/TopListTypes"
 import { VibeMovie, VibeMoviesData } from "./types/vibe"
+import { MovieData } from "./types/movie"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -49,6 +51,10 @@ const App = () => {
   useEffect(() => {}, [dispatch])
 
   useEffect(() => {
+
+    console.log(`itwork`);
+    dispatch(fetchMoviesAllTitle())
+    
     if (location.pathname === "/show-top-lists") {
       const params = new URLSearchParams(location.search)
       const id = params.get("id") as TopListTypes
@@ -68,13 +74,22 @@ const App = () => {
       dispatch(fetchMoviesGllery({ years: year, type: type }))
     }
 
-    dispatch(fetchMoviesAllTitle())
-
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
     }
 
-    if (location.pathname === "/movie") {
+    if (location.pathname === "/movie/") {
+      const storedContent = sessionStorage.getItem("selectedMovie")
+      const initialContent = storedContent
+        ? (JSON.parse(storedContent) as MovieData[])
+        : null
+        console.log(`initialContent`);
+        console.log();
+        
+        if (Array.isArray(initialContent)) {
+        dispatch(setSelectedMovie(initialContent[0]))
+        
+      }
       if (isMovieLoaded && idMovie) {
         dispatch(fetchMovieById(idMovie))
       }
@@ -118,6 +133,8 @@ const App = () => {
         const params = new URLSearchParams()
         params.set("idMovie", String(movies.selectedMovie.id))
         navigate(`/movie?${params.toString()}`, { replace: true })
+        console.log(movies.selectedMovie?.id);
+        
       }
     }
 
@@ -129,6 +146,10 @@ const App = () => {
       if (movies.vibe?.content) {
         sessionStorage.setItem("vibeData", JSON.stringify(movies?.vibe))
       }
+    }
+
+    if (movies?.selectedMovie) {
+      sessionStorage.setItem("selectedMovie", JSON.stringify(movies?.selectedMovie))
     }
   }, [location.pathname])
 

@@ -136,12 +136,7 @@ const moviesSlice = createSlice({
       state.selectedMovie = action.payload;
     },
     setVibeMovie(state, action: PayloadAction<VibeMoviesData | null>) {
-      console.log(`setVibeMovie`);
-      
-      console.log(action.payload);
-      
         state.vibe = action.payload ? action.payload  : null;
-      
     },
 
   },

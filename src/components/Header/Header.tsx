@@ -47,7 +47,7 @@ const Header = () => {
     e.preventDefault()
 
     dispatch(fetchMovieByLuck(1))
-    navigate(`${RoutesPath.MOVIE}/`)
+    navigate(`../${RoutesPath.MOVIE}/`)
     closeMenu(e);
     scrollToHandler(null);
 
