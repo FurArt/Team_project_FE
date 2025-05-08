@@ -176,51 +176,6 @@ const Header = () => {
 
         </div>
         <div className="search">
-          {/* <Autocomplete
-
-            options={movies}
-            getOptionLabel={(option) => option.title}
-            onChange={handleSearchChange}
-            renderInput={(params) => <TextField {...params} label="Search Movies" variant="outlined" />}
-            noOptionsText="No movie"
-            sx={{
-              backgroundColor: '#d9d9d9',
-              borderRadius: '8px',
-              width: 300,
-              color: '#e83f14',
-              zIndex: 1000000,
-              "& .MuiInputLabel-root": {
-                display: "none",
-                "& .MuiFormLabel-root ": {
-                  color: "#fff",
-                },
-              },
-              "& .MuiOutlinedInput-root": {
-                zIndex: 1000000,
-
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                  borderRadius: '8px',
-
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                  borderRadius: '8px',
-                },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#fff",
-                  borderRadius: '8px',
-
-                },
-                color: '#000',
-
-              },
-              "& .MuiAutocomplete-option": {
-                // color: '#000',
-                color: '#e83f14',
-              }
-            }}
-          /> */}
           <Input
             placeholder="Search"
             value={search}

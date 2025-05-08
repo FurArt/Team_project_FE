@@ -197,6 +197,9 @@ $images: (
 .movie-picker--btn-primary {
   @extend %BTN-bg-grad;
   color: #fff;
+  &:disabled {
+    background: $stroke;
+  }
 }
 .movie-picker--btn-secondary {
   background: $main-text-color;
@@ -204,12 +207,6 @@ $images: (
   border-radius: 8;
   color: $heder-black;
 }
-
-// .movie-picker--vibe-btn .active-vibe {
-//   background: #fff;
-//   color: #14181a;
-// }
-
 
 .dialog-portal {
   position: fixed;

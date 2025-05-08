@@ -124,7 +124,7 @@ const Picker = () => {
     setFilters(prev => ({ ...prev, categories: selectedCategories }));
   }
 
-  const handleLuckClick = (e: React.MouseEvent) => {
+  const handlePickClick = (e: React.MouseEvent) => {
     e.preventDefault()
     if (!filters.vibe) {
       setError("Add_vibe")
@@ -145,14 +145,15 @@ const Picker = () => {
       if (error) {
         return
       }
-      // navigate(`../movie`)
       navigate(`../movie?vibe=${filters.vibe}`)
 
     })
 
     scrollToHandler(e)
   }
-
+  const isPick = () => {
+    return !filters.vibe
+  }
   return (
     <>
       <section className="picker" id="picker">
@@ -213,7 +214,8 @@ const Picker = () => {
           </div>
           <button
             className="movie-picker--btn movie-picker--btn-primary"
-            onClick={e => handleLuckClick(e)}
+            onClick={e => handlePickClick(e)}
+            disabled={isPick()}
           >
             PICK MY FILM
           </button>

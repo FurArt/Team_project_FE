@@ -6,4 +6,5 @@ export enum RoutesPath {
   RECOMMENDATIONS = "recommendations",
   TOPLISTS = "top-lists",
   SHOWTOPLISTS = "show-top-lists",
+  ABOUTUS="about-us",
 }

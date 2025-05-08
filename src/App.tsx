@@ -51,10 +51,9 @@ const App = () => {
   useEffect(() => {}, [dispatch])
 
   useEffect(() => {
-
-    console.log(`itwork`);
+    console.log(`itwork`)
     dispatch(fetchMoviesAllTitle())
-    
+
     if (location.pathname === "/show-top-lists") {
       const params = new URLSearchParams(location.search)
       const id = params.get("id") as TopListTypes
@@ -77,19 +76,21 @@ const App = () => {
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
     }
-
+    
+    
     if (location.pathname === "/movie/") {
       const storedContent = sessionStorage.getItem("selectedMovie")
       const initialContent = storedContent
-        ? (JSON.parse(storedContent) as MovieData[])
-        : null
-        console.log(`initialContent`);
-        console.log();
+      ? (JSON.parse(storedContent) as MovieData)
+      : null
+      // console.log(initialContent instanceof Object )
+      if (initialContent instanceof Object ) {
+        console.log(`asd`);
+        console.log(movies);
         
-        if (Array.isArray(initialContent)) {
-        dispatch(setSelectedMovie(initialContent[0]))
-        
+        dispatch(setSelectedMovie(initialContent))
       }
+
       if (isMovieLoaded && idMovie) {
         dispatch(fetchMovieById(idMovie))
       }
@@ -133,8 +134,7 @@ const App = () => {
         const params = new URLSearchParams()
         params.set("idMovie", String(movies.selectedMovie.id))
         navigate(`/movie?${params.toString()}`, { replace: true })
-        console.log(movies.selectedMovie?.id);
-        
+        console.log(movies.selectedMovie?.id)
       }
     }
 
@@ -149,9 +149,12 @@ const App = () => {
     }
 
     if (movies?.selectedMovie) {
-      sessionStorage.setItem("selectedMovie", JSON.stringify(movies?.selectedMovie))
+      sessionStorage.setItem(
+        "selectedMovie",
+        JSON.stringify(movies?.selectedMovie),
+      )
     }
-  }, [location.pathname])
+  }, [location.pathname,  movies.selectedMovie])
 
   return (
     <>
