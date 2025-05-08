@@ -37,7 +37,7 @@ $button-hover: #ce3710;
     } @else if $breakpoint == tablet {
         @media (max-width: 1023px) and (min-width: 600px) { @content; }
     } @else if $breakpoint == mobile {
-        @media (max-width: 599px) { @content; }
+        @media (max-width: 599px) and (min-width: 375px) { @content; }
     }
 
     // @include respond(desktop) {

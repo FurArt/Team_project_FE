@@ -3,13 +3,17 @@
 
 .header-page {
   width: 100%;
-  min-height: 15vh;
+  height: 128px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: $heder-black;
   border-bottom: 1px solid $main-text-color;
+  @include respond(mobile) {
+    height: 65px;
+    
+  }
 }
 
 .top-bar {
@@ -47,10 +51,10 @@
   &-button {
     background-color: $main-text-color;
     border-radius: 10px;
-    width: 19%;
-    max-width: 300px;
+    width: 416px;
     line-height: 48px;
     @extend %AG_H4;
+
     &:hover {
       border: $button-hover 1px solid;
     }
@@ -60,11 +64,11 @@
       display: block;
       text-align: center;
       width: 100%;
-      max-width: 273px;
       &:hover {
         color: $button-hover;
         // border: $button-hover 1px solid;
       }
+
     }
   }
 }
@@ -79,6 +83,10 @@
     height: 66px;
     pointer-events: visible;
     background-size: contain;
+    @include respond(mobile) {
+      width: 79px;
+      
+    }
   }
 
   &--menu {
@@ -88,6 +96,9 @@
     background-image: url(../../images/icon/menu.png);
     background-repeat: no-repeat;
     pointer-events: visible;
+    @include respond(mobile) {
+      margin-bottom: 20px;
+    }
   }
 
   &--close {
@@ -96,6 +107,9 @@
     height: 24px;
     background-image: url(../../images/icon/close.svg);
     background-repeat: no-repeat;
+    @include respond(mobile) {
+      margin-top: 5px;
+    }
   }
 }
 
@@ -224,7 +238,8 @@
     }
 
     &-full {
-      padding: 16px;
+      padding-top: 12px;
+      padding-inline: 16px;
       display: flex;
       justify-content: space-between;
       width: 100%;
@@ -259,9 +274,7 @@
             padding: 22px;
             background-position: 14px;
             cursor: pointer;
-      }
-
-        
+      } 
     }
   }
 }
