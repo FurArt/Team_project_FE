@@ -1,6 +1,16 @@
 @import "../../features/styles/variables";
 @import "../../features/styles/typograf";
 
+body {
+
+  @include respond(mobile) {
+    background: url("../../images/mobile-background.png");
+
+
+    }
+
+}
+
 .stats {
   margin-top: $height_mood;
   position: relative;
@@ -11,44 +21,123 @@
   padding-block-end: 40px;
 
   @include respond(mobile) {
+    background: none;
     margin-top: 0;
+    padding-inline: 16px;
+
     }
+
+  &-container {
+    margin-inline: 134px;
+  }
 
   &-container,  &-content, &-arrow {
     padding: 85px 0 0;
     display: flex;
-    width: 80%;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: center;
+    // width: 80%;
+    // max-width: 1200px;
+    // margin: 0 auto;
+    // justify-content: center;
+    @include respond(mobile) {
+      padding-top: 100px;
+      margin: 0;
+      width: 100%;
+  
+      }
   }
 
   &-item {
-    width: 25%;
+    height: 121px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+
+    &-1 {
+      width: 214px;
+      @include respond(mobile) {
+        width: 80px;  
+        }
+    }
+    &-2 {
+      width: 128px;
+      margin-inline: auto;
+      @include respond(mobile) {
+        width: 80px;  
+      }
+    }
+    &-3 {
+      width: 214px;
+      @include respond(mobile) {
+        width: 125px;  
+      }
+    }
   }
 
   &-number {
     @extend %EXTRA_Text;
-    padding-inline-start: 50px;
+    &-2 {
+      @include respond(mobile) {
+        margin-inline: auto;
+        }
+    }
+    &-3 {
+      @include respond(mobile) {
+        margin-inline: auto;
+        }
+    }
+    @include respond(mobile) {
+      font-size: 40px;
+      }
+    
+    // padding-inline-start: 50px;
   }
   &-label {
-    @extend %AG_H5;
+    @extend %AG_H2;
+    @include respond(mobile) {
+      font-size: 16px;
+  
+      }
+      &-1 {
+        @include respond(mobile) {
+          width: 60%;
+          margin: 0 auto;
+          }  
+      }  
+      &-3 {
+        @include respond(mobile) {
+          width: 55%;
+          margin: 0 auto;
+          }  
+      }  
   }
 
   &-content {
     flex-direction: column;
   }
   &-text {
-    @extend %AG_H5;
-
-    width: 30%;
+    @extend %AG_H2;
+    width: 550px;
     text-align: justify;
+
     &:last-child {
-        margin: 0 42%;
+        margin-top: 0;
+        margin-left: auto;
+        text-align: justify;
         width: 55%;
+
+        @include respond(mobile) {
+          width: 167px;
+          // margin-left: 192px;
+          text-align: justify;
+  margin-left: auto;
+          } 
     }  
+    @include respond(mobile) {
+      font-size: 16px;
+      width: 167px;
+      letter-spacing: 0.01px;
+      // margin: 0;
+      } 
   }
 
   &-link {
@@ -56,6 +145,10 @@
     width: 80px;
     height: 50px;
     background-image: url(../../images/icon/arrow-up.png);
+    @include respond(mobile) {
+      display: none;
+      }  
+
   }
   span,
   p {

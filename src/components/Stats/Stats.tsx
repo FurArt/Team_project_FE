@@ -66,23 +66,23 @@ const Stats: React.FC = ({ children }: StatsProps) => {
       <Outlet />
       <section ref={statsRef} className="stats">
         <div className="stats-container">
-          <div className="stats-item">
+          <div className="stats-item stats-item-1">
             <span className="stats-number">
-              +<Counter target={900} duration={2000} start={isVisible} />
+              <Counter target={900} duration={2000} start={isVisible} />+
             </span>
-            <span className="stats-label">FILMS</span>
+            <span className="stats-label stats-label-1">FILMS</span>
           </div>
-          <div className="stats-item">
-            <span className="stats-number">
-              +<Counter target={16} duration={2000} start={isVisible} />
+          <div className="stats-item stats-item-2">
+            <span className="stats-number stats-number-2">
+              <Counter target={16} duration={2000} start={isVisible} />+
             </span>
-            <span className="stats-label">GENRES</span>
+            <span className="stats-label stats-label-2">GENRES</span>
           </div>
-          <div className="stats-item">
-            <span className="stats-number">
-              +<Counter target={10000} duration={2000} start={isVisible} />
+          <div className="stats-item stats-item-3">
+            <span className="stats-number stats-number-2">
+              <Counter target={10000} duration={2000} start={isVisible} />+
             </span>
-            <span className="stats-label">ACTORS</span>
+            <span className="stats-label stats-label-3">ACTORS</span>
           </div>
         </div>
 

@@ -53,6 +53,8 @@
     border-radius: 10px;
     width: 416px;
     line-height: 48px;
+
+    z-index: 1000;
     @extend %AG_H4;
 
     &:hover {
@@ -97,7 +99,7 @@
     background-repeat: no-repeat;
     pointer-events: visible;
     @include respond(mobile) {
-      margin-bottom: 20px;
+      margin-bottom: 23px;
     }
   }
 
@@ -108,7 +110,7 @@
     background-image: url(../../images/icon/close.svg);
     background-repeat: no-repeat;
     @include respond(mobile) {
-      margin-top: 5px;
+      margin-top: 8px;
     }
   }
 }

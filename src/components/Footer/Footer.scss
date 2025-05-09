@@ -22,12 +22,21 @@
     width: 151px;
       height: 66px;
     margin: 0 auto;
+    @include respond(mobile) {
+      background-size: 100% auto;
+      width: 79px;
+      height: 42px;
+      }  
   }
   &-menu {
     margin: 15px auto;
     width: 175px;
     display: flex;
     justify-content: space-around;
+    text-align: center;
+    @include respond(mobile) {
+      display: block;
+      } 
     &-link {
       @extend %AG_H5;
       color: $stroke;
@@ -35,5 +44,12 @@
         color: $main-text-color;
       }
     }
+    &-item {
+      margin-inline: auto;
+      @include respond(mobile) {
+        font-size: 16px;
+        } 
+
+    } 
   }
 }
