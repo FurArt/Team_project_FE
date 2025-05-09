@@ -6,38 +6,38 @@ const teamMembers = [
     name: "Vitali Pavlyk",
     role: "Team lead / Backend developer",
 
-    img: "http://localhost:5173/Team_project_FE/src/images/team/vitalii.png",
+    img: "images/vitalii.png",
     socials: ["github", "linkedin", "facebook"],
     // },src\images\team\vitalii.png
   },
   {
     name: "Oleksii Kolinko",
     role: "Backend developer",
-    img: "http://localhost:5173/Team_project_FE/src/images/team/oleksii.png",
+    img: "images/oleksii.png",
     socials: ["github", "linkedin", "facebook"],
   },
   {
     name: "Artem Furhaus",
     role: "Frontend developer",
-    img: "http://localhost:5173/Team_project_FE/src/images/team/artem.png",
+    img: "images/artem.png",
     socials: ["github", "linkedin", "facebook"],
   },
   {
     name: "Romela Gasparian",
     role: "UX/UI designer",
-    img: "http://localhost:5173/Team_project_FE/src/images/team/romela.png",
+    img: "images/romela.png",
     socials: ["behance", "linkedin", "dribbble"],
   },
   {
     name: "Yevhen Perekhodov",
     role: "QA engineer",
-    img:  "http://localhost:5173/Team_project_FE/src/images/team/yevhen.png",
+    img:  "images/yevhen.png",
     socials: ["github", "linkedin", "facebook"],
   },
   {
     name: "Oleksandra Chumak",
     role: "Data analyst",
-    img: "http://localhost:5173/Team_project_FE/src/images/team/oleksandra.png",
+    img: "images/oleksandra.png",
     socials: ["github", "linkedin", "facebook"],
   },
 ]
