@@ -111,13 +111,36 @@ $images: (
     z-index: 1;
     @extend %AG_H6;
 
-    &:hover { 
-      background: #fff;
-      color: #14181a;
-    }
+    // &:hover { 
+    //   background: #fff;
+    //   color: #14181a;
+    // }
     &.active-vibe {
       background: #fff;
       color: #14181a;
+    }
+
+    @for $i from 1 through list.length($images) {
+      &:nth-child(#{$i})::after {
+        content: "";
+        display: block;
+        width: 110px;
+        height: 110px;
+        background: no-repeat center;
+        background-image: url("../../images/face/#{list.nth($images, $i)}");
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:nth-child(#{$i}):hover::after {
+        opacity: 1;
+      }
     }
   }
 

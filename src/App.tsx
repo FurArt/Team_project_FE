@@ -34,6 +34,7 @@ import ShowListTopList from "./components/TopLists/ShowListTopList/ShowListTopLi
 import { TopListTypes } from "./types/TopListTypes"
 import { VibeMovie, VibeMoviesData } from "./types/vibe"
 import { MovieData } from "./types/movie"
+import AboutUs from "./components/AboutUs/AboutUs"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -192,6 +193,8 @@ const App = () => {
             path={`${RoutesPath.SHOWTOPLISTS}/:id${RoutesPath.SHOWTOPLISTS}`}
             element={<ShowListTopList />}
           />
+          <Route path={RoutesPath.ABOUTUS} element={<AboutUs />} />
+
 
           <Route path="*" element={<NotFound />} />
         </Routes>

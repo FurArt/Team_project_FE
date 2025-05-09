@@ -95,6 +95,13 @@ const Movie = () => {
     scrollToHandler(null)
   }
 
+  function toGoogleSearchQuery(str:string) {
+    return encodeURIComponent(str.trim()).replace(/%20/g, '+');
+  }
+  const handleFindClick = () => {
+    window.open(`https://www.google.com/search?q=${toGoogleSearchQuery(`${title} ${releaseYear}`)}`, '_blank');
+  };
+  
   return (
     <div className="movie">
       <div className="movie-content">
@@ -266,7 +273,10 @@ const Movie = () => {
             </button>
           )}
         </div>
-        <button className="movie-button movie-button--primary">
+        <button className="movie-button movie-button--primary" 
+        
+        onClick={handleFindClick}
+        >
           FIND THE WAY TO WATCH →
         </button>
       </div>

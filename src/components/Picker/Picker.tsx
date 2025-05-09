@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { RoutesPath } from "../../utils/enumRouts"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { generateRandomNumber } from "../../app/randomNumbersSlice"
-import { fetchMoviesByVibe } from "../../app/store"
+import { fetchMovieByLuck, fetchMoviesByVibe } from "../../app/store"
 import { CategoryTypes, MediaTypes, VibeTypes } from "../../types/vibe"
 import classNames from "classnames"
 import ErorrDialog from "./ErorrDialog"
@@ -50,7 +50,7 @@ export const ReleaseYearOptions = [
 const Picker = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { data, vibe, selectedMovie } = useAppSelector(state => state.movies)
+  const { loading } = useAppSelector(state => state.movies)
   // const { contents } = useAppSelectoбr(state => state.vibe)
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
@@ -115,13 +115,13 @@ const Picker = () => {
   }
 
   const handleCategoryChange = (updatedCategories: typeof movieCategories) => {
-    setMovieCategories(updatedCategories);
-  
+    setMovieCategories(updatedCategories)
+
     const selectedCategories = updatedCategories
       .filter(cat => cat.checked)
-      .map(cat => cat.value);
-  
-    setFilters(prev => ({ ...prev, categories: selectedCategories }));
+      .map(cat => cat.value)
+
+    setFilters(prev => ({ ...prev, categories: selectedCategories }))
   }
 
   const handlePickClick = (e: React.MouseEvent) => {
@@ -146,14 +146,24 @@ const Picker = () => {
         return
       }
       navigate(`../movie?vibe=${filters.vibe}`)
-
     })
 
     scrollToHandler(e)
   }
+
+  const handleLuckClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (loading) {
+      return
+    }
+    dispatch(fetchMovieByLuck(1))
+    navigate(`../${RoutesPath.MOVIE}/`)
+    scrollToHandler(null)
+  }
+
   const isPick = () => {
     return !filters.vibe
   }
+
   return (
     <>
       <section className="picker" id="picker">
@@ -216,10 +226,14 @@ const Picker = () => {
             className="movie-picker--btn movie-picker--btn-primary"
             onClick={e => handlePickClick(e)}
             disabled={isPick()}
+            title="You need to choose the vibe"
           >
             PICK MY FILM
           </button>
-          <button className="movie-picker--btn movie-picker--btn-secondary">
+          <button
+            className="movie-picker--btn movie-picker--btn-secondary"
+            onClick={handleLuckClick}
+          >
             PUSH THE LUCK
           </button>
         </div>
@@ -229,7 +243,11 @@ const Picker = () => {
           onClick={scrollToHandler}
         ></a>
       </section>
-      <ErorrDialog open={open} handleClose={() => setOpen(false)} error={error} />
+      <ErorrDialog
+        open={open}
+        handleClose={() => setOpen(false)}
+        error={error}
+      />
     </>
   )
 }
