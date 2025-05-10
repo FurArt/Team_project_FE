@@ -14,6 +14,7 @@ main {
 }
 $items: 70;
 $columns: 14;
+$columns-mobile: 13;
 $row: 4;
 .conteiner-video {
   display: grid;
@@ -23,6 +24,22 @@ $row: 4;
   top: 0;
   // z-index: -1;
   height: $height_wrapper;
+  @include respond(mobile) {
+    height: 240px;
+    display: block;
+  }
+}
+
+.mobile-poster {
+  display: none;
+  @include respond(mobile) {
+    display: block;
+    width: 100%;
+    height: 240px;
+    aspect-ratio: 2 / 3;
+    background: url("../../images/mobile-poster.png") center/cover no-repeat;
+  
+  }
 }
 .wrapper {
   // position: sticky;
@@ -36,6 +53,10 @@ $row: 4;
     background-size: cover;
     background-position: center;
     cursor: pointer;
+
+    @include respond(mobile) {
+      display: none;
+    }
     &:hover{
       transform: scale(1.1);
     }

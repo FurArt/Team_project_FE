@@ -11,54 +11,53 @@ interface WrapperProps {
   children?: ReactNode
 }
 
-
 const Wrapper = ({ children }: WrapperProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const moviesData = useAppSelector(state => state.movies.data);
-  const content = moviesData?.content || null;
+  const moviesData = useAppSelector(state => state.movies.data)
+  const content = moviesData?.content || null
 
-  const [showMovies, setShowMovies] = useState<Movie[]>([]);
+  const [showMovies, setShowMovies] = useState<Movie[]>([])
 
   const handleClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault()
     dispatch(fetchMovieById(id))
-
     dispatch(handleSelectMovie(e, id, navigate))
   }
 
   useEffect(() => {
-  })
-
-  useEffect(() => {
     if (Array.isArray(content)) {
-      setShowMovies(content);
+      setShowMovies(content)
     } else {
-      setShowMovies([]);
+      setShowMovies([])
     }
-  }, []);
+  }, [])
 
   return (
     <main className="wrapper">
       <MadeInUkraine />
       <section className="conteiner-video">
+        {/* Карты фильмов для десктопа */}
         {(showMovies?.length < 70 || showMovies?.length === undefined)
           ? Array.from({ length: 70 }).map((_, index) => (
-            <div
-              key={index}
-              className={`wrapper-img wrapper-img-${index + 1}`}
-            />
-          ))
-          : showMovies
-            ?.slice(0, 70)
-            .map((movie, index) => (
               <div
                 key={index}
-                className={`wrapper-img`}
-                style={{ backgroundImage: `url(${movie.posterPath})` }}
-                onClick={e => handleClick(e, movie.id)}
-              ></div>
-            ))}
+                className={`wrapper-img wrapper-img-${index + 1}`}
+              />
+            ))
+          : showMovies
+              ?.slice(0, 70)
+              .map((movie, index) => (
+                <div
+                  key={index}
+                  className="wrapper-img"
+                  style={{ backgroundImage: `url(${movie.posterPath})` }}
+                  onClick={e => handleClick(e, movie.id)}
+                />
+              ))}
+
+        {/* Мобильная обложка */}
+        <div className="mobile-poster" />
       </section>
       {children}
     </main>
