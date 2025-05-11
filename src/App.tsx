@@ -77,18 +77,17 @@ const App = () => {
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
     }
-    
-    
+
     if (location.pathname === "/movie/") {
       const storedContent = sessionStorage.getItem("selectedMovie")
       const initialContent = storedContent
-      ? (JSON.parse(storedContent) as MovieData)
-      : null
+        ? (JSON.parse(storedContent) as MovieData)
+        : null
       // console.log(initialContent instanceof Object )
-      if (initialContent instanceof Object ) {
-        console.log(`asd`);
-        console.log(movies);
-        
+      if (initialContent instanceof Object) {
+        console.log(`asd`)
+        console.log(movies)
+
         dispatch(setSelectedMovie(initialContent))
       }
 
@@ -155,7 +154,7 @@ const App = () => {
         JSON.stringify(movies?.selectedMovie),
       )
     }
-  }, [location.pathname,  movies.selectedMovie])
+  }, [location.pathname, movies.selectedMovie])
 
   return (
     <>
@@ -194,7 +193,6 @@ const App = () => {
             element={<ShowListTopList />}
           />
           <Route path={RoutesPath.ABOUTUS} element={<AboutUs />} />
-
 
           <Route path="*" element={<NotFound />} />
         </Routes>
