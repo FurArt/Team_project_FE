@@ -1,8 +1,8 @@
 import { VibeFilters } from "../types/vibe"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// const BASE_URL = "https://backend-muvio.onrender.com/api"
-const BASE_URL = "https://muvio.fly.dev/api"
+const BASE_URL = "https://backend-muvio.onrender.com/api"
+// const BASE_URL = "https://muvio.fly.dev/api"
 
 function wait(delay: number) {
   return new Promise(resolve => setTimeout(resolve, delay))
