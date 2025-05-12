@@ -71,12 +71,12 @@ const Picker = () => {
 
   const [movieCategories, setMovieCategories] = useState([
     {
-      label: "Movies based on a true story",
+      label: "Based on a true story",
       checked: false,
       value: CategoryTypes.MOVIES_BASED_ON_A_TRUE_STORY,
     },
     {
-      label: "Movies based on a book",
+      label: "Based on a book",
       checked: false,
       value: CategoryTypes.MOVIES_BASED_ON_A_BOOK,
     },
@@ -86,7 +86,7 @@ const Picker = () => {
       value: CategoryTypes.MUST_WATCH_LIST,
     },
     {
-      label: "Girl Power movies",
+      label: "Girl Power",
       checked: false,
       value: CategoryTypes.GIRL_POWER_MOVIES,
     },
@@ -96,9 +96,19 @@ const Picker = () => {
       value: CategoryTypes.LIFE_CHANGING_MOVIES,
     },
     {
-      label: "IMDB Top 250 movies",
+      label: "IMDB Top 250",
       checked: false,
       value: CategoryTypes.IMD_TOP_250_MOVIES,
+    },
+    {
+      label: "Spy and cop plots",
+      checked: false,
+      value: CategoryTypes.SPY_MOVIES_AND_COP_MOVIES,
+    },
+    {
+      label: "Sport life plots",
+      checked: false,
+      value: CategoryTypes.SPORT_LIFE_MOVIES,
     },
   ])
 
