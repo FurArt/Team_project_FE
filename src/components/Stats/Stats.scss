@@ -22,9 +22,8 @@ body {
 
   @include respond(mobile) {
     background: none;
-    margin-top: 0;
+    margin-top: 100px;
     padding-inline: 16px;
-
     }
 
   &-container {
@@ -39,7 +38,8 @@ body {
     // margin: 0 auto;
     // justify-content: center;
     @include respond(mobile) {
-      padding-top: 100px;
+      padding: 0;
+      margin-top: 100px;
       margin: 0;
       width: 100%;
   
@@ -123,7 +123,7 @@ body {
         margin-top: 0;
         margin-left: auto;
         text-align: justify;
-        width: 55%;
+        // width: 55%;
 
         @include respond(mobile) {
           width: 167px;

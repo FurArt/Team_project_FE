@@ -24,6 +24,14 @@
   background: url(../../images/picking_page_1200.JPG) no-repeat;
   background-size: cover;
   top: 0;
+  @include respond(mobile) {
+    display: block;
+    width: 100%;
+    height: 240px;
+    aspect-ratio: 2 / 3;
+    background: url("../../images/mobile-poster.png") center/cover no-repeat;
+  
+  }
 
   // &::after {
   //   content: '';
@@ -45,6 +53,7 @@
     width: 50%;
     margin: 0 auto;
     @extend %AG_H2;
+    
   }
   &-button {
     margin: 0 auto;
@@ -86,17 +95,47 @@ $images: (
   color: $color-picker-black;
   text-align: left;
   z-index: 1;
+  @include respond(mobile) {
+    width: 335px;
+    }
+  &--close-link {
+    
+  }
+
   &--title {
     @extend %AG_H4;
     // text-align: left;
     margin-bottom: 24px;
+    @include respond(mobile) {
+      font-size: 17px;
+      margin-top:  30px;
+      margin-bottom: 10px;
+
+      }
   }
   &--vibe {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px 75px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 25px;
+    @include respond(mobile) {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      padding-bottom: 8px;
+      flex-wrap: nowrap;
+
+      width: 100%;
+      max-width: 100%;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
+  
 
   &--vibe-btn {
     color: $main-text-color;
@@ -104,12 +143,21 @@ $images: (
     border: none;
     background: #14181a;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 7px;
     width: $size-btn-picker;
     height: $size-btn-picker;
     position: relative;
     z-index: 1;
     @extend %AG_H6;
+    @include respond(mobile) {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      white-space: normal; // если текст длинный
+
+      width: 70px;
+      height: 70px;
+      font-size: 13px;
+    }
 
     // &:hover { 
     //   background: #fff;
@@ -136,6 +184,10 @@ $images: (
         z-index: 1;
         opacity: 0;
         transition: opacity 0.3s ease;
+        @include respond(mobile) {
+          width: 70px;
+          height: 70px;
+          }
       }
 
       &:nth-child(#{$i}):hover::after {
@@ -150,10 +202,21 @@ $images: (
     margin-bottom: 10px;
     gap: 24px;
     @extend %AG_H4;
+    @include respond(mobile) {
+      width: 100%;
+      gap: 4px;
+      }
 
     // text-align: left;
     label {
+      .dinamic-select {
+        width: 100%;
+      }
       @extend %AG_H4;
+      @include respond(mobile) {
+        font-size: 16px;
+        // width: 20px;
+        }
     }
   }
 
@@ -165,6 +228,10 @@ $images: (
     gap:4px 15px;
     margin-bottom: 15px;
     padding: 0 10px;
+    @include respond(mobile) {
+      font-size: 14px;
+      // gap: 0px;
+      }
   }
 
   &--checkbox {
@@ -191,19 +258,28 @@ $images: (
     width: 100%;
     display: flex;
     justify-content: space-between;
-    border: 2px solid;
-     line-height: 16px; 
+    border: 1px solid;
+    /* line-height: 40px; */
     height: 40px;
     padding: 10px;
-    border-radius: 5px;
-    // margin-bottom: 4px;
+    border-radius: 8px;
+    margin-bottom: 4px;
     cursor: pointer;
+    @include respond(mobile) {
+      font-size: 14px;
+      margin-bottom: 0px;
+      }
   }
 
   &--subtext {
     @extend %AG_H4;
+    margin-top: 25px;
+    margin-bottom: 20px;
     .movie-picker--info {
-      @extend %AG_H6;
+      
+      @extend %AG_H7;
+      @include respond(mobile) {
+        }
     }
   }
 }
