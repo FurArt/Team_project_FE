@@ -3,10 +3,11 @@
 
 .gallery-header {
   width: 100%;
-  padding: 67px 0 0;
+  padding: 67px 0 24px;
   color: $main-text-color;
   text-align: center;
   background-image: url(../../images/gallery-header-bg.jpg);
+  background-size: cover;
   @extend %AG_H2;
   .input-wrapper {
     position: relative;
@@ -32,7 +33,7 @@
     border-radius: 8px;
     background: rgba(#fff, 0.8);
     outline-color: rgba(#fff, 0.8);
-
+    
     position: relative;
 
     @extend %AG_H5;
@@ -130,7 +131,8 @@
   text-align: center;
   padding: 24px 24px 9px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.5s linear;
+  
   &:hover {
     transform: scale(1.005);
     border: 1px solid $main-text-color;

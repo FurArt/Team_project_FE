@@ -3,7 +3,8 @@
 
 .loading {
   width: 100%;
-  height: 54vh;
+  height: 71vh;
+  max-height: 705px;
   display: flex;
   flex-direction: column;
   background: url(../../images/load-bg.jpg) no-repeat center;

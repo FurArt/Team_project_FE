@@ -49,7 +49,7 @@ const App = () => {
     !!movies.selectedMovie?.id || false,
   )
 
-  useEffect(() => {}, [dispatch])
+  useEffect(() => { }, [dispatch])
 
   useEffect(() => {
     console.log(`itwork`)
@@ -159,7 +159,9 @@ const App = () => {
   return (
     <>
       <Header />
+      {/* {true ? ( */}
       {loading ? (
+
         <Loading />
       ) : (
         <Routes>

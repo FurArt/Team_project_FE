@@ -27,6 +27,7 @@ $row: 4;
   @include respond(mobile) {
     height: 240px;
     display: block;
+    position: relative;
   }
 }
 

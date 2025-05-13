@@ -40,21 +40,23 @@ const Wrapper = ({ children }: WrapperProps) => {
         {/* Карты фильмов для десктопа */}
         {(showMovies?.length < 70 || showMovies?.length === undefined)
           ? Array.from({ length: 70 }).map((_, index) => (
+            <div
+              key={index}
+              className={`wrapper-img wrapper-img-${index + 1}`}
+            />
+          ))
+          :
+          showMovies
+            ?.slice(0, 70)
+            .map((movie, index) => (
               <div
                 key={index}
-                className={`wrapper-img wrapper-img-${index + 1}`}
+                className="wrapper-img"
+                style={{ backgroundImage: `url(${movie.posterPath})` }}
+                onClick={e => handleClick(e, movie.id)}
               />
             ))
-          : showMovies
-              ?.slice(0, 70)
-              .map((movie, index) => (
-                <div
-                  key={index}
-                  className="wrapper-img"
-                  style={{ backgroundImage: `url(${movie.posterPath})` }}
-                  onClick={e => handleClick(e, movie.id)}
-                />
-              ))}
+        }
 
         {/* Мобильная обложка */}
         <div className="mobile-poster" />
