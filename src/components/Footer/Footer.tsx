@@ -1,21 +1,28 @@
-import { NavLink, useLocation, } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import "./Footer.scss"
-import { useEffect } from "react";
-import { RoutesPath } from "../../utils/enumRouts";
+import { useEffect } from "react"
+import { RoutesPath } from "../../utils/enumRouts"
 
 const Footer = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-logo"></div>
+          <NavLink
+            to={RoutesPath.HOME}
+          >
+        <div className="footer-logo">
+
+        </div>
+          </NavLink>
         <div>
           <nav className="footer-menu">
-              <NavLink 
-              className="footer-menu-link"
-              to={RoutesPath.ABOUTUS}> About Us </NavLink>
-              {/* <a href="#" >About Us</a> */}
+            <NavLink className="footer-menu-link" to={RoutesPath.ABOUTUS}>
+              {" "}
+              About Us{" "}
+            </NavLink>
+            {/* <a href="#" >About Us</a> */}
           </nav>
         </div>
       </div>

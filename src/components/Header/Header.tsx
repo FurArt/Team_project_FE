@@ -5,7 +5,7 @@ import { generateRandomNumber } from "../../app/randomNumbersSlice"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { RoutesPath } from "../../utils/enumRouts"
 import PopoverSearch from "./PopoverSearch/PopoverSearch"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { scrollToHandler } from "../../utils/scrollToHandler"
 import Footer from "../Footer/Footer"
 import { Autocomplete, TextField } from "@mui/material"
@@ -18,27 +18,27 @@ const Header = () => {
   const location = useLocation()
   const dispatch = useAppDispatch()
   const { data: movies, loading } = useAppSelector(state => state.movies)
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchMovie, setSearchMovies] = useState<MovieData | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [searchMovie, setSearchMovies] = useState<MovieData | null>(null)
   const [search, setSearch] = useState("")
 
-
-  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
+  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>|null) => {
+    if (e) {
+      e.preventDefault()
+    }
     setIsMenuOpen(false)
-  };
+  }
 
   const handleMenuClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    target: string
+    target: string,
   ) => {
-    if (loading) return;
-    e.preventDefault();
-    navigate(target);
-    closeMenu(e);
+    if (loading) return
+    e.preventDefault()
+    navigate(target)
+    closeMenu(e)
     scrollToHandler(null)
-  };
-
+  }
 
   const handleLuckClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (loading) {
@@ -48,17 +48,19 @@ const Header = () => {
 
     dispatch(fetchMovieByLuck(1))
     navigate(`../${RoutesPath.MOVIE}/`)
-    closeMenu(e);
-    scrollToHandler(null);
-
+    closeMenu(e)
+    scrollToHandler(null)
   }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
   }
 
-  const handleEndSearch = () => {
-  }
+  const handleEndSearch = () => {}
+
+  useEffect(() => {
+    closeMenu(null)
+  }, [location])
 
   return (
     <header className="header-page" id="header">
@@ -133,34 +135,64 @@ const Header = () => {
         <a
           href="#"
           className="icons icons--menu"
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault()
             setIsMenuOpen(true)
-          }}></a>
-
+          }}
+        ></a>
       </div>
 
-
-
-      <aside className={classNames("menu-aside", { "menu-aside-active": isMenuOpen })}>
+      <aside
+        className={classNames("menu-aside", {
+          "menu-aside-active": isMenuOpen,
+        })}
+      >
         <div className="menu-aside-full">
           <a href="#" className="icons-logo"></a>
-          <a href="#" className="icons icons--close" onClick={(e) => closeMenu(e)}></a>
+          <a
+            href="#"
+            className="icons icons--close"
+            onClick={e => closeMenu(e)}
+          ></a>
         </div>
 
         <ul className="menu-list">
-          <li className={classNames("menu-item", { active: location.pathname === RoutesPath.HOME })}>
-            <a href="#" className="menu-link" onClick={e => handleMenuClick(e, RoutesPath.HOME)}>
+          <li
+            className={classNames("menu-item", {
+              active: location.pathname === RoutesPath.HOME,
+            })}
+          >
+            <a
+              href="#"
+              className="menu-link"
+              onClick={e => handleMenuClick(e, RoutesPath.HOME)}
+            >
               Movie Picker
             </a>
           </li>
-          <li className={classNames("menu-item", { active: location.pathname === `/${RoutesPath.TOPLISTS}` })}>
-            <a href="#" className="menu-link" onClick={e => handleMenuClick(e, RoutesPath.TOPLISTS)}>
+          <li
+            className={classNames("menu-item", {
+              active: location.pathname === `/${RoutesPath.TOPLISTS}`,
+            })}
+          >
+            <a
+              href="#"
+              className="menu-link"
+              onClick={e => handleMenuClick(e, RoutesPath.TOPLISTS)}
+            >
               TOP lists
             </a>
           </li>
-          <li className={classNames("menu-item", { active: location.pathname === `/${RoutesPath.GALLERY}` })}>
-            <a href="#" className="menu-link" onClick={e => handleMenuClick(e, RoutesPath.GALLERY)}>
+          <li
+            className={classNames("menu-item", {
+              active: location.pathname === `/${RoutesPath.GALLERY}`,
+            })}
+          >
+            <a
+              href="#"
+              className="menu-link"
+              onClick={e => handleMenuClick(e, RoutesPath.GALLERY)}
+            >
               Gallery
             </a>
           </li>
@@ -173,7 +205,6 @@ const Header = () => {
           >
             PUSH THE LUCK
           </a>
-
         </div>
         <div className="search">
           <Input
@@ -190,21 +221,15 @@ const Header = () => {
             render={(props, state) => (
               <div className="input-wrapper">
                 <input {...props} className="gallery-header-search-input" />
-                <span
-                  className="search-icon"
-                  onClick={handleEndSearch}
-                ></span>
+                <span className="search-icon" onClick={handleEndSearch}></span>
               </div>
             )}
           />
         </div>
         <Footer />
       </aside>
-
-
     </header>
   )
 }
 
 export default Header
-

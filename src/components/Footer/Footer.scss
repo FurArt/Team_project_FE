@@ -7,7 +7,7 @@
   background-color: $heder-black;
   width: 100%;
   min-height: 150px;
-
+  height: 22vh;
   padding: 13px 0 30px;
   color: $main-text-color;
   border-top: 1px solid $main-text-color;
@@ -40,6 +40,7 @@
     &-link {
       @extend %AG_H5;
       color: $stroke;
+      height: 45px;
       &:hover {
         color: $main-text-color;
       }
