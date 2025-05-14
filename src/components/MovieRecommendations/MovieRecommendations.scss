@@ -43,7 +43,7 @@
   text-align: center;
   padding: 24px 24px 9px;
   p {
-    @extend %AG_H6;
+    @extend %AG_H8;
     color: $hover
   }
 }
@@ -56,12 +56,15 @@
 .movie-info {
   justify-content: space-between;
   margin-top: 10px;
+  margin-right: 30px;
   text-align: left;
   width: 100%;
-  h3 {
+  h4 {
     @extend %AG_H5;
   }
   p {
+    @extend %AG_H8;
+    margin-top: 5px;
     color: $hover
   }
 }
