@@ -33,7 +33,7 @@ export const MovieTypeOptions = [
   { value: "tv_shows", label: "TV Shows" },
   { value: "movies", label: "Movies" },
   { value: "shorts", label: "Shorts" },
-  { value: "", label: "Select a movie type" },
+  { value: "", label: "Movies" },
   // { value: "no_matter", label: "No matter" },
 ]
 export const ReleaseYearOptions = [
@@ -44,7 +44,7 @@ export const ReleaseYearOptions = [
   { value: "1996-2001", label: "1996-2001" },
   { value: "1990-1995", label: "1990-1995" },
   // { value: "no_matter", label: "No matter" },
-  { value: "", label: "Select a year" },
+  { value: "", label: "2005-2025" },
 ]
 
 const Picker = () => {
@@ -205,7 +205,7 @@ const Picker = () => {
               Release year
               <DinamicSelect
                 defaultValue="2023"
-                placeholder="Select a year"
+                placeholder="2005-2025"
                 options={ReleaseYearOptions}
                 onValueChange={handleYearChange}
               />
@@ -214,7 +214,7 @@ const Picker = () => {
               Types
               <DinamicSelect
                 defaultValue="action"
-                placeholder="Select a movie type"
+                placeholder="Movies"
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
               />

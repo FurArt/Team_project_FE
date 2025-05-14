@@ -32,7 +32,8 @@
     right: 25%;
   }
   @include respond(mobile) {
-
+    position: relative;
+    margin-bottom: 50px;
     min-width: 327px;
     height: 44px;
   }
