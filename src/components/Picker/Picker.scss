@@ -100,9 +100,7 @@ $images: (
   @include respond(mobile) {
     width: 335px;
     }
-  &--close-link {
-    
-  }
+
 
   &--title {
     @extend %AG_H4;
