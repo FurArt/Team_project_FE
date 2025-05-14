@@ -6,13 +6,15 @@
   padding-top: 24px;
   background: url("../../images/stats-bg.jpg") center/cover no-repeat;
   width: 100%;
+
   h1 {
     @extend %AG_H1;
     color: #fff;
   }
+
   p {
     @extend %AG_H2;
-    color: #ddd;
+    color: #f1f3f3;
   }
 
   .subtitle {
@@ -35,19 +37,37 @@
 
   .team-card {
     background: rgba(0, 0, 0, 0.6);
-    padding: 1rem;
+    // padding: 1rem;
     border-radius: 8px;
     width: 266px;
     color: #fff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 300px;
 
-    &--item-0 {
-        // background-image: url(../../images/team/vitalii.png);
+    &.active {
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      // height: 300px;
+      p {
+        height: 300px;
+
+        padding: 24px;
+        display: flex;
+        justify-content: center; // horizontal center
+        align-items: center; // vertical center
+        // or any fixed height
+        width: 100%; // full width
+        text-align: center;
+        color: #000;
+      }
     }
 
     &--item-2 {
       grid-column: span 2;
     }
+
     &--item-3 {
       grid-column: span 2;
       margin-left: 286px;
@@ -56,18 +76,16 @@
     .team-photo {
       width: 110px;
       border-radius: 8px;
-      margin-bottom: 0.5rem;
+      margin-block: 20px 8px;
     }
 
     h3 {
-      font-size: 1rem;
-      margin: 0.5rem 0 0.3rem;
+      @extend %AG_H4;
     }
 
     p {
-      font-size: 0.85rem;
-      margin-bottom: 0.5rem;
-      color: #aaa;
+      @extend %Light_text;
+      margin-block: 4px 50px;
     }
 
     .social-icons {
@@ -75,16 +93,28 @@
       justify-content: center;
       gap: 0.5rem;
 
-      i {
-        font-size: 1rem;
+      .social-link {
         color: #fff;
-        cursor: pointer;
-        transition: color 0.3s;
+        transition: scale 1s;
+        // font-size: 1.2rem;
 
-        &:hover {
-          color: #1da1f2;
+        svg {
+          &:hover {
+            // width: 30px
+            transform: scale(1.1);
+          }
+          // font-size: 1.4rem;
         }
       }
+    }
+
+    .team-quote {
+      background-color: #fff;
+      color: #000;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      text-align: left;
     }
   }
 }

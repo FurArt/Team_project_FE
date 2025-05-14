@@ -23,7 +23,8 @@ const CheckboxMap: React.FC<CheckboxMapProps> = ({ categories, onCategoryChange 
   };
 
   return (
-    <div>
+    // <div>
+    <>
       {categories.map((category, index) => (
         <label key={index} className="movie-picker-label--checkbox">
           {category.label}
@@ -31,14 +32,15 @@ const CheckboxMap: React.FC<CheckboxMapProps> = ({ categories, onCategoryChange 
             className="movie-picker--checkbox"
             checked={category.checked}
             onCheckedChange={() => handleCheckboxChange(index)}
-          >
+            >
             <Checkbox.Indicator className="movie-picker--checkbox-indicator">
               <SelectedIcon />
             </Checkbox.Indicator>
           </Checkbox.Root>
         </label>
       ))}
-    </div>
+      </>
+    // </div>
   );
 };
 

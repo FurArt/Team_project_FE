@@ -80,8 +80,7 @@ const GalleryPage: React.FC = () => {
   }
   const startIndex = (page - 1) * itemsPerPage
 
-  useEffect(() => {
-  })
+  
 
   const displayedMovies = (searchMovies ?? movies ?? []).slice(
     startIndex,
@@ -145,6 +144,7 @@ const GalleryPage: React.FC = () => {
       }
     }
   }
+  
   const handleSendFiltering = () => {
     if (!selectedType?.value) {
       debouncedFetch(selectedYear?.value, "")
@@ -158,6 +158,8 @@ const GalleryPage: React.FC = () => {
     }
     debouncedFetch(selectedYear?.value, selectedType?.value)
     navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
+
+
   }
 
   const getPageCount = (
@@ -193,8 +195,14 @@ const GalleryPage: React.FC = () => {
     setSelectedType(setOption(type, MovieTypeOptions))
     if (search) {
       setSearch(search)
+      handleEndSearch()
     }
   }, [])
+
+  useEffect(() => {
+    handleEndSearch()
+    
+  }, [location])
 
   return (
     <main>

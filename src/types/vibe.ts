@@ -70,7 +70,8 @@ export enum VibeTypes {
   MAKE_ME_CURIOUS = "MAKE_ME_CURIOUS",
   TAKE_ME_TO_ANOTHER_WORLD = "TAKE_ME_TO_ANOTHER_WORLD",
   BLOW_MY_MIND = "BLOW_MY_MIND",
-  KEEP_ME_ON_EDGE = "KEEP_ME_ON_EDGE"
+  KEEP_ME_ON_EDGE = "KEEP_ME_ON_EDGE",
+  
 }
 
 export enum MediaTypes {
@@ -89,7 +90,6 @@ export enum CategoryTypes {
   SPORT_LIFE_MOVIES = "SPORT_LIFE_PLOTS",
   IMD_TOP_250_MOVIES = "IMD_TOP_250"
 }
-
 
 // BASED_ON_A_TRUE_STORY, 
 // SPY_AND_COP_PLOTS, 

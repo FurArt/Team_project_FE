@@ -1,6 +1,7 @@
 import { Select } from "@base-ui-components/react/select"
 import "./DinamicSort.scss"
 import SwapVertIcon from "@mui/icons-material/SwapVert"
+
 export function SelectIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
