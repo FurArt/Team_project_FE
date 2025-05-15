@@ -16,6 +16,10 @@ $border-radius: 8px;
   color: $main-text-color;
   @extend %AG_H5;
   padding-bottom: 70px;
+  padding-left: 40px;
+  @include respond(mobile) {
+    max-width: 375px;
+  }
   &-row {
     margin: 56px 0 48px;
     display: flex;
