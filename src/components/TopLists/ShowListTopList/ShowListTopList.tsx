@@ -15,12 +15,16 @@ const NextText = () => (
   <Typography>Next</Typography>
 );
 
+function formatTitle(title: string): string {
+  return title.replace(/_/g, ' ');
+}
+
 const ShowListTopList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { topLists, loading, error } = useAppSelector((state) => state.movies);
-  
-  const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
+
+  const [headPage, setHeadPage] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
   const params = new URLSearchParams(location.search);
@@ -28,13 +32,13 @@ const ShowListTopList = () => {
 
   const movies = topLists?.content || [];
   const startIndex = (page - 1) * itemsPerPage;
-  const displayedMovies = (searchMovies || movies).slice(
+  const displayedMovies = movies?.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
   const getPageCount = (): number => {
-    const totalItems = searchMovies ? searchMovies.length : movies.length;
+    const totalItems = displayedMovies ? displayedMovies.length : movies.length;
     return Math.ceil(totalItems / itemsPerPage);
   };
 
@@ -45,17 +49,25 @@ const ShowListTopList = () => {
   const handlerBack = (e: React.MouseEvent) => {
     e.preventDefault();
     navigate(`../${RoutesPath.TOPLISTS}`);
-    
+
   };
 
-  const handlerSetMovie = (e: React.MouseEvent, id:string) => {
-     navigate(`../${RoutesPath.MOVIE}?idMovie=${id}`)
-     scrollToHandler(e)
-    }
+  const handlerSetMovie = (e: React.MouseEvent, id: string) => {
+    navigate(`../${RoutesPath.MOVIE}?idMovie=${id}`)
+    scrollToHandler(e)
+  }
 
   useEffect(() => {
     scrollToHandler(null);
   }, [page]);
+
+  useEffect(() => {
+    const storedHeader = sessionStorage.getItem("TopListvalue")
+    if (storedHeader) {
+      setHeadPage(formatTitle(storedHeader))
+    }
+    console.log(storedHeader);
+  }, [location]);
 
   if (loading) {
     return (
@@ -90,11 +102,11 @@ const ShowListTopList = () => {
         <a href="#" className="show-top-lists-link" onClick={handlerBack}>
           ← BACK
         </a>
-        <h2>TOP 100 SUPERHERO FILMS</h2>
+        <h2>{headPage}</h2>
         <p>
           We have compiled a list of the 50 best superhero movies ever made, according to IMDb.
         </p>
-        
+
         <div className="movie-list">
           {displayedMovies.map((movie, index) => {
             const { posterPath, title, rating, genres, duration, director, actors, id } = movie;
@@ -102,7 +114,7 @@ const ShowListTopList = () => {
               <div
                 className="movie-card"
                 key={`${id}-${index}`}
-                onClick={(e)=>handlerSetMovie(e, id)}
+                onClick={(e) => handlerSetMovie(e, id)}
               >
                 <span className="movie-index">{`0${index + 1 + startIndex}`}</span>
                 <img src={posterPath} alt={title} className="movie-poster" />
@@ -118,9 +130,9 @@ const ShowListTopList = () => {
                     Cast: {Array.isArray(actors) ? actors.slice(0, 4).map(a => a.name).join(", ") : null}
                   </p> */}
 
-<p>
+                  <p>
                     Cast:{" "}
-                     {Array.isArray(actors)
+                    {Array.isArray(actors)
                       ? actors
                         .map((actor) => actor)
                         .slice(0, 4)

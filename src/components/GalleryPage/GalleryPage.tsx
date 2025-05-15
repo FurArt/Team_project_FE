@@ -48,7 +48,7 @@ const GalleryPage: React.FC = () => {
 
   const [selectedYear, setSelectedYear] = useState<FiltersOptions | null>(null)
   const [selectedType, setSelectedType] = useState<FiltersOptions | null>(null)
-  const [selectedSort, setSelectedSort] = useState<FiltersOptions | null>({ value: '2', label: "Sort" })
+  const [selectedSort, setSelectedSort] = useState<FiltersOptions | null>(null)
 
   const debouncedFetch = useCallback(
     debounce((year: string = "", type: string = "") => {
@@ -110,22 +110,48 @@ const GalleryPage: React.FC = () => {
     }
   }
 
-  const handleSortChange = (value: string) => {
-    const selected = setOption(value, sortOptions);
+  // const handleSortChange = (valueData: string) => {
 
-    if (selected) {
-      setSelectedSort(selected);
+  //   setSelectedSort(setOption(valueData, sortOptions))
+  //   let selected
+  //   const value = selectedSort?.value
+  //   if (selectedSort) {
+  //     selected = setOption(selectedSort?.value, sortOptions);
+  //   }
 
-      const sorted = [...(searchMovies ?? movies ?? [])];
+  //   console.log(selectedSort, valueData, setOption(valueData, sortOptions));
 
-      if (value === '1') {
-        sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
-      } else if (value === '0') {
-        sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
-      }
 
-      setSearchMovies(sorted);
+  //   if (selected) {
+  //     setSelectedSort(selected);
+
+  //     const sorted = [...(searchMovies ?? movies ?? [])];
+
+  //     if (value === '1') {
+  //       sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
+  //     } else if (value === '0') {
+  //       sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
+  //     }
+
+  //     setSearchMovies(sorted);
+  //   }
+  // };
+
+  const handleSortChange = (valueData: string) => {
+    const selected = setOption(valueData, sortOptions);
+    if (!selected) return;
+
+    setSelectedSort(selected);
+
+    const sorted = [...(searchMovies ?? movies ?? [])];
+
+    if (valueData === '1') {
+      sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
+    } else if (valueData === '0') {
+      sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
     }
+
+    setSearchMovies(sorted);
   };
 
 
@@ -156,9 +182,9 @@ const GalleryPage: React.FC = () => {
       navigate(`/gallery?type=${selectedType?.value}&year=`)
       return
     }
-    debouncedFetch(selectedYear?.value, selectedType?.value)
     navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
-
+    debouncedFetch(selectedYear?.value, selectedType?.value)
+    // handleSortChange()
 
   }
 
@@ -299,7 +325,9 @@ const GalleryPage: React.FC = () => {
               )
             })}
           </div>
-          {
+          {(displayedMovies.length === 0
+            || displayedMovies.length < 8
+          ) ? null : (
             <Stack spacing={2} className="pagination">
               <Pagination
                 count={getPageCount(movies, searchMovies, itemsPerPage)}
@@ -313,7 +341,7 @@ const GalleryPage: React.FC = () => {
                   <PaginationItem slots={{ next: NextText }} {...item} />
                 )}
               />
-            </Stack>
+            </Stack>)
           }
         </div>
       </div>

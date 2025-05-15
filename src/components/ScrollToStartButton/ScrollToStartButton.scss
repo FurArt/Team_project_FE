@@ -69,6 +69,7 @@
   &__text {
     flex-grow: 1;
     margin-left: 20px;
+    text-transform: uppercase;
     @extend %AG_H4;
   }
 }
