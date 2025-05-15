@@ -261,7 +261,7 @@ const GalleryPage: React.FC = () => {
               />
             </label>
             <label>
-              Sort by
+            <span className="label-sort-text">Sort by</span>
               <DinamicSort
                 defaultValue={selectedSort?.value}
                 placeholder={selectedSort?.label || `Sort`}
