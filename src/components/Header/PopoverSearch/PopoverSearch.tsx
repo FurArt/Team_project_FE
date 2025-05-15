@@ -53,7 +53,7 @@ export default function PopoverSearch() {
   const [filteredMovies, setFilteredMovies] = useState<ContentItem[]>([])
   const navigate = useNavigate()
 
-  const handleEndSearch = (e) => {
+  const handleEndSearch = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       navigate(`../gallery?search=${search}`)
     }
