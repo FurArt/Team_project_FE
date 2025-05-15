@@ -1,3 +1,11 @@
+import { Input, Popover } from "@base-ui-components/react"
+import "./PopoverSearch.scss"
+import { useEffect, useState } from "react"
+import { useAppSelector } from "../../../app/hooks"
+import { Autocomplete, TextField } from "@mui/material"
+import { useNavigate } from "react-router-dom"
+import { ContentItem } from "../../../types/title"
+
 function BellIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
@@ -34,13 +42,7 @@ function ArrowSvg(props: React.ComponentProps<"svg">) {
   )
 }
 
-import { Input, Popover } from "@base-ui-components/react"
-import "./PopoverSearch.scss"
-import { useEffect, useState } from "react"
-import { useAppSelector } from "../../../app/hooks"
-import { Autocomplete, TextField } from "@mui/material"
-import { useNavigate } from "react-router-dom"
-import { ContentItem } from "../../../types/title"
+
 
 export default function PopoverSearch() {
   const { movies } = useAppSelector(state => state)
@@ -50,6 +52,12 @@ export default function PopoverSearch() {
   const [search, setSearch] = useState("")
   const [filteredMovies, setFilteredMovies] = useState<ContentItem[]>([])
   const navigate = useNavigate()
+
+  const handleEndSearch = (e) => {
+    if (e.key === "Enter") {
+      navigate(`../gallery?search=${search}`)
+    }
+  }
 
   useEffect(() => {
     if (Array.isArray(movies?.title?.content)) {
@@ -106,17 +114,13 @@ export default function PopoverSearch() {
                       label=" "
                       onChange={handleInputChange}
                       value={search}
-                      onKeyDown={e => {
-                        if (e.key === "Enter") {
-                          navigate(`../gallery?search=${search}`)
-                          // console.log(search);
-                          
-                        }
-                      }}
+                      onKeyDown={
+                        (e => handleEndSearch(e))
+                      }
                     />
                   )}
 
-                  
+
                   noOptionsText="No movies found"
                   sx={{
                     backgroundColor: "#d9d9d9",

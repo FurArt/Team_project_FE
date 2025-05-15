@@ -68,7 +68,7 @@ const GalleryPage: React.FC = () => {
     return result || null
   }
 
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState(params.get("search") || "")
   const [searchMovies, setSearchMovies] = useState<ContentGallery[] | null>(
     null,
   )
@@ -80,7 +80,7 @@ const GalleryPage: React.FC = () => {
   }
   const startIndex = (page - 1) * itemsPerPage
 
-  
+
 
   const displayedMovies = (searchMovies ?? movies ?? []).slice(
     startIndex,
@@ -111,23 +111,23 @@ const GalleryPage: React.FC = () => {
   }
 
   const handleSortChange = (value: string) => {
-    const selected = setOption(value, sortOptions); 
-  
+    const selected = setOption(value, sortOptions);
+
     if (selected) {
-      setSelectedSort(selected); 
-  
+      setSelectedSort(selected);
+
       const sorted = [...(searchMovies ?? movies ?? [])];
-  
+
       if (value === '1') {
         sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
       } else if (value === '0') {
         sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
       }
-  
-      setSearchMovies(sorted); 
+
+      setSearchMovies(sorted);
     }
   };
-  
+
 
   const handleEndSearch = () => {
     if (!search.trim()) {
@@ -144,7 +144,7 @@ const GalleryPage: React.FC = () => {
       }
     }
   }
-  
+
   const handleSendFiltering = () => {
     if (!selectedType?.value) {
       debouncedFetch(selectedYear?.value, "")
@@ -199,11 +199,6 @@ const GalleryPage: React.FC = () => {
     }
   }, [])
 
-  useEffect(() => {
-    handleEndSearch()
-    
-  }, [location])
-
   return (
     <main>
       <div className="gallery-header  ">
@@ -257,7 +252,7 @@ const GalleryPage: React.FC = () => {
                 placeholder={selectedType?.label || `Select a movie type`}
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
-                
+
               />
             </label>
             <label>
@@ -292,14 +287,13 @@ const GalleryPage: React.FC = () => {
                     <span className="rating">{rating.toFixed(1)}/10</span>
                   </div>
                   <p>
-                    {`${
-                      Array.isArray(genres)
-                        ? genres
-                            .map(g => g)
-                            .slice(0, 2)
-                            .join(" / ")
-                        : "Unknown Genre"
-                    } ‧ ${duration}`}
+                    {`${Array.isArray(genres)
+                      ? genres
+                        .map(g => g)
+                        .slice(0, 2)
+                        .join(" / ")
+                      : "Unknown Genre"
+                      } ‧ ${duration}`}
                   </p>
                 </div>
               )

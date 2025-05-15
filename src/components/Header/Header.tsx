@@ -22,7 +22,7 @@ const Header = () => {
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null)
   const [search, setSearch] = useState("")
 
-  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>|null) => {
+  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement> | null) => {
     if (e) {
       e.preventDefault()
     }
@@ -56,7 +56,9 @@ const Header = () => {
     setSearch(event.target.value)
   }
 
-  const handleEndSearch = () => {}
+  const handleEndSearch = () => {
+
+  }
 
   useEffect(() => {
     closeMenu(null)
