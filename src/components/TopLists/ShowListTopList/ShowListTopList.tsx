@@ -26,19 +26,22 @@ const ShowListTopList = () => {
 
   const [headPage, setHeadPage] = useState<string | null>(null);
   const [page, setPage] = useState(1);
+  const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
 
   const params = new URLSearchParams(location.search);
   const listId = params.get("id");
 
   const movies = topLists?.content || [];
   const startIndex = (page - 1) * itemsPerPage;
-  const displayedMovies = movies?.slice(
+
+  const displayedMovies = (searchMovies || movies).slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
+
   const getPageCount = (): number => {
-    const totalItems = displayedMovies ? displayedMovies.length : movies.length;
+    const totalItems = searchMovies ? searchMovies.length : movies.length;
     return Math.ceil(totalItems / itemsPerPage);
   };
 
