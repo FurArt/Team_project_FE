@@ -107,7 +107,7 @@ const Movie = () => {
       <div className="movie-content">
         <div className="movie-header">
           <a href="#" className="movie-link" onClick={handlerBack}>
-            ← GO HOME
+            ← BACK
           </a>
           <h1 className="movie-page-title">Film for you</h1>
         </div>

@@ -29,14 +29,6 @@
     width: 100%;
     height: 240px;
     aspect-ratio: 2 / 3;
-    background: url("../../images/mobile-poster.png") center/cover no-repeat;
-  
-  }
-  @include respond(mobile) {
-    display: block;
-    width: 100%;
-    height: 240px;
-    aspect-ratio: 2 / 3;
     // background: url("../../images/mobile-poster.png") center/cover no-repeat;
   }
 
@@ -109,6 +101,7 @@ $images: (
     width: 335px;
     }
 
+
   &--title {
     @extend %AG_H4;
     // text-align: left;
@@ -143,7 +136,6 @@ $images: (
     }
   }
   
-  
 
   &--vibe-btn {
     color: $main-text-color;
@@ -157,15 +149,6 @@ $images: (
     position: relative;
     z-index: 1;
     @extend %AG_H6;
-    @include respond(mobile) {
-      flex: 0 0 auto;
-      scroll-snap-align: start;
-      white-space: normal; // если текст длинный
-
-      width: 70px;
-      height: 70px;
-      font-size: 13px;
-    }
     @include respond(mobile) {
       flex: 0 0 auto;
       scroll-snap-align: start;
@@ -205,10 +188,6 @@ $images: (
           width: 70px;
           height: 70px;
           }
-        @include respond(mobile) {
-          width: 70px;
-          height: 70px;
-          }
       }
 
       &:nth-child(#{$i}):hover::after {
@@ -233,9 +212,6 @@ $images: (
       .dinamic-select {
         width: 100%;
       }
-      .dinamic-select {
-        width: 100%;
-      }
       @extend %AG_H4;
       @include respond(mobile) {
         font-size: 16px;
@@ -247,15 +223,11 @@ $images: (
   &--preferences {
     @extend %AG_H5;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    // grid-template-columns: repeat(2, 1fr);
     // flex-direction: column;
     gap:4px 15px;
     margin-bottom: 15px;
     padding: 0 10px;
-    @include respond(mobile) {
-      font-size: 14px;
-      // gap: 0px;
-      }
     @include respond(mobile) {
       font-size: 14px;
       // gap: 0px;
@@ -288,19 +260,11 @@ $images: (
     justify-content: space-between;
     border: 1px solid;
     /* line-height: 40px; */
-    border: 1px solid;
-    /* line-height: 40px; */
     height: 40px;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 4px;
-    border-radius: 8px;
-    margin-bottom: 4px;
     cursor: pointer;
-    @include respond(mobile) {
-      font-size: 14px;
-      margin-bottom: 0px;
-      }
     @include respond(mobile) {
       font-size: 14px;
       margin-bottom: 0px;
@@ -311,13 +275,7 @@ $images: (
     @extend %AG_H4;
     margin-top: 25px;
     margin-bottom: 20px;
-    margin-top: 25px;
-    margin-bottom: 20px;
     .movie-picker--info {
-      
-      @extend %AG_H7;
-      @include respond(mobile) {
-        }
       
       @extend %AG_H7;
       @include respond(mobile) {
@@ -339,18 +297,16 @@ $images: (
 }
 .movie-picker--btn-primary {
   color: #fff;
-  @include respond(mobile) {
-    background: linear-gradient(90deg, 
+  background: linear-gradient(90deg, 
     rgba(#e83f14, 1) 0%, 
     rgba(#e83f14, 1) 0.1%,
     rgba(215, 58, 19, 1) 28%,
     rgba(179, 49, 15, 1) 57%,
     rgba(130, 35, 11, 1) 100%
     );
+  @include respond(mobile) {
   }
   
-
-
   &:disabled {
     background: $stroke;
   }
