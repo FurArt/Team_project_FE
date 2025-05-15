@@ -48,7 +48,7 @@ const GalleryPage: React.FC = () => {
 
   const [selectedYear, setSelectedYear] = useState<FiltersOptions | null>(null)
   const [selectedType, setSelectedType] = useState<FiltersOptions | null>(null)
-  const [selectedSort, setSelectedSort] = useState<FiltersOptions | null>({ value: '2', label: "Sort" })
+  const [selectedSort, setSelectedSort] = useState<FiltersOptions | null>(null)
 
   const debouncedFetch = useCallback(
     debounce((year: string = "", type: string = "") => {
@@ -68,7 +68,7 @@ const GalleryPage: React.FC = () => {
     return result || null
   }
 
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState(params.get("search") || "")
   const [searchMovies, setSearchMovies] = useState<ContentGallery[] | null>(
     null,
   )
@@ -80,7 +80,7 @@ const GalleryPage: React.FC = () => {
   }
   const startIndex = (page - 1) * itemsPerPage
 
-  
+
 
   const displayedMovies = (searchMovies ?? movies ?? []).slice(
     startIndex,
@@ -110,24 +110,50 @@ const GalleryPage: React.FC = () => {
     }
   }
 
-  const handleSortChange = (value: string) => {
-    const selected = setOption(value, sortOptions); 
-  
-    if (selected) {
-      setSelectedSort(selected); 
-  
-      const sorted = [...(searchMovies ?? movies ?? [])];
-  
-      if (value === '1') {
-        sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
-      } else if (value === '0') {
-        sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
-      }
-  
-      setSearchMovies(sorted); 
+  // const handleSortChange = (valueData: string) => {
+
+  //   setSelectedSort(setOption(valueData, sortOptions))
+  //   let selected
+  //   const value = selectedSort?.value
+  //   if (selectedSort) {
+  //     selected = setOption(selectedSort?.value, sortOptions);
+  //   }
+
+  //   console.log(selectedSort, valueData, setOption(valueData, sortOptions));
+
+
+  //   if (selected) {
+  //     setSelectedSort(selected);
+
+  //     const sorted = [...(searchMovies ?? movies ?? [])];
+
+  //     if (value === '1') {
+  //       sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
+  //     } else if (value === '0') {
+  //       sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
+  //     }
+
+  //     setSearchMovies(sorted);
+  //   }
+  // };
+
+  const handleSortChange = (valueData: string) => {
+    const selected = setOption(valueData, sortOptions);
+    if (!selected) return;
+
+    setSelectedSort(selected);
+
+    const sorted = [...(searchMovies ?? movies ?? [])];
+
+    if (valueData === '1') {
+      sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
+    } else if (valueData === '0') {
+      sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
     }
+
+    setSearchMovies(sorted);
   };
-  
+
 
   const handleEndSearch = () => {
     if (!search.trim()) {
@@ -144,7 +170,7 @@ const GalleryPage: React.FC = () => {
       }
     }
   }
-  
+
   const handleSendFiltering = () => {
     if (!selectedType?.value) {
       debouncedFetch(selectedYear?.value, "")
@@ -156,9 +182,9 @@ const GalleryPage: React.FC = () => {
       navigate(`/gallery?type=${selectedType?.value}&year=`)
       return
     }
-    debouncedFetch(selectedYear?.value, selectedType?.value)
     navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
-
+    debouncedFetch(selectedYear?.value, selectedType?.value)
+    // handleSortChange()
 
   }
 
@@ -198,11 +224,6 @@ const GalleryPage: React.FC = () => {
       handleEndSearch()
     }
   }, [])
-
-  useEffect(() => {
-    handleEndSearch()
-    
-  }, [location])
 
   return (
     <main>
@@ -257,7 +278,7 @@ const GalleryPage: React.FC = () => {
                 placeholder={selectedType?.label || `Select a movie type`}
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
-                
+
               />
             </label>
             <label>
@@ -292,20 +313,21 @@ const GalleryPage: React.FC = () => {
                     <span className="rating">{rating.toFixed(1)}/10</span>
                   </div>
                   <p>
-                    {`${
-                      Array.isArray(genres)
-                        ? genres
-                            .map(g => g)
-                            .slice(0, 2)
-                            .join(" / ")
-                        : "Unknown Genre"
-                    } ‧ ${duration}`}
+                    {`${Array.isArray(genres)
+                      ? genres
+                        .map(g => g)
+                        .slice(0, 2)
+                        .join(" / ")
+                      : "Unknown Genre"
+                      } ‧ ${duration}`}
                   </p>
                 </div>
               )
             })}
           </div>
-          {
+          {(displayedMovies.length === 0
+            || displayedMovies.length < 8
+          ) ? null : (
             <Stack spacing={2} className="pagination">
               <Pagination
                 count={getPageCount(movies, searchMovies, itemsPerPage)}
@@ -319,7 +341,7 @@ const GalleryPage: React.FC = () => {
                   <PaginationItem slots={{ next: NextText }} {...item} />
                 )}
               />
-            </Stack>
+            </Stack>)
           }
         </div>
       </div>

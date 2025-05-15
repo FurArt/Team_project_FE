@@ -27,9 +27,8 @@
   @include respond(mobile) {
     display: block;
     width: 100%;
-    height: 240px;
-    aspect-ratio: 2 / 3;
-    // background: url("../../images/mobile-poster.png") center/cover no-repeat;
+    height: 1200px;
+    background: url("../../images/picking_page_375.JPG") center/cover no-repeat;
   }
 
   // &::after {

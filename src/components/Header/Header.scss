@@ -158,6 +158,7 @@
 
   &-link {
     @extend %AG_H5;
+    text-transform: uppercase;
 
     color: $stroke;
     &:hover {
