@@ -9,9 +9,9 @@ const Loading = () => {
   return (
     <>
       <section className="loading">
-        <p className="loading-title">Wait, Muvio is in the process</p>
+        {/* <p className="loading-title">Wait, Muvio is in the process</p> */}
         <p><Counter target={99} duration={6000} start={loading} />%</p>
-      </section>
+    </section >
     </>
   )
 }

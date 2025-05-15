@@ -33,7 +33,7 @@ export const MovieTypeOptions = [
   { value: "tv_shows", label: "TV Shows" },
   { value: "movies", label: "Movies" },
   { value: "shorts", label: "Shorts" },
-  { value: "", label: "Movies" },
+  { value: "", label: "No matter" },
   // { value: "no_matter", label: "No matter" },
 ]
 export const ReleaseYearOptions = [
@@ -44,7 +44,7 @@ export const ReleaseYearOptions = [
   { value: "1996-2001", label: "1996-2001" },
   { value: "1990-1995", label: "1990-1995" },
   // { value: "no_matter", label: "No matter" },
-  { value: "", label: "2005-2025" },
+  { value: "", label: "No matter" },
 ]
 
 const Picker = () => {

@@ -22,7 +22,7 @@ const Header = () => {
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null)
   const [search, setSearch] = useState("")
 
-  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>|null) => {
+  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement> | null) => {
     if (e) {
       e.preventDefault()
     }
@@ -56,11 +56,15 @@ const Header = () => {
     setSearch(event.target.value)
   }
 
-  const handleEndSearch = () => {}
-
   useEffect(() => {
     closeMenu(null)
   }, [location])
+
+  const handleEndSearch = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      navigate(`../gallery?search=${search}`)
+    }
+  }
 
   return (
     <header className="header-page" id="header">
@@ -213,7 +217,7 @@ const Header = () => {
             onChange={handleSearchChange}
             onKeyUp={e => {
               if (e.key === "Enter") {
-                handleEndSearch()
+                handleEndSearch(e)
               }
             }}
             className="search-input"
@@ -221,7 +225,7 @@ const Header = () => {
             render={(props, state) => (
               <div className="input-wrapper">
                 <input {...props} className="gallery-header-search-input" />
-                <span className="search-icon" onClick={handleEndSearch}></span>
+                <span className="search-icon" onKeyDown={handleEndSearch}></span>
               </div>
             )}
           />

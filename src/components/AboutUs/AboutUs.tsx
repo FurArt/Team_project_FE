@@ -4,6 +4,7 @@ import "./AboutUs.scss"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import TelegramIcon from "@mui/icons-material/Telegram"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 const teamMembers = [
   {
@@ -205,7 +206,7 @@ const AboutUs = () => {
         ))}
       </div>
 
-      <MadeInUkraine />
+      {/* <MadeInUkraine /> */}
     </section>
   )
 }

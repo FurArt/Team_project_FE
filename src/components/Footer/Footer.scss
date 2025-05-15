@@ -42,6 +42,7 @@
       @extend %AG_H5;
       color: $stroke;
       height: 45px;
+      cursor: pointer;
       &:hover {
         color: $main-text-color;
       }

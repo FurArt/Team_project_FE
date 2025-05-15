@@ -40,6 +40,7 @@ const TopLists: React.FC = () => {
 
   const handleGoToList = (value: TopListTypes) => (e: React.MouseEvent) => {
     e.stopPropagation();
+    sessionStorage.setItem("TopListvalue", JSON.stringify(value))
     navigate(`../${RoutesPath.SHOWTOPLISTS}?id=${value}`, { replace: true });
   };
 
@@ -54,18 +55,18 @@ const TopLists: React.FC = () => {
           {topLists.map((item, index) => (
             <li
               key={index}
-              className={cs("top-lists-item", { 
-                active: selectedIndex === item.value 
+              className={cs("top-lists-item", {
+                active: selectedIndex === item.value
               })}
               onClick={() => setSelectedIndex(item.value)}
             >
               <span className="top-lists-text">
                 {`0${index + 1}.`} {item.title}
               </span>
-              <div 
-                className={cs("selection-arrow", { 
-                  sellected: selectedIndex === item.value 
-                })} 
+              <div
+                className={cs("selection-arrow", {
+                  sellected: selectedIndex === item.value
+                })}
                 onClick={handleGoToList(item.value)}
               />
             </li>
