@@ -28,7 +28,6 @@ function request<T>(
   const queryString = new URLSearchParams(params).toString()
   const fullUrl = `${BASE_URL}${url}${queryString ? `?${queryString}` : ""}`
 
-
   return wait(300)
     .then(() => fetch(fullUrl, options))
     .then(response => {
@@ -43,7 +42,7 @@ export const client = {
   addMovie: <T>(data: any) => request<T>("/media", "POST", data),
   getTitleMovie: <T>(
     page: number = 0,
-    size: number = 10000,
+    size: number = 500,
     sort: string = "rating",
   ) => request<T>("/media/titles", "GET", null, { page, size, sort }),
 
@@ -58,16 +57,35 @@ export const client = {
 
   getMovies: <T>(page: number = 0, size: number = 100, sort: string[] = []) =>
     request<T>("/media/posters", "GET", null, { page, size, sort }),
-  
-  getMediaGallery: <T>(title?: string, years?: string, type?: string, page: number = 0, size: number = 100, sort: string[] = []) =>
-    request<T>("/media/gallery", "GET", null, { title, years, type, page, size, sort }),
+
+  getMediaGallery: <T>(
+    title?: string,
+    years?: string,
+    type?: string,
+    page: number = 0,
+    size: number = 100,
+    sort: string[] = [],
+  ) =>
+    request<T>("/media/gallery", "GET", null, {
+      title,
+      years,
+      type,
+      page,
+      size,
+      sort,
+    }),
 
   getTopListMovies: <T>(
     listType: string,
     page: number = 0,
     size: number = 10,
-    sort: string[] = ["rating"]
-  ) => request<T>(`/media/top-list/${listType}`, "GET", null, { page, size, sort }),
+    sort: string[] = ["rating"],
+  ) =>
+    request<T>(`/media/top-list/${listType}`, "GET", null, {
+      page,
+      size,
+      sort,
+    }),
 
   // getMoviesByVibe: <T>(
   //   filters: VibeFilters,
@@ -92,7 +110,7 @@ export const client = {
     filters: VibeFilters,
     page: number = 0,
     size: number = 10,
-    sort: string[] = ["rating,desc"]
+    sort: string[] = ["rating,desc"],
   ): Promise<T> => {
     const params: Record<string, string | number> = {
       page,
@@ -101,30 +119,25 @@ export const client = {
       years: filters.years || "",
       type: filters.type || "",
       categories: filters.categories?.join(",") || "",
-    };
-  
-    const searchParams = new URLSearchParams();
-  
+    }
+
+    const searchParams = new URLSearchParams()
+
     Object.entries(params).forEach(([key, value]) => {
       if (value !== "") {
-        searchParams.append(key, String(value));
+        searchParams.append(key, String(value))
       }
-    });
-  
+    })
+
     sort.forEach(sortParam => {
-      searchParams.append("sort", sortParam);
-    });
-  
-    const queryString = searchParams.toString();
-  
-    return request<T>(`/media/vibe?${queryString}`, "GET");
+      searchParams.append("sort", sortParam)
+    })
+
+    const queryString = searchParams.toString()
+
+    return request<T>(`/media/vibe?${queryString}`, "GET")
   },
-  
-  
 }
 
-
-
-  
 // https://backend-muvio.onrender.com/api/media/titles?page=0&size=1
 // https://backend-muvio.onrender.com/api/media/title?page=0&size=100&sort=rating

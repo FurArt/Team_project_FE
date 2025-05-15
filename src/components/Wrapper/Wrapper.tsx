@@ -35,7 +35,7 @@ const Wrapper = ({ children }: WrapperProps) => {
 
   return (
     <main className="wrapper">
-      <MadeInUkraine />
+      {/* <MadeInUkraine /> */}
       <section className="conteiner-video">
         {/* Карты фильмов для десктопа */}
         {(showMovies?.length < 70 || showMovies?.length === undefined)

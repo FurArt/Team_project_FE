@@ -35,6 +35,7 @@ import { TopListTypes } from "./types/TopListTypes"
 import { VibeMovie, VibeMoviesData } from "./types/vibe"
 import { MovieData } from "./types/movie"
 import AboutUs from "./components/AboutUs/AboutUs"
+import MadeInUkraine from "./components/MadeInUkraine/MadeInUkraine"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -159,6 +160,7 @@ const App = () => {
   return (
     <>
       <Header />
+      <MadeInUkraine />
       {/* {true ? ( */}
       {loading ? (
 
