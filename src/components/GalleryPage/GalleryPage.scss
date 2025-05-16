@@ -200,8 +200,9 @@
   cursor: pointer;
   transition: transform 0.5s linear;
   @include respond(mobile) {
-
+    margin-bottom: 32px;
     width: 344px;
+    height: 570px;
   }
   
   &:hover {
@@ -214,12 +215,21 @@
   p {
     @extend %AG_H6;
     text-align: left;
+    margin-top: 16px;
+    letter-spacing: 0.01px;
   }
 }
 
 .movie-card img {
   width: 314px;
   border-radius: 8px;
+  object-fit: cover;
+  // object-position: center top;
+  @include respond(mobile) {
+    margin-bottom: 14px;
+    width: 304px;
+    height: 390px;
+  }
 }
 
 .movie-info {
