@@ -46,6 +46,13 @@ export const client = {
     sort: string = "rating",
   ) => request<T>("/media/titles", "GET", null, { page, size, sort }),
 
+  getTitleMovieSearch: <T>(
+    search: string = "",
+    page: number = 0,
+    size: number = 0,
+    sort: string = "rating",
+  ) => request<T>(`/media/titles/${search}`, "GET", null, { page, size, sort }),
+
   updateMovie: <T>(id: string, data: any) =>
     request<T>(`/media/${id}`, "PUT", data),
 
@@ -86,6 +93,7 @@ export const client = {
       size,
       sort,
     }),
+<<<<<<< Updated upstream
 
   // getMoviesByVibe: <T>(
   //   filters: VibeFilters,
@@ -105,6 +113,8 @@ export const client = {
 
   //   return request<T>("/media/vibe", "GET", null, params);
   // },
+=======
+>>>>>>> Stashed changes
 
   getMoviesByVibe: <T>(
     filters: VibeFilters,

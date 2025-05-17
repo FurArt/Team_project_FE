@@ -32,6 +32,7 @@ export interface MovieData {
     id: string
     time: string
   }>
+  type: string
 }
 
 export interface MoviesData {
