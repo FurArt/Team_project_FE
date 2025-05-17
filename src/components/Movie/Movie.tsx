@@ -61,7 +61,7 @@ const Movie = () => {
   const filteredActors = actors.filter(actor => actor.photo).slice(0, 3)
 
   const handlerBack = () => {
-    navigate("../")
+    navigate(-1)
   }
 
   useEffect(() => {

@@ -78,44 +78,46 @@ $border-radius: 8px;
   &-page-title {
     @extend %AG_H1;
   }
-  &-content {
-    position: relative;
-    width: 100%;
-    height: fit-content;
-    padding: 0 40px 125px;
-    overflow: hidden;
-    z-index: 0;
-  
-    @include respond(mobile) {
-      padding: 0;
-    }
-  
-    // Картинка с прозрачностью
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("../../images/movie-item/back-photo-movie-info.jpg")
-        no-repeat center / cover;
-      opacity: 0.4;
-      z-index: -2;
-    }
-  
-    // // Мягкая тень снизу
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-    //   left: 0;
-    //   right: 0;
-    //   bottom: 0;
-    //   height: 100px;
-    //   background: linear-gradient(
-    //     rgba(0, 0, 0, 0.3),
-    //     rgba(0, 0, 0, 0)
-    //   );
-    //   z-index: -1;
-    // }
+&-content {
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  padding: 0 40px 125px;
+  overflow: hidden;
+  z-index: 0;
+
+  @include respond(mobile) {
+    padding: 0;
   }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background: url("../../images/movie-item/back-photo-movie-info.jpg")
+      no-repeat center / cover;
+    opacity: 0.4;
+    z-index: -2;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 150px; /* больше высота для плавности */
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.15), /* уменьшена непрозрачность */
+      rgba(0, 0, 0, 0)
+    );
+    z-index: -1;
+  }
+}
   &-coteiner-info {
     display: grid;
     gap: 20px;
