@@ -15,6 +15,7 @@
   padding: 30vh 0 30vh;
 
   @include respond(tablet) {
+    
 
     height: $height_mood--tablet;
     padding: 10vh 0 30vh;
@@ -23,7 +24,7 @@
   @include respond(mobile) {
     background-color: transparent;
 
-    height:20vh;
+    height: 225px;;
     padding-top: 34px;
   }
 
@@ -44,7 +45,7 @@
       font-size: 16px;
       line-height: 150%;
       letter-spacing: 0.02px;
-      width: 100%;
+      width: 370px;
     }
   }
  

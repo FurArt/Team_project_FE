@@ -17,7 +17,7 @@
   @extend %AG_H5;
   position: relative;
   @include respond(mobile) {
-    height: 44px;
+    height: 42px;
     font-size: 14px;
     // width: 20px;
     }

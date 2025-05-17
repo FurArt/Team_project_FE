@@ -15,9 +15,10 @@ background-size: cover;
   z-index: 10000;
 
   @include respond(mobile) {
-    top: 60%;
+    top: 55%;
     width: 75px;
     height: 75px;
     background-size: contain;
+    right: 4.27vw;
   }
 }
