@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
 import {
   fetchMovieById,
+  fetchMovieBySearch,
   fetchMoviesAllTitle,
   fetchMoviesGllery,
   fetchMoviesPoster,
@@ -36,6 +37,7 @@ import { VibeMovie, VibeMoviesData } from "./types/vibe"
 import { MovieData } from "./types/movie"
 import AboutUs from "./components/AboutUs/AboutUs"
 import MadeInUkraine from "./components/MadeInUkraine/MadeInUkraine"
+import { getTitleMovieSearch } from "./api/movie"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -49,15 +51,16 @@ const App = () => {
   const [isMovieLoaded, setIsMovieLoaded] = useState<boolean>(
     !!movies.selectedMovie?.id || false,
   )
+  const search = params.get("search") || ""
 
-  useEffect(() => { }, [dispatch])
+  // useEffect(() => {
+  // })
 
   useEffect(() => {
     console.log(`itwork`)
     dispatch(fetchMoviesAllTitle())
 
     if (location.pathname === "/show-top-lists") {
-      const params = new URLSearchParams(location.search)
       const id = params.get("id") as TopListTypes
       dispatch(
         fetchTopListMovies({
@@ -71,8 +74,8 @@ const App = () => {
       const params = new URLSearchParams(location.search)
       const year = params.get("year") || ""
       const type = params.get("type") || ""
-
-      dispatch(fetchMoviesGllery({ years: year, type: type }))
+      const search = params.get("search") || ""
+      dispatch(fetchMoviesGllery({ title: search, years: year, type: type }))
     }
 
     if (location.pathname === "/") {
@@ -84,7 +87,6 @@ const App = () => {
       const initialContent = storedContent
         ? (JSON.parse(storedContent) as MovieData)
         : null
-      // console.log(initialContent instanceof Object )
       if (initialContent instanceof Object) {
         console.log(`asd`)
         console.log(movies)
@@ -140,7 +142,9 @@ const App = () => {
     }
 
     if (location.pathname === "/gallery") {
-      dispatch(fetchMoviesGllery({}))
+      console.log(`it too`);
+      dispatch(fetchMoviesGllery({ title: search }))
+      // dispatch(fetchMoviesGllery({}))
     }
 
     if (location.pathname === "/recommendations") {
@@ -157,6 +161,13 @@ const App = () => {
     }
   }, [location.pathname, movies.selectedMovie])
 
+  useEffect(() => {
+    if (location.pathname === "/gallery") {
+      console.log(`it too`);
+      dispatch(fetchMoviesGllery({ title: search }))
+      // dispatch(fetchMoviesGllery({}))
+    }
+  }, [search])
   return (
     <>
       <Header />

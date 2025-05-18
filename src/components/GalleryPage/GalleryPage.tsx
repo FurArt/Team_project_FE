@@ -38,6 +38,9 @@ const GalleryPage: React.FC = () => {
   const location = useLocation()
   const firstRenderRef = useRef(true)
   const params = new URLSearchParams(location.search)
+  const year = params.get("year") || ""
+  const type = params.get("type") || ""
+  const searchUrl = params.get("search")
 
   const dispatch = useAppDispatch()
 
@@ -51,8 +54,8 @@ const GalleryPage: React.FC = () => {
   const [selectedSort, setSelectedSort] = useState<FiltersOptions | null>(null)
 
   const debouncedFetch = useCallback(
-    debounce((year: string = "", type: string = "") => {
-      dispatch(fetchMoviesGllery({ size: 1000, years: year, type }))
+    debounce((year: string = "", type: string = "", title: string = "", sort: string) => {
+      dispatch(fetchMoviesGllery({ size: 1000, years: year, type, title, sort: [sort] }))
     }, 500),
     [dispatch],
   )
@@ -143,50 +146,86 @@ const GalleryPage: React.FC = () => {
 
     setSelectedSort(selected);
 
-    const sorted = [...(searchMovies ?? movies ?? [])];
+    // const sorted = [...(searchMovies ?? movies ?? [])];
 
-    if (valueData === '1') {
-      sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
-    } else if (valueData === '0') {
-      sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
-    }
+    // if (valueData === '1') {
+    //   sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
+    // } else if (valueData === '0') {
+    //   sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
+    // }
 
-    setSearchMovies(sorted);
+    // setSearchMovies(sorted);
   };
 
 
   const handleEndSearch = () => {
     if (!search.trim()) {
       setSearchMovies(null)
-    } else {
-      const filteredMovies: ContentGallery[] | undefined = movies?.filter(
-        movie => movie?.title.toLowerCase().includes(search.toLowerCase()),
-      )
-      if (!filteredMovies) {
-        setSearchMovies(null)
-      } else {
-        setSearchMovies(filteredMovies)
-        setPage(1)
-      }
     }
+    // else {
+    //   const filteredMovies: ContentGallery[] | undefined = movies?.filter(
+    //     movie => movie?.title.toLowerCase().includes(search.toLowerCase()),
+    //   )
+    //   if (!filteredMovies) {
+    //     setSearchMovies(null)
+    //   } else {
+    //     setSearchMovies(filteredMovies)
+    //     setPage(1)
+    //   }
+    // }
+    const searchTitle = search.toLowerCase()
+    debouncedFetch('', '', searchTitle, '',)
+    navigate(`/gallery?search=${searchTitle}&type=&year=`)
   }
+
+  // const handleSendFiltering = () => {
+  //   if (!selectedType?.value) {
+  //     debouncedFetch(selectedYear?.value, "", "", "")
+  //     navigate(`/gallery?type=&year=${selectedYear?.value}`)
+  //     return
+  //   }
+  //   if (!selectedYear?.value) {
+  //     debouncedFetch("", selectedType?.value, "", "")
+  //     navigate(`/gallery?type=${selectedType?.value}&year=`)
+  //     return
+  //   }
+  //   if (selectedSort) {
+  //     console.log(selectedSort);
+
+  //   }
+
+  //   navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
+  //   debouncedFetch(selectedYear?.value, selectedType?.value, "", "")
+  // }
 
   const handleSendFiltering = () => {
-    if (!selectedType?.value) {
-      debouncedFetch(selectedYear?.value, "")
-      navigate(`/gallery?type=&year=${selectedYear?.value}`)
-      return
-    }
-    if (!selectedYear?.value) {
-      debouncedFetch("", selectedType?.value)
-      navigate(`/gallery?type=${selectedType?.value}&year=`)
-      return
-    }
-    navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
-    debouncedFetch(selectedYear?.value, selectedType?.value)
-    // handleSortChange()
+    let sortQuery = ""
 
+    if (selectedSort?.value === '1') {
+      sortQuery = "releaseYear,desc"
+    } else if (selectedSort?.value === '0') {
+      sortQuery = "releaseYear,asc"
+    }
+    console.log(`sortQuery`);
+    console.log(sortQuery);
+
+
+    if (!selectedType?.value) {
+      debouncedFetch(selectedYear?.value, "", "", sortQuery)
+      navigate(`/gallery?type=&year=${selectedYear?.value}${sortQuery ? `&sort=${sortQuery}` : ""}`)
+      return
+    }
+
+    if (!selectedYear?.value) {
+      debouncedFetch("", selectedType?.value, "", sortQuery)
+      navigate(`/gallery?type=${selectedType?.value}&year=${""}${sortQuery ? `&sort=${sortQuery}` : ""}`)
+      return
+    }
+
+    debouncedFetch(selectedYear?.value, selectedType?.value, "", sortQuery)
+    navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}${sortQuery ? `&sort=${sortQuery}` : ""}`)
   }
+
 
   const getPageCount = (
     movies: ContentGallery[] | undefined,
@@ -204,25 +243,25 @@ const GalleryPage: React.FC = () => {
     scrollToHandler(null)
   }, [page])
 
-  useEffect(() => {
-    if (!selectedYear?.value || !selectedType?.value) {
-      return
-    }
-  }, [selectedYear?.value, selectedType?.value, debouncedFetch])
+  // useEffect(() => {
+  //   if (!selectedYear?.value || !selectedType?.value) {
+  //     return
+  //   }
+  // }, [selectedYear?.value, selectedType?.value, debouncedFetch])
 
   useEffect(() => {
+    console.log(firstRenderRef.current);
+
     if (!firstRenderRef.current) return
-    const params = new URLSearchParams(location.search)
-    const year = params.get("year") || ""
-    const type = params.get("type") || ""
-    const search = params.get("search")
+
 
     setSelectedYear(setOption(year, ReleaseYearOptions))
     setSelectedType(setOption(type, MovieTypeOptions))
-    if (search) {
-      setSearch(search)
-      handleEndSearch()
-    }
+    // if (searchUrl) {
+    //   setSearch(searchUrl)
+    //   // handleEndSearch()
+    //   firstRenderRef.current = false
+    // }
   }, [])
 
   return (
@@ -278,11 +317,10 @@ const GalleryPage: React.FC = () => {
                 placeholder={selectedType?.label || `Select a movie type`}
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
-
               />
             </label>
             <label>
-            <span className="label-sort-text">Sort by</span>
+              <span className="label-sort-text">Sort by</span>
               <DinamicSort
                 defaultValue={selectedSort?.value}
                 placeholder={selectedSort?.label || `Sort`}
@@ -299,34 +337,40 @@ const GalleryPage: React.FC = () => {
             </button>
           </div>
           <div className="movies-container">
-            {displayedMovies.map((movie, index) => {
-              const { posterPath, title, rating, genres, duration, id } = movie
-              return (
-                <div
-                  key={index}
-                  className="movie-card"
-                  onClick={e => handleClick(e, id)}
-                >
-                  <img src={posterPath} alt={title} />
-                  <div className="movie-info">
-                    <h3>{title}</h3>
-                    <span className="rating">{rating.toFixed(1)}/10</span>
+
+
+            {displayedMovies.length === 0 ? (
+              <div className="gallery-header-description">
+                {`Can't find ${searchUrl}`}
+              </div>
+            )
+              : displayedMovies.map((movie, index) => {
+                const { posterPath, title, rating, genres, duration, id } = movie
+                return (
+                  <div
+                    key={index}
+                    className="movie-card"
+                    onClick={e => handleClick(e, id)}
+                  >
+                    <img src={posterPath} alt={title} />
+                    <div className="movie-info">
+                      <h3>{title}</h3>
+                      <span className="rating">{rating.toFixed(1)}/10</span>
+                    </div>
+                    <p>
+                      {`${Array.isArray(genres)
+                        ? genres
+                          .map(g => g)
+                          .slice(0, 2)
+                          .join(" / ")
+                        : "Unknown Genre"
+                        } ‧ ${duration}`}
+                    </p>
                   </div>
-                  <p>
-                    {`${Array.isArray(genres)
-                      ? genres
-                        .map(g => g)
-                        .slice(0, 2)
-                        .join(" / ")
-                      : "Unknown Genre"
-                      } ‧ ${duration}`}
-                  </p>
-                </div>
-              )
-            })}
+                )
+              })}
           </div>
-          {(displayedMovies.length === 0
-            || displayedMovies.length < 8
+          {(displayedMovies.length < 8
           ) ? null : (
             <Stack spacing={2} className="pagination">
               <Pagination

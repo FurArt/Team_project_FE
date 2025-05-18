@@ -60,8 +60,6 @@ export interface VibeMoviesData {
   empty: boolean
 }
 
-
-
 export enum VibeTypes {
   MAKE_ME_CHILL = "MAKE_ME_CHILL",
   SCARY_ME_SILLY = "SCARY_ME_SILLY",
@@ -71,13 +69,12 @@ export enum VibeTypes {
   TAKE_ME_TO_ANOTHER_WORLD = "TAKE_ME_TO_ANOTHER_WORLD",
   BLOW_MY_MIND = "BLOW_MY_MIND",
   KEEP_ME_ON_EDGE = "KEEP_ME_ON_EDGE",
-  
 }
 
 export enum MediaTypes {
   MOVIE = "MOVIE",
   TV_SHOW = "TV_SHOW",
-  SHORTS = "SHORTS"
+  SHORTS = "SHORTS",
 }
 
 export enum CategoryTypes {
@@ -88,20 +85,21 @@ export enum CategoryTypes {
   GIRL_POWER_MOVIES = "GIRL_POWER",
   LIFE_CHANGING_MOVIES = "LIFE_CHANGING_MOVIES",
   SPORT_LIFE_MOVIES = "SPORT_LIFE_PLOTS",
-  IMD_TOP_250_MOVIES = "IMD_TOP_250"
+  IMD_TOP_250_MOVIES = "IMD_TOP_250",
 }
 
-// BASED_ON_A_TRUE_STORY, 
-// SPY_AND_COP_PLOTS, 
-// BASED_ON_A_BOOK, 
-// MUST_WATCH_LIST, 
-// GIRL_POWER, 
-// LIFE_CHANGING_MOVIES, 
-// SPORT_LIFE_PLOTS, 
+// BASED_ON_A_TRUE_STORY,
+// SPY_AND_COP_PLOTS,
+// BASED_ON_A_BOOK,
+// MUST_WATCH_LIST,
+// GIRL_POWER,
+// LIFE_CHANGING_MOVIES,
+// SPORT_LIFE_PLOTS,
 // IMD_TOP_250
+
 export interface VibeFilters {
-  vibe?: VibeTypes;        
-  years?: string;          
-  type: MediaTypes;        
-  categories?: string[]; 
+  vibe?: VibeTypes
+  years?: string
+  type: MediaTypes
+  categories?: string[]
 }

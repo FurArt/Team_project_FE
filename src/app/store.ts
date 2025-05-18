@@ -14,74 +14,92 @@ import {
   getTitleMovie,
   getMediaGallery,
   getTopListMovies,
+  getTitleMovieSearch,
 } from "../api/movie"
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
 import { scrollToHandler } from "../utils/scrollToHandler"
 import { MovieData, MoviesData, MoviesState } from "../types/movie"
-import { CategoryTypes, MediaTypes, VibeMovie, VibeMoviesData, VibeTypes } from "../types/vibe"
+import {
+  CategoryTypes,
+  MediaTypes,
+  VibeMovie,
+  VibeMoviesData,
+  VibeTypes,
+} from "../types/vibe"
 import { TitleData } from "../types/title"
 import { FetchGalleryParams, GalleryData } from "../types/gallery"
 import { TopListMovieResponse, TopListTypes } from "../types/TopListTypes"
-
 
 const fetchMoviesByVibe = createAsyncThunk<
   VibeMoviesData,
   {
     data: {
-      vibe?: VibeTypes;
-      years?: string;
-      type: MediaTypes;
-      categories?: string[];
-    };
-    page?: number;
-    size?: number;
-    sort?: string[];
-  },
-  { rejectValue: string[] }> (
-  "movies/fetchMoviesByVibe",
-  async ({ data, page = 0, size = 8, sort = ["rating"] }, { rejectWithValue }) => {
-    try {
-      const response = await getMoviesByVibe(data, page, size, sort);
-      return response;
-    } catch (err: any) {
-      const errorResponse = await err?.response?.json?.();
-      const errors = errorResponse?.errors ?? ["Unknown error occurred"];
-      return rejectWithValue(errors);
+      vibe?: VibeTypes
+      years?: string
+      type: MediaTypes
+      categories?: string[]
     }
-  }
-);
-
+    page?: number
+    size?: number
+    sort?: string[]
+  },
+  { rejectValue: string[] }
+>(
+  "movies/fetchMoviesByVibe",
+  async (
+    { data, page = 0, size = 8, sort = ["rating"] },
+    { rejectWithValue },
+  ) => {
+    try {
+      const response = await getMoviesByVibe(data, page, size, sort)
+      return response
+    } catch (err: any) {
+      const errorResponse = await err?.response?.json?.()
+      const errors = errorResponse?.errors ?? ["Unknown error occurred"]
+      return rejectWithValue(errors)
+    }
+  },
+)
 
 const fetchTopListMovies = createAsyncThunk<
-  TopListMovieResponse, 
+  TopListMovieResponse,
   {
-    listType: TopListTypes;
-    page?: number;
-    size?: number;
-    sort?: string[];
+    listType: TopListTypes
+    page?: number
+    size?: number
+    sort?: string[]
   },
-  { rejectValue: string } 
+  { rejectValue: string }
 >(
   "movies/fetchTopListMovies",
-  async ({ listType, page = 0, size = 100, sort = ["rating"] }, { rejectWithValue }) => {
+  async (
+    { listType, page = 0, size = 100, sort = ["rating"] },
+    { rejectWithValue },
+  ) => {
     try {
-      const response = await getTopListMovies(listType, page, size, sort);
-      return response as TopListMovieResponse; 
+      const response = await getTopListMovies(listType, page, size, sort)
+      return response as TopListMovieResponse
     } catch (err) {
-      return rejectWithValue("Failed to fetch top list movies");
+      return rejectWithValue("Failed to fetch top list movies")
     }
-  }
-);
+  },
+)
 
 const fetchMoviesGllery = createAsyncThunk<GalleryData, FetchGalleryParams>(
   "movies/fetchGlleryMovies",
-  async ({ title = "", years = "", type = "", page = 0, size = 100, sort = [""] }) => {
-    const movies = await getMediaGallery(title, years, type, page, size, sort) as GalleryData;
-    return movies;
-  }
-);
-
+  async ({ title = "", years = "", type = "", page = 0, size = 100, sort }) => {
+    const movies = (await getMediaGallery(
+      title,
+      years,
+      type,
+      page,
+      size,
+      sort,
+    )) as GalleryData
+    return movies
+  },
+)
 
 const fetchMoviesAllTitle = createAsyncThunk<TitleData, void>(
   "movies/fetchTitleMovies",
@@ -107,6 +125,14 @@ const fetchMovieById = createAsyncThunk<MovieData, string>(
   },
 )
 
+const fetchMovieBySearch = createAsyncThunk<MovieData, string>(
+  "movies/Search",
+  async search => {
+    const response = await getTitleMovieSearch(search)
+    return response
+  },
+)
+
 const fetchMovieByLuck = createAsyncThunk<MovieData, number>(
   "movies/luck",
   async (size: number = 1) => {
@@ -117,85 +143,100 @@ const fetchMovieByLuck = createAsyncThunk<MovieData, number>(
 
 const moviesSlice = createSlice({
   name: "movies",
-    initialState: {
-      data: null as MoviesData | null,
-      selectedMovie: null as MovieData | null,
-      loading: false,
-      topLists: null as TopListMovieResponse | null,
-      error: null as string | null,
-      vibe: null as VibeMoviesData | null,
-      title: null as TitleData | null,
-      gallery: null as GalleryData | null,
-
-    },
+  initialState: {
+    data: null as MoviesData | null,
+    selectedMovie: null as MovieData | null,
+    saearchMovie: null as MovieData | null,
+    loading: false,
+    topLists: null as TopListMovieResponse | null,
+    error: null as string | null,
+    vibe: null as VibeMoviesData | null,
+    title: null as TitleData | null,
+    gallery: null as GalleryData | null,
+  },
   reducers: {
     setLoading(state, action: PayloadAction<boolean>) {
       state.loading = action.payload
     },
     setSelectedMovie(state, action: PayloadAction<MovieData | null>) {
-      state.selectedMovie = action.payload;
+      state.selectedMovie = action.payload
     },
     setVibeMovie(state, action: PayloadAction<VibeMoviesData | null>) {
-        state.vibe = action.payload ? action.payload  : null;
+      state.vibe = action.payload ? action.payload : null
     },
-
+    setGalleryMovie(state, action: PayloadAction<GalleryData | null>) {
+      state.gallery = action.payload ? action.payload : null
+    },
   },
   extraReducers: builder => {
     builder
-    .addCase(fetchMoviesByVibe.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(
-      fetchMoviesByVibe.fulfilled,
-      (state, action: PayloadAction<VibeMoviesData>) => {
-        state.loading = false;
-        state.vibe = action.payload;
-        state.selectedMovie = state.vibe.content[0] as unknown as MovieData;
+      .addCase(fetchMovieBySearch.pending, state => {
+        state.loading = true
         state.error = null
-      }
-    )
-    .addCase(fetchMoviesByVibe.rejected, (state, action) => {
-      const payload = action.payload as string[] | undefined;
-      state.loading = false;
-      state.error = payload?.join("\n") || "Failed to load movies by vibe";
-      state.vibe = null;
-    })    
-    
-    .addCase(fetchTopListMovies.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(fetchTopListMovies.fulfilled, (state, action) => {
-      state.loading = false;
-      state.topLists = action.payload;
-    })
-    .addCase(fetchTopListMovies.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload || "Unknown error occurred";
-      state.topLists = null;
-    })
-
-    .addCase(
-      fetchMoviesGllery.pending, state => {
-      state.loading = true
-      state.error = null
-    })
-    .addCase(
-      fetchMoviesGllery.fulfilled,
-      (state, action: PayloadAction<GalleryData>) => {
-        state.loading = false
-        state.gallery = action.payload
-      },
-    )
-    .addCase(
-      fetchMoviesGllery.rejected, (state, action) => {
-      state.loading = false
-      state.error = action.error.message || "Failed to load movies"
-    })
-
+      })
       .addCase(
-        fetchMoviesPoster.pending, state => {
+        fetchMovieBySearch.fulfilled,
+        (state, action: PayloadAction<MovieData>) => {
+          state.loading = false
+          state.saearchMovie = action.payload
+        },
+      )
+      .addCase(fetchMovieBySearch.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.error.message || "Failed to load movie by ID"
+      })
+
+      .addCase(fetchMoviesByVibe.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(
+        fetchMoviesByVibe.fulfilled,
+        (state, action: PayloadAction<VibeMoviesData>) => {
+          state.loading = false
+          state.vibe = action.payload
+          state.selectedMovie = state.vibe.content[0] as unknown as MovieData
+          state.error = null
+        },
+      )
+      .addCase(fetchMoviesByVibe.rejected, (state, action) => {
+        const payload = action.payload as string[] | undefined
+        state.loading = false
+        state.error = payload?.join("\n") || "Failed to load movies by vibe"
+        state.vibe = null
+      })
+
+      .addCase(fetchTopListMovies.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchTopListMovies.fulfilled, (state, action) => {
+        state.loading = false
+        state.topLists = action.payload
+      })
+      .addCase(fetchTopListMovies.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload || "Unknown error occurred"
+        state.topLists = null
+      })
+
+      .addCase(fetchMoviesGllery.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(
+        fetchMoviesGllery.fulfilled,
+        (state, action: PayloadAction<GalleryData>) => {
+          state.loading = false
+          state.gallery = action.payload
+        },
+      )
+      .addCase(fetchMoviesGllery.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.error.message || "Failed to load movies"
+      })
+
+      .addCase(fetchMoviesPoster.pending, state => {
         state.loading = true
         state.error = null
       })
@@ -206,15 +247,13 @@ const moviesSlice = createSlice({
           state.data = action.payload
         },
       )
-      .addCase(
-        fetchMoviesPoster.rejected, (state, action) => {
+      .addCase(fetchMoviesPoster.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message || "Failed to load movies"
         state.data = null
       })
-      
-      .addCase(
-        fetchMoviesAllTitle.pending, state => {
+
+      .addCase(fetchMoviesAllTitle.pending, state => {
         state.loading = true
         state.error = null
       })
@@ -225,11 +264,11 @@ const moviesSlice = createSlice({
           state.title = action.payload
         },
       )
-      .addCase(
-        fetchMoviesAllTitle.rejected, (state, action) => {
+      .addCase(fetchMoviesAllTitle.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message || "Failed to load movies"
       })
+
       .addCase(fetchMovieById.pending, state => {
         state.loading = true
         state.error = null
@@ -245,6 +284,7 @@ const moviesSlice = createSlice({
         state.loading = false
         state.error = action.error.message || "Failed to load movie by ID"
       })
+
       .addCase(fetchMovieByLuck.pending, state => {
         state.loading = true
         state.error = null
@@ -304,6 +344,8 @@ export {
   fetchMoviesAllTitle,
   fetchMoviesGllery,
   fetchTopListMovies,
+  fetchMovieBySearch,
 }
 
-export const { setLoading, setSelectedMovie, setVibeMovie } = moviesSlice.actions
+export const { setLoading, setSelectedMovie, setVibeMovie, setGalleryMovie } =
+  moviesSlice.actions
