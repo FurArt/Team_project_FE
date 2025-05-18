@@ -93,7 +93,7 @@ export const client = {
       size,
       sort,
     }),
-<<<<<<< Updated upstream
+
 
   // getMoviesByVibe: <T>(
   //   filters: VibeFilters,
@@ -113,8 +113,7 @@ export const client = {
 
   //   return request<T>("/media/vibe", "GET", null, params);
   // },
-=======
->>>>>>> Stashed changes
+
 
   getMoviesByVibe: <T>(
     filters: VibeFilters,
