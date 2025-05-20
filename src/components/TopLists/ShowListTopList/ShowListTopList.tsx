@@ -67,9 +67,16 @@ const ShowListTopList = () => {
   useEffect(() => {
     const storedHeader = sessionStorage.getItem("TopListvalue")
     if (storedHeader) {
-      setHeadPage(formatTitle(storedHeader))
+      setHeadPage(
+        JSON.parse(
+        formatTitle(
+          storedHeader
+
+        )
+      ))
     }
-    console.log(storedHeader);
+
+    
   }, [location]);
 
   if (loading) {
