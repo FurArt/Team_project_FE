@@ -19,14 +19,21 @@ export default function DialogPhotos({
   url,
 }: DialogPhotosProps) {
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md" slotProps={{
+      paper: {
+        sx: {
+          backgroundColor: "transparent",
+          boxShadow: "none",
+        },
+      },
+    }}>
       <DialogContent>
-        <div className="dialog-gallery--container">
+        <div className="dialog-gallery--container" style={{ backgroundColor: "transparent"}}>
           
           <img
             src={url}
             alt="Full screen"
-            style={{ width: "97%", height: "auto", borderRadius: 8 }}
+            style={{ width: "97%", height: "auto", borderRadius: 8, }}
           />
           <DialogActions>
             <Button onClick={handleClose}>
