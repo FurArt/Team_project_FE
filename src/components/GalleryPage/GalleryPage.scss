@@ -245,6 +245,7 @@
 .rating {
   @extend %AG_H6;
   position: relative;
+  margin-inline-start: 15px;
   &::before {
     content: "";
     display: block;

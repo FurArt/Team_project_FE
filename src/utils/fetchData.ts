@@ -3,18 +3,46 @@ import { VibeFilters } from "../types/vibe"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const BASE_URL = "https://backend-muvio.onrender.com/api"
 // const BASE_URL = "https://muvio.fly.dev/api"
-
+// const BASE_URL = "http://muvio.duckdns.org/api"
 function wait(delay: number) {
   return new Promise(resolve => setTimeout(resolve, delay))
 }
 
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE"
 
+// function request<T>(
+//   url: string,
+//   method: RequestMethod = "GET",
+//   data: any = null,
+//   params: Record<string, any > = {},
+// ): Promise<T> {
+//   const options: RequestInit = { method }
+
+//   if (data) {
+//     options.body = JSON.stringify(data)
+//     options.headers = {
+//       "Content-Type": "application/json; charset=UTF-8",
+//     }
+//   }
+
+//   const queryString = new URLSearchParams(params).toString()
+//   const fullUrl = `${BASE_URL}${url}${queryString ? `?${queryString}` : ""}`
+
+//   return wait(300)
+//     .then(() => fetch(fullUrl, options))
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error(`HTTP error! status: ${response.status}`)
+//       }
+//       return response.json()
+//     })
+// }
+
 function request<T>(
   url: string,
   method: RequestMethod = "GET",
   data: any = null,
-  params: Record<string, any> = {},
+  params: Record<string, any | null> = {},
 ): Promise<T> {
   const options: RequestInit = { method }
 
@@ -25,8 +53,16 @@ function request<T>(
     }
   }
 
-  const queryString = new URLSearchParams(params).toString()
+  // Custom query string builder to include null values
+  const queryString = Object.entries(params)
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${value === null ? "null" : encodeURIComponent(value)}`,
+    )
+    .join("&")
+
   const fullUrl = `${BASE_URL}${url}${queryString ? `?${queryString}` : ""}`
+  console.log(fullUrl)
 
   return wait(300)
     .then(() => fetch(fullUrl, options))
@@ -42,16 +78,16 @@ export const client = {
   addMovie: <T>(data: any) => request<T>("/media", "POST", data),
   getTitleMovie: <T>(
     page: number = 0,
-    size: number = 500,
+    size: number = 2000,
     sort: string = "rating",
   ) => request<T>("/media/titles", "GET", null, { page, size, sort }),
 
   getTitleMovieSearch: <T>(
     search: string = "",
-    page: number = 0,
-    size: number = 0,
+    page: number = 1,
+    size: number = 1,
     sort: string = "rating",
-  ) => request<T>(`/media/titles/${search}`, "GET", null, { page, size, sort }),
+  ) => request<T>(`/media/titles/${search}`, "GET", null, {}),
 
   updateMovie: <T>(id: string, data: any) =>
     request<T>(`/media/${id}`, "PUT", data),
@@ -93,27 +129,6 @@ export const client = {
       size,
       sort,
     }),
-
-
-  // getMoviesByVibe: <T>(
-  //   filters: VibeFilters,
-  //   page: number = 0,
-  //   size: number = 10,
-  //   sort: string[] = ["rating"]
-  // ): Promise<T> => {
-  //   const params = {
-  //     vibe: filters.vibe || "",
-  //     years: filters.years || "",
-  //     type: filters.type,
-  //     categories: filters.categories ? JSON.stringify(filters.categories) : "[]",
-  //     page: page.toString(),
-  //     size: size.toString(),
-  //     sort: JSON.stringify(sort)
-  //   };
-
-  //   return request<T>("/media/vibe", "GET", null, params);
-  // },
-
 
   getMoviesByVibe: <T>(
     filters: VibeFilters,

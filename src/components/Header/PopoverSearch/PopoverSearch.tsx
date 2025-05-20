@@ -1,10 +1,11 @@
 import { Input, Popover } from "@base-ui-components/react"
 import "./PopoverSearch.scss"
 import { useEffect, useState } from "react"
-import { useAppSelector } from "../../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { Autocomplete, TextField } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import { ContentItem } from "../../../types/title"
+import { setGalleryMovie } from "../../../app/store"
 
 function BellIcon(props: React.ComponentProps<"svg">) {
   return (
@@ -47,17 +48,41 @@ function ArrowSvg(props: React.ComponentProps<"svg">) {
 export default function PopoverSearch() {
   const { movies } = useAppSelector(state => state)
   const loading = movies?.loading
-  const error = movies?.error
   const [content, setContent] = useState<ContentItem[]>([])
   const [search, setSearch] = useState("")
   const [filteredMovies, setFilteredMovies] = useState<ContentItem[]>([])
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const handleEndSearch = (e: React.KeyboardEvent<HTMLDivElement>) => {
+
+  // const handleEndSearch = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  //   if (Array.isArray(movies?.title?.content)) {
+  //     const sortedContent = movies.title.content
+  //       .slice().find(m => m === e.target.value)
+  //     console.log(
+  //       e.target.value, sortedContent
+
+  //     );
+  //   }
+  //   // if (e.key === "Enter") {
+  //   //   navigate(`../gallery?search=${search}`)
+  //   // }
+  // }
+
+
+  const handleEndSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      navigate(`../gallery?search=${search}`)
+      const isHowManyMovies = filteredMovies.length;
+
+      if (isHowManyMovies === 1) {
+        navigate(`../movie?idMovie=${filteredMovies[0].id}`)
+      } else {
+        navigate(`../gallery?search=${search}`)
+      }
     }
-  }
+  };
+
+
 
   useEffect(() => {
     if (Array.isArray(movies?.title?.content)) {
@@ -84,7 +109,7 @@ export default function PopoverSearch() {
     } else {
       const filtered = content.filter(movie =>
         movie.title.toLowerCase().includes(query.toLowerCase()),
-      )
+      ).slice(0, 100)
       setFilteredMovies(filtered)
     }
   }
@@ -115,7 +140,7 @@ export default function PopoverSearch() {
                       onChange={handleInputChange}
                       value={search}
                       onKeyDown={
-                        (e => handleEndSearch(e))
+                        (handleEndSearch)
                       }
                     />
                   )}

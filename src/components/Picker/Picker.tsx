@@ -30,8 +30,8 @@ export const Vibes = [
 ]
 
 export const MovieTypeOptions = [
-  { value: "tv_shows", label: "TV Shows" },
-  { value: "movies", label: "Movies" },
+  { value: "tv_show", label: "TV Shows" },
+  { value: "movie", label: "Movies" },
   { value: "shorts", label: "Shorts" },
   { value: "", label: "No matter" },
   // { value: "no_matter", label: "No matter" },

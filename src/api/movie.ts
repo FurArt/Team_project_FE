@@ -19,7 +19,7 @@ export const getTitleMovie = (
 }
 
 export const getTitleMovieSearch = (search?: string) => {
-  return client.getTitleMovieSearch(search) as Promise<TitleData>
+  return client.getTitleMovieSearch(search) as Promise<MovieData>
 }
 
 export const getMovies = (
@@ -70,7 +70,7 @@ export const getMediaGallery = (
   type?: string,
   page: number = 0,
   size: number = 100,
-  sort: string[] = [],
+  sort: string[] = ["rating,desc"],
 ) => {
   return client.getMediaGallery(title, years, type, page, size, sort)
 }
