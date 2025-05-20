@@ -17,21 +17,15 @@ $border-radius: 8px;
   color: $main-text-color;
   padding-bottom: 70px;
   z-index: 0;
-
-  // 👇 Убедись, что .movie достаточно высокий
   min-height: 100vh;
-
-  // Чтобы затемняющий слой работал
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6); // интенсивное затемнение
+    background: rgba(0, 0, 0, 0.6);
     // z-index: 1;
     pointer-events: none;
   }
-
-  // Поднять контент над затемнением
   > * {
     position: relative;
     z-index: 2;
@@ -105,19 +99,19 @@ $border-radius: 8px;
     z-index: -2;
   }
 
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 150px; /* больше высота для плавности */
-    background: linear-gradient(
-      rgba(0, 0, 0, 0.15), /* уменьшена непрозрачность */
-      rgba(0, 0, 0, 0)
-    );
-    z-index: -1;
-  }
+  // &::after {  тень??
+  //   content: "";
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   height: 150px; /* больше высота для плавности */
+  //   background: linear-gradient(
+  //     rgba(0, 0, 0, 0.15), /* уменьшена непрозрачность */
+  //     rgba(0, 0, 0, 0)
+  //   );
+  //   z-index: -1;
+  // }
 }
   &-coteiner-info {
     display: grid;
@@ -133,7 +127,7 @@ $border-radius: 8px;
     width: 100%;
     img {
       width: 265px;
-      border-radius: $border-radius;
+      border-radius: 8px;
       @include respond(mobile) {
         width: 168px;
         // display: block;

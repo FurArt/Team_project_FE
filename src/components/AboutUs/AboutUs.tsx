@@ -12,68 +12,68 @@ const teamMembers = [
     role: "Team lead / Backend developer",
     img: "images/vitalii.png",
     socials: [
-      { github: "https://github.com/4Vitalii5" },
-      { linkedin: "https://www.linkedin.com/in/vitalii-pavlyk-82b5aa1a1/" },
       { telegram: "https://t.me/petrgigi" },
+      { linkedin: "https://www.linkedin.com/in/vitalii-pavlyk-82b5aa1a1/" },
+      { github: "https://github.com/4Vitalii5" },    
     ],
     quote:
-      "“If you don't know how to build a service... it has no chance of breaking down.”",
+      "“If you don't know how to build a service, and you just keep experimenting, in the end you don't know how, but it can work, at the same time, If it breaks, it will be hard to repeat the trick twice. On the other hand, if you know how to build a service and do everything responsibly and accurately, it has no chance of breaking down.”",
   },
   {
     name: "Oleksii Kolinko",
     role: "Backend developer",
     img: "images/oleksii.png",
     socials: [
-      { github: "https://github.com/OleksiiKolinko" },
-      { linkedin: "https://www.linkedin.com/in/oleksii-kolinko-3724272a6" },
       { telegram: "https://t.me/u_918845463" },
+      { linkedin: "https://www.linkedin.com/in/oleksii-kolinko-3724272a6" },
+      { github: "https://github.com/OleksiiKolinko" },     
     ],
     quote:
-      "“My strengths include analytical thinking... learn new technologies”.",
+      "“Less time choosing, more time watching — thanks to smart backend logic”.",
   },
   {
     name: "Artem Furhaus",
     role: "Frontend developer",
     img: "images/artem.png",
     socials: [
-      { linkedin: "https://www.linkedin.com/in/artem-furhaus" },
       { telegram: "https://t.me/ArtemFurhaus" },
+      { linkedin: "https://www.linkedin.com/in/artem-furhaus" },
       { github: "https://github.com/FurArt/" },
     ],
     quote:
-      "Frontend development isn’t just about making things look good — it’s about making interfaces feel effortless...",
+      "“Frontend development isn’t just about making things look good — it’s about making interfaces feel effortless.”",
   },
   {
     name: "Romela Gasparian",
     role: "UX/UI designer",
     img: "images/romela.png",
     socials: [
-      { linkedin: "https://www.linkedin.com/in/romela-g-6954b034b/" },
-      { behance: "https://www.behance.net/romelagasparian" },
       { telegram: "https://t.me/romrian" },
+      { linkedin: "https://www.linkedin.com/in/romela-g-6954b034b/" },
+      { behance: "https://www.behance.net/romelagasparian" },    
     ],
     quote:
-      "“I don't create design just for the sake of beauty... functional and user-friendly.”",
+      "“I don't create design just for the sake of beauty. My approach is a balance between creativity and practicality. It's important not only to come up with something stylish, but also to make it functional and user-friendly.”",
   },
   {
     name: "Yevhen Perekhodov",
     role: "QA engineer",
     img: "images/yevhen.png",
     socials: [
-      { github: "https://github.com/evhenqa" },
-      { linkedin: "https://www.linkedin.com/in/yevhen-perekhodov-129b621a6/" },
       { telegram: "https://t.me/yevhenqa" },
+      { linkedin: "https://www.linkedin.com/in/yevhen-perekhodov-129b621a6/" },
+      { github: "https://github.com/evhenqa" },
     ],
     quote:
-      "“Always dig deep into why things happen... transform it into something truly extraordinary”.",
+      "“Always dig deep into why things happen, not just what happens. I will make the best of what I have and transform it into something truly extraordinary”.",
   },
   {
     name: "Oleksandra Chumak",
     role: "Data analyst",
     img: "images/oleksandra.png",
     socials: [
-      { linkedin: "https://www.linkedin.com/in/oleksandra-chumak-070b8a1b4/" },
       { telegram: "https://t.me/oleksandrach" },
+      { linkedin: "https://www.linkedin.com/in/oleksandra-chumak-070b8a1b4/" },
       { github: "https://github.com/oleksandrach" },
     ],
     quote:
@@ -160,7 +160,7 @@ const AboutUs = () => {
       <p className="subtitle">Meet the Team behind Muvio</p>
       <p className="description">
         We are a team of 7 passionate individuals from different parts of
-        Ukraine...
+        Ukraine, united by our love for IT and its power to make life better and easier.
       </p>
 
       <div className="team-grid">
