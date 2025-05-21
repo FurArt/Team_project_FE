@@ -1,3 +1,5 @@
+@import "../../features/styles/variables";
+
 html {
   scroll-behavior: smooth;
   min-width: 375px;
@@ -10,9 +12,17 @@ html {
 }
 
 #root {
-  display: flex;
-    flex-direction: column;
-    height: 100vh;
+    @include respond(tablet) {
+      display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    @include respond(mobile) {
+    display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
 }
 
 main {
