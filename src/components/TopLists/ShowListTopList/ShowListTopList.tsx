@@ -8,6 +8,7 @@ import Pagination from "@mui/material/Pagination";
 import { PaginationItem, Stack, CircularProgress, Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import { scrollToHandler } from "../../../utils/scrollToHandler";
+import { TopListsHeader } from "../../../types/TopListTypes";
 
 const itemsPerPage = 6;
 
@@ -24,7 +25,7 @@ const ShowListTopList = () => {
   const location = useLocation();
   const { topLists, loading, error } = useAppSelector((state) => state.movies);
 
-  const [headPage, setHeadPage] = useState<string | null>(null);
+  const [headPage, setHeadPage] = useState<TopListsHeader | null>(null);
   const [page, setPage] = useState(1);
   const [searchMovies, setSearchMovies] = useState<MovieData[] | null>(null);
 
@@ -66,16 +67,14 @@ const ShowListTopList = () => {
 
   useEffect(() => {
     const storedHeader = sessionStorage.getItem("TopListvalue")
+    
     if (storedHeader) {
       setHeadPage(
-        JSON.parse(
-        formatTitle(
-          storedHeader
-
-        )
-      ))
+        JSON.parse(storedHeader)
+      )
     }
-
+    
+    // console.log(headPage);
     
   }, [location]);
 
@@ -112,9 +111,9 @@ const ShowListTopList = () => {
         <a href="#" className="show-top-lists-link" onClick={handlerBack}>
           ← BACK
         </a>
-        <h2>{headPage}</h2>
+        <h2>{headPage?.title}</h2>
         <p>
-          We have compiled a list of the 50 best superhero movies ever made, according to IMDb.
+          {headPage?.description}
         </p>
 
         <div className="movie-list">

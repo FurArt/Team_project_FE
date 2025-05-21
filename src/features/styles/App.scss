@@ -9,10 +9,15 @@ html {
   cursor: not-allowed;
 }
 
-// #root {
-//   position: relative;
-//   z-index: -999;
-// }
+#root {
+  display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+main {
+  flex-grow: 2;
+}
 
 // @media (min-width: 1024px) {
  

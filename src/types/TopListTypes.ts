@@ -46,3 +46,9 @@ interface Sort {
     last: boolean;
     empty: boolean;
   }
+
+  export interface TopListsHeader {
+  title: string
+  value: TopListTypes
+  description?: string
+}
