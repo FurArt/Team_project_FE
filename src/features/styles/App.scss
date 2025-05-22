@@ -12,11 +12,11 @@ html {
 }
 
 #root {
-    @include respond(tablet) {
-      display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
+    // @include respond(tablet) {
+    //   display: flex;
+    //     flex-direction: column;
+    //     height: 100vh;
+    // }
 
     @include respond(mobile) {
     display: flex;
