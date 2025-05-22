@@ -1,3 +1,5 @@
+@import "../../features/styles/variables";
+
 html {
   scroll-behavior: smooth;
   min-width: 375px;
@@ -9,10 +11,23 @@ html {
   cursor: not-allowed;
 }
 
-// #root {
-//   position: relative;
-//   z-index: -999;
-// }
+#root {
+    // @include respond(tablet) {
+    //   display: flex;
+    //     flex-direction: column;
+    //     height: 100vh;
+    // }
+
+    @include respond(mobile) {
+    display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+}
+
+main {
+  flex-grow: 2;
+}
 
 // @media (min-width: 1024px) {
  

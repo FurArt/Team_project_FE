@@ -4,8 +4,9 @@
 .top-lists {
   text-align: center;
   padding: 2rem;
-  background: url(../../images/stats-bg.jpg);
+  background: url(../../images/stats-bg.jpg) no-repeat center/cover;
   color: #fff;
+  flex-grow: 2;
   @extend %AG_H2;
   &-title {
     @extend %AG_H1;

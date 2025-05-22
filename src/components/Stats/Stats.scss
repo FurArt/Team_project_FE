@@ -16,10 +16,17 @@ body {
   position: relative;
 
   width: 100%;
-  background: url("../../images/stats-bg.jpg");
+  background: url("../../images/stats-bg.jpg") no-repeat;
+  background-position: center;
+  background-size: cover;
   
   padding-inline: 40px;
   padding-block-end: 40px;
+
+  @include respond(tablet) {
+    margin-top: 0;
+
+  }
 
   @include respond(mobile) {
     background: none;
