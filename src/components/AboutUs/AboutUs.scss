@@ -39,22 +39,33 @@
     font-weight: 300;
   }
 
-  .team-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+  /* ---- Вот здесь сверху, на уровне team-section ---- */
+
+  .about-us__wrapper {
     max-width: 1118px;
     margin: 0 auto;
-    padding-bottom: 198px;
-    gap: 30px 20px;
+    display: flex;
+    gap: 20px; /* расстояние между колонками */
+    justify-content: center;
+  }
+
+  .about-us__lead {
+    flex: 0 0 300px; /* фиксированная ширина для левой колонки */
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    flex: 1;
+    justify-content: start;
   }
 
   .team-card {
-    background: rgba(0, 0, 0, 0.6);
-    // padding: 1rem;
-    border-radius: 8px;
+    background: rgba(17, 24, 26, 0.8);
+    border-radius: 32px;
     width: 266px;
     color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     cursor: pointer;
     transition: all 0.3s ease;
     height: 300px;
@@ -62,35 +73,28 @@
     &.active {
       background: rgba(0, 0, 0, 0.8);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      // height: 300px;
+
       p {
         height: 300px;
         font-weight: lighter;
-
         padding: 24px;
         display: flex;
-        justify-content: center; // horizontal center
-        align-items: center; // vertical center
-        // or any fixed height
-        width: 100%; // full width
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         text-align: center;
         color: #000;
       }
-    }
-
-    &--item-2 {
-      grid-column: span 2;
-    }
-
-    &--item-3 {
-      grid-column: span 2;
-      margin-left: 286px;
     }
 
     .team-photo {
       width: 110px;
       border-radius: 8px;
       margin-block: 20px 8px;
+    }
+
+    &--item--1 {
+      margin-top: 155px;
     }
 
     h3 {
@@ -110,14 +114,11 @@
       .social-link {
         color: #fff;
         transition: scale 1s;
-        // font-size: 1.2rem;
 
         svg {
           &:hover {
-            // width: 30px
             transform: scale(1.1);
           }
-          // font-size: 1.4rem;
         }
       }
     }
@@ -125,10 +126,13 @@
     .team-quote {
       background-color: #fff;
       color: #000;
-      border-radius: 4px;
+      border-radius: 32px;
       font-size: 0.9rem;
       line-height: 1.4;
       text-align: left;
+      // padding: 16px;
+      // height: 100%;
+      // box-sizing: border-box;
     }
   }
 }

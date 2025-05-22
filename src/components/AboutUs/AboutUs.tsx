@@ -44,6 +44,18 @@ const teamMembers = [
       "“Frontend development isn’t just about making things look good — it’s about making interfaces feel effortless.”",
   },
   {
+    name: "Anna Tuhusova",
+    role: "Frontend developer",
+    // img: "images/artem.png",
+    socials: [
+      { telegram: "https://t.me/annathsv" },
+      { linkedin: "https://www.linkedin.com/in/artem-furhaus" },
+      { github: "https://github.com/FurArt/" },
+    ],
+    quote:
+      "“”",
+  },
+  {
     name: "Romela Gasparian",
     role: "UX/UI designer",
     img: "images/romela.png",
@@ -163,8 +175,52 @@ const AboutUs = () => {
         Ukraine, united by our love for IT and its power to make life better and easier.
       </p>
 
+
+      <div className="about-us__wrapper">
+      <div className="about-us__lead">
+  <div
+    className={`team-card team-card--item--1 ${activeIndex === -1 ? "active" : ""}`}
+    onClick={() => setActiveIndex(activeIndex === -1 ? null : -1)}
+  >
+    {activeIndex === -1 ? (
+      <div className="team-quote">
+        <p>{teamMembers[0].quote}</p>
+      </div>
+    ) : (
+      <>
+        <img
+          src={teamMembers[0].img}
+          alt={teamMembers[0].name}
+          className="team-photo"
+        />
+        <h3>{teamMembers[0].name}</h3>
+        <p>{teamMembers[0].role}</p>
+
+        <div className="social-icons">
+          {teamMembers[0].socials.map((social, i) => {
+            const [platform, url] = Object.entries(social)[0]
+
+            return (
+              <a
+                key={platform + i}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {getSocialIcon(platform)}
+              </a>
+            )
+          })}
+        </div>
+      </>
+    )}
+  </div>
+</div>
+
       <div className="team-grid">
-        {teamMembers.map((member, index) => (
+        {teamMembers.slice(1).map((member, index) => (
           <div
             className={`team-card team-card--item-${index} ${activeIndex === index ? "active" : ""}`}
             key={index}
@@ -204,7 +260,8 @@ const AboutUs = () => {
             )}
           </div>
         ))}
-      </div>
+        </div>
+        </div>
 
       {/* <MadeInUkraine /> */}
     </section>

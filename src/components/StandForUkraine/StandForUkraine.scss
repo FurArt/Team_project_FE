@@ -22,4 +22,26 @@ background-size: cover;
     right: 4.27vw;
   }
 }
+.made-in-ukraine__image-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
+.made-in-ukraine__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.made-in-ukraine__label {
+  @extend %AG_H6;
+  position: absolute;
+  bottom: 35px;
+  left: 20px;
+  padding: 8px;
+  // background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 14px;
+  border-radius: 4px;
+  font-weight: 600;
+}
