@@ -23,6 +23,11 @@ body {
   padding-inline: 40px;
   padding-block-end: 40px;
 
+  @include respond(tablet) {
+    margin-top: 0;
+
+  }
+
   @include respond(mobile) {
     background: none;
     margin-top: 10px;
