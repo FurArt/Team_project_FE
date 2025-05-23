@@ -46,11 +46,11 @@ const teamMembers = [
   {
     name: "Anna Tuhusova",
     role: "Frontend developer",
-    // img: "images/artem.png",
+    img: "images/anna.png",
     socials: [
       { telegram: "https://t.me/annathsv" },
-      { linkedin: "https://www.linkedin.com/in/artem-furhaus" },
-      { github: "https://github.com/FurArt/" },
+      { linkedin: "https://www.linkedin.com/in/anna-tuhusova-32758a152/" },
+      { github: "https://github.com/tuhusova" },
     ],
     quote:
       "“”",
