@@ -14,7 +14,7 @@ const teamMembers = [
     socials: [
       { telegram: "https://t.me/petrgigi" },
       { linkedin: "https://www.linkedin.com/in/vitalii-pavlyk-82b5aa1a1/" },
-      { github: "https://github.com/4Vitalii5" },    
+      { github: "https://github.com/4Vitalii5" },
     ],
     quote:
       "“If you don't know how to build a service, and you just keep experimenting, in the end you don't know how, but it can work, at the same time, If it breaks, it will be hard to repeat the trick twice. On the other hand, if you know how to build a service and do everything responsibly and accurately, it has no chance of breaking down.”",
@@ -26,7 +26,7 @@ const teamMembers = [
     socials: [
       { telegram: "https://t.me/u_918845463" },
       { linkedin: "https://www.linkedin.com/in/oleksii-kolinko-3724272a6" },
-      { github: "https://github.com/OleksiiKolinko" },     
+      { github: "https://github.com/OleksiiKolinko" },
     ],
     quote:
       "“Less time choosing, more time watching — thanks to smart backend logic”.",
@@ -46,7 +46,7 @@ const teamMembers = [
   {
     name: "Anna Tuhusova",
     role: "Frontend developer",
-    img: "../images/anna.png",
+    img: "images/anna.png",
     socials: [
       { telegram: "https://t.me/annathsv" },
       { linkedin: "https://www.linkedin.com/in/anna-tuhusova-32758a152/" },
@@ -62,7 +62,7 @@ const teamMembers = [
     socials: [
       { telegram: "https://t.me/romrian" },
       { linkedin: "https://www.linkedin.com/in/romela-g-6954b034b/" },
-      { behance: "https://www.behance.net/romelagasparian" },    
+      { behance: "https://www.behance.net/romelagasparian" },
     ],
     quote:
       "“I don't create design just for the sake of beauty. My approach is a balance between creativity and practicality. It's important not only to come up with something stylish, but also to make it functional and user-friendly.”",
@@ -166,7 +166,7 @@ const AboutUs = () => {
         return null
     }
   }
-  
+
 
   return (
     <section className="team-section">
@@ -179,79 +179,37 @@ const AboutUs = () => {
 
 
       <div className="about-us__wrapper">
-      <div className="about-us__lead">
-  <div
-    className={`team-card team-card--item--1 ${activeIndex === -1 ? "active" : ""}`}
-    onClick={() => setActiveIndex(activeIndex === -1 ? null : -1)}
-  >
-    {activeIndex === -1 ? (
-      <div className="team-quote">
-        <p>{teamMembers[0].quote}</p>
-      </div>
-    ) : (
-      <>
-        <img
-          src={teamMembers[0].img}
-          alt={teamMembers[0].name}
-          className="team-photo"
-        />
-        <h3>{teamMembers[0].name}</h3>
-        <p>{teamMembers[0].role}</p>
-
-        <div className="social-icons">
-          {teamMembers[0].socials.map((social, i) => {
-            const [platform, url] = Object.entries(social)[0]
-
-            return (
-              <a
-                key={platform + i}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {getSocialIcon(platform)}
-              </a>
-            )
-          })}
-        </div>
-      </>
-    )}
-  </div>
-</div>
-
-      <div className="team-grid">
-        {teamMembers.slice(1).map((member, index) => (
+        <div className="about-us__lead">
           <div
-            className={`team-card team-card--item-${index} ${activeIndex === index ? "active" : ""}`}
-            key={index}
-            onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+            className={`team-card team-card--item--1 ${activeIndex === -1 ? "active" : ""}`}
+            onClick={() => setActiveIndex(activeIndex === -1 ? null : -1)}
           >
-            {activeIndex === index ? (
+            {activeIndex === -1 ? (
               <div className="team-quote">
-                <p>{member.quote}</p>
+                <p>{teamMembers[0].quote}</p>
               </div>
             ) : (
               <>
                 <img
-                  src={member.img}
-                  alt={member.name}
+                  src={teamMembers[0].img}
+                  alt={teamMembers[0].name}
                   className="team-photo"
                 />
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
+                <h3>{teamMembers[0].name}</h3>
+                <p>{teamMembers[0].role}</p>
+
                 <div className="social-icons">
-                  {member.socials.map((social, i) => {
+                  {teamMembers[0].socials.map((social, i) => {
                     const [platform, url] = Object.entries(social)[0]
+
                     return (
                       <a
-                        key={i}
+                        key={platform + i}
                         href={url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="social-link"
-                        onClick={e => e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         {getSocialIcon(platform)}
                       </a>
@@ -261,9 +219,51 @@ const AboutUs = () => {
               </>
             )}
           </div>
-        ))}
         </div>
+
+        <div className="team-grid">
+          {teamMembers.slice(1).map((member, index) => (
+            <div
+              className={`team-card team-card--item-${index} ${activeIndex === index ? "active" : ""}`}
+              key={index}
+              onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+            >
+              {activeIndex === index ? (
+                <div className="team-quote">
+                  <p>{member.quote}</p>
+                </div>
+              ) : (
+                <>
+                  <img
+                    src={member.img}
+                    alt={member.name}
+                    className="team-photo"
+                  />
+                  <h3>{member.name}</h3>
+                  <p>{member.role}</p>
+                  <div className="social-icons">
+                    {member.socials.map((social, i) => {
+                      const [platform, url] = Object.entries(social)[0]
+                      return (
+                        <a
+                          key={i}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="social-link"
+                          onClick={e => e.stopPropagation()}
+                        >
+                          {getSocialIcon(platform)}
+                        </a>
+                      )
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
         </div>
+      </div>
 
       {<UkraineHoverToggle />}
     </section>
