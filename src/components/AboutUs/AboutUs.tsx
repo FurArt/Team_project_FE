@@ -1,5 +1,5 @@
 import { useState } from "react"
-import MadeInUkraine from "../MadeInUkraine/MadeInUkraine"
+import UkraineHoverToggle from "../UkraineHoverToggle/UkraineHoverToggle"
 import "./AboutUs.scss"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import TelegramIcon from "@mui/icons-material/Telegram"
@@ -148,6 +148,7 @@ export function BehanceIconDesign(props: React.ComponentProps<"svg">) {
   )
 }
 
+
 const AboutUs = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
@@ -165,6 +166,7 @@ const AboutUs = () => {
         return null
     }
   }
+  
 
   return (
     <section className="team-section">
@@ -263,9 +265,11 @@ const AboutUs = () => {
         </div>
         </div>
 
-      {/* <MadeInUkraine /> */}
+      {<UkraineHoverToggle />}
     </section>
   )
 }
 
 export default AboutUs
+
+
