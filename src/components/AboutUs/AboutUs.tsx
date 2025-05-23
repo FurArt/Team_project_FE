@@ -37,7 +37,7 @@ const teamMembers = [
     img: "images/artem.png",
     socials: [
       { telegram: "https://t.me/ArtemFurhaus" },
-      { linkedin: "https://www.linkedin.com/in/artem-furhaus" },
+      { linkedin: "https://www.linkedin.com/in/artemfurhas/" },
       { github: "https://github.com/FurArt/" },
     ],
     quote:
@@ -46,7 +46,7 @@ const teamMembers = [
   {
     name: "Anna Tuhusova",
     role: "Frontend developer",
-    img: "images/anna.png",
+    img: "../images/anna.png",
     socials: [
       { telegram: "https://t.me/annathsv" },
       { linkedin: "https://www.linkedin.com/in/anna-tuhusova-32758a152/" },
