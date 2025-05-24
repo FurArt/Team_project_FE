@@ -56,6 +56,7 @@ const Movie = () => {
     reviews = [],
     title = "Unknown title",
     trailer = "",
+    type = "",
   } = movieShow ?? {}
 
   const filteredActors = actors.filter(actor => actor.photo).slice(0, 3)
@@ -63,6 +64,10 @@ const Movie = () => {
   const handlerBack = () => {
     navigate(-1)
   }
+  useEffect(() => {
+    console.log(movieShow);
+
+  }, [])
 
   useEffect(() => {
     setNumberRandomMovie(usedNumbers[usedNumbers.length - 1])
@@ -95,15 +100,15 @@ const Movie = () => {
     scrollToHandler(null)
   }
 
-  function toGoogleSearchQuery(str:string) {
+  function toGoogleSearchQuery(str: string) {
     return encodeURIComponent(str.trim()).replace(/%20/g, '+');
   }
   const handleFindClick = () => {
     window.open(`https://www.google.com/search?q=${toGoogleSearchQuery(`${title} ${releaseYear}`)}`, '_blank');
   };
-  
+
   return (
-    <div className="movie">
+    <section className="movie">
       <div className="movie-content">
         <div className="movie-header">
           <a href="#" className="movie-link" onClick={handlerBack}>
@@ -111,6 +116,7 @@ const Movie = () => {
           </a>
           <h1 className="movie-page-title">Film for you</h1>
         </div>
+        {/* screen for pc */}
         <div className="movie-coteiner-info">
           <div className="movie-poster">
             <img src={posterPath} alt={title} />
@@ -153,20 +159,89 @@ const Movie = () => {
               <div className="movie-meta-item">
                 <strong className="strong">Duration:</strong>
                 <br />
-                {duration}
+                {type}
               </div>
               <div className="movie-meta-item">
                 <strong className="strong">IMDB Rating:</strong>
                 <br />
                 {rating.toFixed(2)}
               </div>
+              <div className="movie-meta-item">
+                <strong>Duration:</strong>
+                <br />
+                {duration}
+              </div>
+
+
             </div>
+
             <button className="movie-button">
               <a href={trailer} target="_blank">
                 WATCH TRAILER
               </a>
             </button>
           </div>
+        </div>
+        {/* screen for mobile */}
+
+        <div className="movie-container-info--mb">
+          <div className="movie-poster--mb">
+            <img src={posterPath} alt={title} />
+          </div>
+          <div className="movie-ceil--mb">
+
+            <h1 className="movie-title--mb">
+              {`${title} (${releaseYear})`}
+            </h1>
+
+            <p className="movie-description--mb">
+              {isOverviewExpanded ? overview : `${overview.slice(0, 125)}`}
+              {overview.length > 125 && (
+                <span
+                  className="movie-description--link-more--mb"
+                  onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
+                >
+                  {isOverviewExpanded ? "See Less" : ".. See More"}
+                </span>
+              )}
+            </p>
+
+            <button className="movie-button movie-button--mb">
+              <a className="movie-button-link" href={trailer} target="_blank" rel="noopener noreferrer">
+                WATCH TRAILER
+              </a>
+            </button>
+          </div>
+
+          <p className="movie-meta-item--mb">
+            Director:
+            <br />
+            {director}
+          </p>
+          <p className="movie-meta-item--mb">
+            Type:
+            <br />
+            {type}
+          </p>
+          <p className="movie-meta-item--mb">
+            IMDB Rating:
+            <br />
+            {rating.toFixed(2)}
+          </p>
+          <p className="movie-meta-item--mb">
+            Duration:
+            <br />
+            {duration}
+          </p>
+
+          <div className="movie-tags movie-tags--mb">
+            {arryGenres?.slice(0, 5).map((genre, index) => (
+              <span key={index} className="movie-tag">
+                {genre}
+              </span>
+            ))}
+          </div>
+
         </div>
       </div>
       {photos.length > 1 && (
@@ -244,7 +319,7 @@ const Movie = () => {
                 </div>
                 <div className="movie-review movie-review--rating">
                   <p>{`${rating}/10`}</p>
-                  
+
                   <span>IMDb </span>
                 </div>
               </div>
@@ -273,14 +348,14 @@ const Movie = () => {
             </button>
           )}
         </div>
-        <button className="movie-button movie-button--primary" 
-        
-        onClick={handleFindClick}
+        <button className="movie-button movie-button--primary"
+
+          onClick={handleFindClick}
         >
           FIND THE WAY TO WATCH →
         </button>
       </div>
-    </div>
+    </section>
   )
 }
 

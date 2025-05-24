@@ -15,7 +15,6 @@ export interface MovieData {
   releaseYear: number
   keywords: string | null
   genres: string[]
-
   actors: Array<{
     name: string
     photo: string

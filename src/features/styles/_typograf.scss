@@ -39,6 +39,12 @@
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.02px;
+  @include respond(mobile) {
+    font-family: "Kodchasan", serif;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.01px;
+  }
 }
 
 %AG_H5 {
@@ -46,6 +52,12 @@
   font-size: 20px;
   line-height: 150%;
   letter-spacing: 0.02px;
+  @include respond(mobile) {
+    font-family: "Kodchasan", serif;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.01px;
+  }
 }
 
 %AG_H4 {
