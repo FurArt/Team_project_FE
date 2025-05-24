@@ -1,0 +1,24 @@
+@import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
+.made-in-ukraine {
+  // background: url(../../images/icon/stand_for_ukraine.png) no-repeat;
+background-position: 50% 50%;
+background-size: cover;
+
+  position: fixed;
+
+  top: 65%;
+  right: 2%;
+  width: 130px;
+  height: 130px;
+  z-index: 10000;
+
+  @include respond(mobile) {
+    top: 55%;
+    width: 75px;
+    height: 75px;
+    background-size: contain;
+    right: 4.27vw;
+  }
+}

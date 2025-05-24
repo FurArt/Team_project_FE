@@ -152,17 +152,17 @@ const Movie = () => {
 
             <div className="movie-meta">
               <div className="movie-meta-item">
-                <strong>Director:</strong>
+                <strong className="strong">Director:</strong>
                 <br />
                 {director}
               </div>
               <div className="movie-meta-item">
-                <strong>Type:</strong>
+                <strong className="strong">Duration:</strong>
                 <br />
                 {type}
               </div>
               <div className="movie-meta-item">
-                <strong>IMDB Rating:</strong>
+                <strong className="strong">IMDB Rating:</strong>
                 <br />
                 {rating.toFixed(2)}
               </div>
@@ -335,7 +335,7 @@ const Movie = () => {
               onClick={handleRecommend}
               className="movie-button movie-button--secondary"
             >
-              EXPLORE LIST RECOMMENDATION
+              EXPAND LIST OF RECOMMANDATION
             </button>
           )}
 
@@ -344,7 +344,7 @@ const Movie = () => {
               onClick={handleLuckClick}
               className="movie-button movie-button--secondary"
             >
-              GET ANOTHER RECOMMENDATION
+              EXPAND LIST OF RECOMMANDATION
             </button>
           )}
         </div>
