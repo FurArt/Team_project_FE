@@ -53,7 +53,7 @@ const teamMembers = [
       { github: "https://github.com/tuhusova" },
     ],
     quote:
-      "“”",
+      "“I love working in a team and seeing how each member can influence the final result”",
   },
   {
     name: "Romela Gasparian",
