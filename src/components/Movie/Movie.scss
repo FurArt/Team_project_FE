@@ -40,10 +40,10 @@ $border-radius: 8px;
   }
 
   h1 {
-    @extend %AG_H5;
+    // @extend %AG_H5;
   }
   p {
-    @extend %AG_H6;
+    // @extend %AG_H6;
   }
 
   &-row {
@@ -258,7 +258,6 @@ $border-radius: 8px;
         display: block;
         position: absolute;
         top: 50%;
-        left: 10px;
         transform: translateY(-50%);
         background: url("../../images/icon/arrow-watch-trailer.svg")
           no-repeat center center;
