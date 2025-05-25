@@ -216,6 +216,7 @@ $border-radius: 8px;
     color: $hover;
     margin: 10px 0 10px;
     @extend %AG_H5;
+    border-left: solid 2px #e83f14;
     &-item--mb {
       text-transform: uppercase;
       padding-inline: 20px;
@@ -258,7 +259,8 @@ $border-radius: 8px;
         top: 0;
         left: 0;
         background: url("../../images/icon/arrow-watch-trailer.svg") no-repeat
-          center;
+          center center;
+        background-size: contain;
         width: 20px;
         height: 20px;
       }

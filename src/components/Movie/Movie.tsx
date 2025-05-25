@@ -214,22 +214,22 @@ const Movie = () => {
           </div>
 
           <p className="movie-meta-item--mb">
-            DIRECTOR:
+            Director:
             <br />
             {director}
           </p>
           <p className="movie-meta-item--mb">
-            TYPE:
+            Type:
             <br />
             {type}
           </p>
           <p className="movie-meta-item--mb">
-            IMDB RATING:
+            IMDB Rating:
             <br />
             {rating.toFixed(2)}
           </p>
           <p className="movie-meta-item--mb">
-            DURATION:
+            Duration:
             <br />
             {duration}
           </p>
