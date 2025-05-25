@@ -130,8 +130,8 @@ const Movie = () => {
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-                {isOverviewExpanded ? overview : `${overview.slice(0, 550)}`}
-                {overview.length > 550 && (
+                {isOverviewExpanded ? overview : `${overview.slice(0, 450)}`}
+                {overview.length > 450 && (
                   <span
                     className="movie-description--link-more"
                     onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
