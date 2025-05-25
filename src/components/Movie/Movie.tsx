@@ -152,22 +152,22 @@ const Movie = () => {
 
             <div className="movie-meta">
               <div className="movie-meta-item">
-                <p className="strong">DIRECTOR:</p>
+                <strong className="strong">DIRECTOR:</strong>
                 <br />
                 {director}
               </div>
               <div className="movie-meta-item">
-                <p className="strong">TYPE:</p>
+                <strong className="strong">TYPE:</strong>
                 <br />
                 {type}
               </div>
               <div className="movie-meta-item">
-                <p className="strong">IMDB RATING:</p>
+                <strong className="strong">IMDB RATING:</strong>
                 <br />
                 {rating.toFixed(2)}
               </div>
               <div className="movie-meta-item">
-                <p>DURATION:</p>
+                <strong>DURATION:</strong>
                 <br />
                 {duration}
               </div>
@@ -184,7 +184,7 @@ const Movie = () => {
         </div>
         {/* screen for mobile */}
 
-        {/* <div className="movie-container-info--mb">
+        <div className="movie-container-info--mb">
           <div className="movie-poster--mb">
             <img src={posterPath} alt={title} />
           </div>
@@ -242,7 +242,7 @@ const Movie = () => {
             ))}
           </div>
 
-        </div> */}
+        </div>
       </div>
       {photos.length > 1 && (
         <div className="movie-photos">
