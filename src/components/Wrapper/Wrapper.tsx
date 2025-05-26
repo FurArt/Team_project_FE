@@ -15,30 +15,37 @@ const Wrapper = ({ children }: WrapperProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const moviesData = useAppSelector(state => state.movies.data)
-  const content = moviesData?.content || null
+  // const content = [...moviesData] || []
+  // const content =  []
 
-  const [showMovies, setShowMovies] = useState<Movie[]>([])
+
+//   const [showMovies, setShowMovies] = useState<Movie[]>([])
 
   const handleClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault()
     dispatch(fetchMovieById(id))
     dispatch(handleSelectMovie(e, id, navigate))
   }
+// useEffect(() => {
+//   console.log(moviesData);
+  
+// })
 
-  useEffect(() => {
-    if (Array.isArray(content)) {
-      setShowMovies(content)
-    } else {
-      setShowMovies([])
-    }
-  }, [])
+  
+//   useEffect(() => {
+//     if (Array.isArray(content)) {
+//       setShowMovies(content)
+//     } else {
+//       setShowMovies([])
+//     }
+//   }, [])
 
   return (
     <main className="wrapper">
       {/* <MadeInUkraine /> */}
       <section className="conteiner-video">
         {/* Карты фильмов для десктопа */}
-        {(showMovies?.length < 70 || showMovies?.length === undefined)
+        {(moviesData?.length ?? 0) < 70
           ? Array.from({ length: 70 }).map((_, index) => (
             <div
               key={index}
@@ -46,7 +53,7 @@ const Wrapper = ({ children }: WrapperProps) => {
             />
           ))
           :
-          showMovies
+          moviesData
             ?.slice(0, 70)
             .map((movie, index) => (
               <div

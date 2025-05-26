@@ -33,6 +33,7 @@ interface Sort {
     duration: string;
     director: string;
     actors: string[];
+    releaseYear:string;
   }
   
   export interface TopListMovieResponse {

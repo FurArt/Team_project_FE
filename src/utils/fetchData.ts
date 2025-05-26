@@ -10,34 +10,6 @@ function wait(delay: number) {
 
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE"
 
-// function request<T>(
-//   url: string,
-//   method: RequestMethod = "GET",
-//   data: any = null,
-//   params: Record<string, any > = {},
-// ): Promise<T> {
-//   const options: RequestInit = { method }
-
-//   if (data) {
-//     options.body = JSON.stringify(data)
-//     options.headers = {
-//       "Content-Type": "application/json; charset=UTF-8",
-//     }
-//   }
-
-//   const queryString = new URLSearchParams(params).toString()
-//   const fullUrl = `${BASE_URL}${url}${queryString ? `?${queryString}` : ""}`
-
-//   return wait(300)
-//     .then(() => fetch(fullUrl, options))
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error(`HTTP error! status: ${response.status}`)
-//       }
-//       return response.json()
-//     })
-// }
-
 function request<T>(
   url: string,
   method: RequestMethod = "GET",
@@ -98,8 +70,8 @@ export const client = {
 
   getMovieByLuck: <T>(size: number) => request<T>(`/media/luck/${size}`),
 
-  getMovies: <T>(page: number = 0, size: number = 100, sort: string[] = []) =>
-    request<T>("/media/posters", "GET", null, { page, size, sort }),
+  getMovies: <T>(page: number = 0, size: number = 71, sort: string[] = []) =>
+    request<T>("/media/posters", "GET", null, {  size,}),
 
   getMediaGallery: <T>(
     title?: string,

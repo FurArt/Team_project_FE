@@ -19,7 +19,7 @@ import {
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
 import { scrollToHandler } from "../utils/scrollToHandler"
-import { MovieData, MoviesData, MoviesState } from "../types/movie"
+import { Movie, MovieData, } from "../types/movie"
 import {
   CategoryTypes,
   MediaTypes,
@@ -109,7 +109,7 @@ const fetchMoviesAllTitle = createAsyncThunk<TitleData, void>(
   },
 )
 
-const fetchMoviesPoster = createAsyncThunk<MoviesData, void>(
+const fetchMoviesPoster = createAsyncThunk<Movie[], void>(
   "movies/fetchMovies",
   async () => {
     const movies = await getMovies()
@@ -144,10 +144,11 @@ const fetchMovieByLuck = createAsyncThunk<MovieData, number>(
 const moviesSlice = createSlice({
   name: "movies",
   initialState: {
-    data: null as MoviesData | null,
+    // data: null as MoviesData | null,
+    data: null as Movie[] | null,
     selectedMovie: null as MovieData | null,
     saearchMovie: null as MovieData | null,
-    loading: false,
+    loading: true,
     topLists: null as TopListMovieResponse | null,
     error: null as string | null,
     vibe: null as VibeMoviesData | null,
@@ -242,7 +243,7 @@ const moviesSlice = createSlice({
       })
       .addCase(
         fetchMoviesPoster.fulfilled,
-        (state, action: PayloadAction<MoviesData>) => {
+        (state, action: PayloadAction<Movie[]>) => {
           state.loading = false
           state.data = action.payload
         },
@@ -250,7 +251,7 @@ const moviesSlice = createSlice({
       .addCase(fetchMoviesPoster.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message || "Failed to load movies"
-        state.data = null
+        // state.data = null
       })
 
       .addCase(fetchMoviesAllTitle.pending, state => {
