@@ -152,22 +152,22 @@ const Movie = () => {
 
             <div className="movie-meta">
               <div className="movie-meta-item">
-                <strong className="strong">Director:</strong>
+                <strong className="strong">DIRECTOR:</strong>
                 <br />
                 {director}
               </div>
               <div className="movie-meta-item">
-                <strong className="strong">Duration:</strong>
+                <strong className="strong">TYPE:</strong>
                 <br />
                 {type}
               </div>
               <div className="movie-meta-item">
-                <strong className="strong">IMDB Rating:</strong>
+                <strong className="strong">IMDB RATING:</strong>
                 <br />
                 {rating.toFixed(2)}
               </div>
               <div className="movie-meta-item">
-                <strong>Duration:</strong>
+                <strong>DURATION:</strong>
                 <br />
                 {duration}
               </div>

@@ -2,6 +2,7 @@
 @import "../../features/styles/typograf";
 $border-radius: 8px;
 %LEFT_LINE {
+  @extend %AG_H8;
   border-left: solid 2px $red;
 }
 
@@ -29,7 +30,6 @@ $border-radius: 8px;
     background: rgba(0, 0, 0, 0.6);
     // z-index: 1;
     pointer-events: none;
-    height: 30vh;
   }
   > * {
     position: relative;
@@ -40,10 +40,10 @@ $border-radius: 8px;
   }
 
   h1 {
-    @extend %AG_H5;
+    // @extend %AG_H5;
   }
   p {
-    @extend %AG_H6;
+    // @extend %AG_H6;
   }
 
   &-row {
@@ -142,8 +142,9 @@ $border-radius: 8px;
     width: 100%;
     height: 475px;
     img {
-      width: 265px;
+      width: auto;
       border-radius: 8px;
+      height: 475px;
       @include respond(mobile) {
         width: 168px;
         // display: block;
@@ -208,11 +209,15 @@ $border-radius: 8px;
     display: grid;
     grid-template-columns: repeat(2, 260px);
     gap: 24px 10px;
-    font-size: 14px;
     color: $hover;
-    margin: 10px 0 25px;
+    margin: 10px 0 10px;
+    padding-inline-start: 20px;
     @extend %AG_H5;
-    &-item {
+    
+    &-item--mb {
+      
+      text-transform: uppercase;
+      font-weight: 200px;
       padding-inline: 20px;
       @extend %LEFT_LINE;
     }
@@ -232,13 +237,15 @@ $border-radius: 8px;
     background: $main-text-color;
     width: 265px;
     min-height: 48px;
+
+    height: 48px;
     border: none;
     border-radius: $border-radius;
     @extend %AG_H4;
     margin-top: 50;
 
     a {
-      font-size: 14px;
+      font-size: 20px;
       color: $heder-black;
       position: relative;
       @extend %AG_H4;
@@ -249,10 +256,11 @@ $border-radius: 8px;
         content: "";
         display: block;
         position: absolute;
-        top: 0;
-        left: 0;
-        background: url("../../images/icon/arrow-watch-trailer.svg") no-repeat
-          center;
+        top: 50%;
+        transform: translateY(-50%);
+        background: url("../../images/icon/arrow-watch-trailer.svg")
+          no-repeat center center;
+        background-size: contain;
         width: 20px;
         height: 20px;
       }
@@ -485,17 +493,12 @@ margin: 16px 0 0;
 }
 
 .item-1 {
-  @extend %AG_H5;
   font-weight: 200;
   letter-spacing: 0.01px;
   grid-column: span 2;
   text-transform: uppercase;
 }
 
-.strong {
-  text-transform: uppercase;
-
-}
 
 .item-2 {
   @extend %AG_H5;
