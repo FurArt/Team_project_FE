@@ -19,7 +19,7 @@ const Wrapper = ({ children }: WrapperProps) => {
   // const content =  []
 
 
-//   const [showMovies, setShowMovies] = useState<Movie[]>([])
+  const [showMovies, setShowMovies] = useState<Movie[]>([])
 
   const handleClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault()
@@ -32,20 +32,23 @@ const Wrapper = ({ children }: WrapperProps) => {
 // })
 
   
-//   useEffect(() => {
-//     if (Array.isArray(content)) {
-//       setShowMovies(content)
-//     } else {
-//       setShowMovies([])
-//     }
-//   }, [])
+  useEffect(() => {
+    const updatedMovies = moviesData?.map(movie => ({
+  ...movie,
+  posterPath: movie.posterPath.replace(/\/w\d+\//, '/w200/')
+}));
+
+console.log(updatedMovies);
+if (updatedMovies?.length) {
+  
+  setShowMovies([...updatedMovies])
+}
+  }, [moviesData])
 
   return (
     <main className="wrapper">
-      {/* <MadeInUkraine /> */}
       <section className="conteiner-video">
-        {/* Карты фильмов для десктопа */}
-        {(moviesData?.length ?? 0) < 70
+        {(showMovies?.length ?? 0) < 70
           ? Array.from({ length: 70 }).map((_, index) => (
             <div
               key={index}
@@ -53,7 +56,7 @@ const Wrapper = ({ children }: WrapperProps) => {
             />
           ))
           :
-          moviesData
+          showMovies
             ?.slice(0, 70)
             .map((movie, index) => (
               <div

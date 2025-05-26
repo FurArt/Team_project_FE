@@ -22,7 +22,7 @@ const Header = () => {
   const [searchMovie, setSearchMovies] = useState<MovieData | null>(null)
   const [search, setSearch] = useState("")
 
-  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement> | null) => {
+  const closeMenu = (e: React.MouseEvent | null) => {
     if (e) {
       e.preventDefault()
     }
@@ -30,7 +30,7 @@ const Header = () => {
   }
 
   const handleMenuClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: React.MouseEvent,
     target: string,
   ) => {
     if (loading) return
@@ -40,7 +40,7 @@ const Header = () => {
     scrollToHandler(null)
   }
 
-  const handleLuckClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLuckClick = (e: React.MouseEvent) => {
     if (loading) {
       return
     }
@@ -124,13 +124,14 @@ const Header = () => {
           <PopoverSearch />
         </div>
         <div className="top-bar-button">
-          <a
-            href="#"
+          <button
             className="top-bar-button--link"
             onClick={handleLuckClick}
+            onDoubleClick={handleLuckClick}
+            disabled={loading}
           >
             PUSH THE LUCK
-          </a>
+          </button>
         </div>
       </div>
 
