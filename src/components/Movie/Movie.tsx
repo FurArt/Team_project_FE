@@ -344,7 +344,7 @@ const Movie = () => {
               onClick={handleLuckClick}
               className="movie-button movie-button--secondary"
             >
-              EXPAND LIST OF RECOMMANDATION
+              GET ANOTHER MOVIE
             </button>
           )}
         </div>
