@@ -90,7 +90,8 @@ $border-radius: 8px;
     z-index: 0;
 
     @include respond(mobile) {
-        padding: 0 8px 0;
+        width: 100%;
+        padding: 0 16px 0;
       }
 
     .non-mobile {
@@ -109,7 +110,7 @@ $border-radius: 8px;
       height: 100%;
       background: url("../../images/movie-item/back-photo-movie-info.jpg")
         no-repeat center / cover;
-      opacity: 0.4;
+      opacity: 0.3;
       z-index: -2;
     }
 
@@ -210,9 +211,19 @@ $border-radius: 8px;
     grid-template-columns: repeat(2, 260px);
     gap: 24px 10px;
     color: $hover;
-    margin: 10px 0 10px;
-    padding-inline-start: 20px;
+    margin: 32px 0 37px;
+    // padding-inline-start: 20px;
     @extend %AG_H5;
+    font-weight: 200px;
+
+    &-item {
+      padding-inline-start: 20px;
+      // text-transform: uppercase;
+      @extend %LEFT_LINE;
+      &-p {
+        margin-bottom: 0;
+      }
+    }
     
     &-item--mb {
       
@@ -250,17 +261,21 @@ $border-radius: 8px;
       margin: 0 auto;
       display: block;
       width: 160px;
+      padding-left: 32px;
       &::before {
         content: "";
         display: block;
         position: absolute;
+        left: 0; // иконка слева
+        transform: translateY(-50%);
+        
         top: 50%;
         transform: translateY(-50%);
         background: url("../../images/icon/arrow-watch-trailer.svg")
           no-repeat center center;
         background-size: contain;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
       }
     }
 
@@ -363,12 +378,13 @@ $border-radius: 8px;
 
     display: block;
     color: $main-text-color;
+    margin-bottom: 8px;
   }
 
   &-cast-role {
     @extend %AG_H5;
     letter-spacing: 0.01px;
-    color: $hover;
+    color: rgb(151, 155, 155);
     font-weight: 300;
     
   }
@@ -465,9 +481,9 @@ $border-radius: 8px;
         padding-inline-start: 6px;
       }
       .movie-button--mb {
-width: 160px;
-min-height: 44px;
-margin: 16px 0 0;
+        width: 160px;
+        min-height: 44px;
+        margin: 16px 0 0;
 
       }
 
