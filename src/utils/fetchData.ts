@@ -50,7 +50,7 @@ export const client = {
   addMovie: <T>(data: any) => request<T>("/media", "POST", data),
   getTitleMovie: <T>(
     page: number = 0,
-    size: number = 2000,
+    size: number = 7000,
     sort: string = "rating",
   ) => request<T>("/media/titles", "GET", null, { page, size, sort }),
 

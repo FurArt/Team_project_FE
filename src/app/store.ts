@@ -88,7 +88,7 @@ const fetchTopListMovies = createAsyncThunk<
 
 const fetchMoviesGllery = createAsyncThunk<GalleryData, FetchGalleryParams>(
   "movies/fetchGlleryMovies",
-  async ({ title = "", years = "", type = "", page = 0, size = 100, sort }) => {
+  async ({ title = "", years = "", type = "", page = 0, size = 114, sort }) => {
     const movies = (await getMediaGallery(
       title,
       years,
