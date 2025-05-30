@@ -56,7 +56,7 @@ const ScrollToStartButton = () => {
         </motion.div>
 
         <motion.span className="scroll-button__text" style={{ opacity }}>
-          PUll TO START
+          SCROLL TO START
         </motion.span>
       </motion.div>
     </div>
