@@ -307,16 +307,33 @@ const Movie = () => {
                         {author}
                         <br />
                         {isExpanded
-                          ? clearText
-                          : `${clearText.slice(0, 120)}.. `}
-                        {!isExpanded && clearText.length > 120 && (
-                          <span
-                            className="movie-review-author--link-more"
-                            onClick={() => setExpandedReviewId(id)}
-                          >
-                            See More
-                          </span>
-                        )}
+                          ? (
+                            <>
+                              {clearText}
+                              {clearText.length > 120 && (
+                                <span
+                                  className="movie-review-author--link-more"
+                                  onClick={() => setExpandedReviewId(null)}
+                                >
+                                  See Less
+                                </span>
+                              )}
+                            </>
+                          )
+                          : (
+                            <>
+                              {`${clearText.slice(0, 120)}.. `}
+                              {clearText.length > 120 && (
+                                <span
+                                  className="movie-review-author--link-more"
+                                  onClick={() => setExpandedReviewId(id)}
+                                >
+                                  See More
+                                </span>
+                              )}
+                            </>
+                          )
+                        }
                       </p>
                     </div>
                   </div>
