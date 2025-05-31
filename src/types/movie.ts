@@ -4,6 +4,7 @@ export interface Movie {
 }
 
 export interface MovieData {
+  country: string
   id: string
   title: string
   overview: string

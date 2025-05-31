@@ -47,6 +47,7 @@ const Movie = () => {
     genres = [],
     id = "",
     keywords = null,
+    country = "",
     overview = "",
     photos = [],
     posterPath = "",
@@ -121,8 +122,8 @@ const Movie = () => {
           <div className="movie-poster">
             <img className="movie-poster-image" src={posterPath} alt={title} />
             <div className="movie-poster-rating-badge">
-            <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/>
-            <p className="movie-poster-rating-score">{rating.toFixed(1).replace('.', ',')}/10</p>
+              <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/>
+              <p className="movie-poster-rating-score">{rating.toFixed(1).replace('.', ',')}/10</p>
             </div>
           </div>
           <div className="movie-container">
@@ -162,18 +163,18 @@ const Movie = () => {
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">DIRECTOR:</p>
                 <p> {director} </p>
-                
               </div>
+
+              <div className="movie-meta-item">
+                <p className="movie-meta-item-p">COUNTRY:</p>
+                <p> {country} </p>
+              </div>
+
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">TYPE:</p>
-                <p> {type} </p>
-                
+                <p> {type} </p>  
               </div>
-              <div className="movie-meta-item">
-                <p className="movie-meta-item-p">IMDB RATING:</p>
-                <p> {rating.toFixed(2)} </p>
-                
-              </div>
+              
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">DURATION:</p>
                 <p> {duration} </p>
