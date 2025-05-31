@@ -57,8 +57,6 @@ const App = () => {
   // })
 
   useEffect(() => {
-    dispatch(fetchMoviesAllTitle())
-
     if (location.pathname === "/show-top-lists") {
       const id = params.get("id") as TopListTypes
       dispatch(
@@ -77,11 +75,7 @@ const App = () => {
       dispatch(fetchMoviesGllery({ title: search, years: year, type: type }))
     }
 
-    // if (location.pathname === "/") {
-    //   dispatch(fetchMoviesPoster())
-    // }
-
-    if (location.pathname === "/movie/") {
+    if (location.pathname === "/movie") {
       const storedContent = sessionStorage.getItem("selectedMovie")
       const initialContent = storedContent
         ? (JSON.parse(storedContent) as MovieData)
@@ -104,8 +98,9 @@ const App = () => {
     }
     return () => {
       if (location.pathname === "/") {
-      dispatch(fetchMoviesPoster())
-    }
+        dispatch(fetchMoviesPoster())
+      }
+      dispatch(fetchMoviesAllTitle())
     }
   }, [])
 
