@@ -142,16 +142,45 @@ $border-radius: 8px;
   &-poster {
     width: 100%;
     height: 475px;
-    img {
-      width: auto;
-      border-radius: 8px;
+    &-image {
+      width: 100%;
       height: 475px;
+      border-radius: 8px;
+      object-fit: cover;
+      z-index: 1000;
       @include respond(mobile) {
         width: 168px;
         // display: block;
       }
     }
+
+    &-rating-image {
+      width: 14px;
+      height: 18px;
+      display: block;
+      border-radius: 8px;
+    }
+
+    &-rating-badge {
+      @extend %AG_H4;
+      position: absolute;
+      height: 52px;
+      width: 86px;
+      top: 20%;
+      left: 27.3%;
+      background-color: #fff;
+      color: rgba(0, 0, 0, 0.75);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: 500;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 2;
+    }
   }
+  
 
   &-details {
     padding-inline-start: 20px;

@@ -119,7 +119,11 @@ const Movie = () => {
         {/* screen for pc */}
         <div className="movie-coteiner-info">
           <div className="movie-poster">
-            <img src={posterPath} alt={title} />
+            <img className="movie-poster-image" src={posterPath} alt={title} />
+            <div className="movie-poster-rating-badge">
+            <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/>
+            <p className="movie-poster-rating-score">{rating.toFixed(1).replace('.', ',')}/10</p>
+            </div>
           </div>
           <div className="movie-container">
             <div className="movie-details">
