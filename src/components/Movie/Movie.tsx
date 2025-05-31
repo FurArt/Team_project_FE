@@ -47,6 +47,7 @@ const Movie = () => {
     genres = [],
     id = "",
     keywords = null,
+    countries = "",
     overview = "",
     photos = [],
     posterPath = "",
@@ -119,7 +120,11 @@ const Movie = () => {
         {/* screen for pc */}
         <div className="movie-coteiner-info">
           <div className="movie-poster">
-            <img src={posterPath} alt={title} />
+            <img className="movie-poster-image" src={posterPath} alt={title} />
+            <div className="movie-poster-rating-badge">
+              {/* <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/> */}
+              <p className="movie-poster-rating-score">{rating.toFixed(1)}/10</p>
+            </div>
           </div>
           <div className="movie-container">
             <div className="movie-details">
@@ -134,7 +139,7 @@ const Movie = () => {
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-                {isOverviewExpanded ? overview : `${overview.slice(0, 200)}`}
+                {isOverviewExpanded ? overview : `${overview.slice(0, 150)}`}
                 {overview.length > 200 && (
                   <span
                     className="movie-description--link-more"
@@ -158,18 +163,18 @@ const Movie = () => {
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">DIRECTOR:</p>
                 <p> {director} </p>
-                
               </div>
+
+              <div className="movie-meta-item">
+                <p className="movie-meta-item-p">COUNTRY:</p>
+                <p> {countries} </p>
+              </div>
+
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">TYPE:</p>
-                <p> {type} </p>
-                
+                <p> {type} </p>  
               </div>
-              <div className="movie-meta-item">
-                <p className="movie-meta-item-p">IMDB RATING:</p>
-                <p> {rating.toFixed(2)} </p>
-                
-              </div>
+              
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">DURATION:</p>
                 <p> {duration} </p>
@@ -307,16 +312,33 @@ const Movie = () => {
                         {author}
                         <br />
                         {isExpanded
-                          ? clearText
-                          : `${clearText.slice(0, 120)}.. `}
-                        {!isExpanded && clearText.length > 120 && (
-                          <span
-                            className="movie-review-author--link-more"
-                            onClick={() => setExpandedReviewId(id)}
-                          >
-                            See More
-                          </span>
-                        )}
+                          ? (
+                            <>
+                              {clearText}
+                              {clearText.length > 120 && (
+                                <span
+                                  className="movie-review-author--link-more"
+                                  onClick={() => setExpandedReviewId(null)}
+                                >
+                                  See Less
+                                </span>
+                              )}
+                            </>
+                          )
+                          : (
+                            <>
+                              {`${clearText.slice(0, 120)}.. `}
+                              {clearText.length > 120 && (
+                                <span
+                                  className="movie-review-author--link-more"
+                                  onClick={() => setExpandedReviewId(id)}
+                                >
+                                  See More
+                                </span>
+                              )}
+                            </>
+                          )
+                        }
                       </p>
                     </div>
                   </div>

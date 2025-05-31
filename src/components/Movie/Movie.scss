@@ -27,7 +27,7 @@ $border-radius: 8px;
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     // z-index: 1;
     pointer-events: none;
   }
@@ -140,27 +140,93 @@ $border-radius: 8px;
   }
 
   &-poster {
+    position: relative;
     width: 100%;
     height: 475px;
-    img {
-      width: auto;
-      border-radius: 8px;
+    &-image {
+      width: 100%;
       height: 475px;
+      border-radius: 8px;
+      // object-fit: cover;
+      z-index: 1000;
       @include respond(mobile) {
         width: 168px;
         // display: block;
       }
     }
+
+    &-rating-image {
+      width: 14px;
+      height: 18px;
+      display: block;
+      border-radius: 8px;
+    }
+
+    &-rating-badge {
+      position: absolute;
+      @extend %AG_H4;
+      position: absolute;
+      height: 52px;
+      width: 86px;
+      top: -4.5%;
+      right: 0;
+      background-color: #fff;
+      color: rgba(0, 0, 0, 0.75);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: 500;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 2;
+
+      p {
+        margin-left: 18px;
+        position: relative;
+        &::before {
+          position: absolute;
+          margin-left: 10px;
+          left: -30px;
+          top: 3px;
+          content: "";
+          width: 18px;
+          height: 18px;
+          background: url("../../images/icon/star.svg") no-repeat;
+        }
+      }
+    }
   }
+  
 
   &-details {
     padding-inline-start: 20px;
     @extend %LEFT_LINE;
 
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 100px);
     gap: 10px;
+  }
+
+  .item-1 {
+    font-weight: 200;
+    letter-spacing: 0.01px;
+    grid-column: span 3;
+    text-transform: uppercase;
+  }
+  
+  
+  .item-2 {
+    @extend %AG_H5;
+    font-weight: 200;
+    grid-column: span 3;
+    grid-row: span 2;
+  }
+  
+  .item-3 {
+    grid-column: 4 / span 3;
+    grid-row: 1 / span 2;
   }
 
   &-title {
@@ -174,7 +240,7 @@ $border-radius: 8px;
 
   .movie-description {
     @extend %AG_H5;
-    color: $hover;
+    color: $main-text-color;
 
     &--link-more {
       cursor: pointer;
@@ -208,10 +274,10 @@ $border-radius: 8px;
 
   &-meta {
     display: grid;
-    grid-template-columns: repeat(2, 260px);
-    gap: 24px 10px;
+    grid-template-columns: repeat(2, 280px);
+    gap: 10px 10px;
     color: $hover;
-    margin: 32px 0 37px;
+    margin: 20px 0 37px;
     // padding-inline-start: 20px;
     @extend %AG_H5;
     font-weight: 200px;
@@ -429,7 +495,7 @@ $border-radius: 8px;
       }
     }
     .MuiAvatar-root {
-      margin: 10px 5px 0 0;
+      margin: 0px 10px 0 0;
     }
 
     &-item--author-block {
@@ -505,26 +571,6 @@ $border-radius: 8px;
       }
     }
   }
-}
-
-.item-1 {
-  font-weight: 200;
-  letter-spacing: 0.01px;
-  grid-column: span 2;
-  text-transform: uppercase;
-}
-
-
-.item-2 {
-  @extend %AG_H5;
-  font-weight: 200;
-  grid-column: span 2;
-  grid-row: span 2;
-}
-
-.item-3 {
-  grid-column: 3 / span 2;
-  grid-row: 1 / span 2;
 }
 
 .photo-overlay {
