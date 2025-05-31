@@ -75,6 +75,10 @@ const App = () => {
       dispatch(fetchMoviesGllery({ title: search, years: year, type: type }))
     }
 
+    // if (location.pathname === "/") {
+    //   dispatch(fetchMoviesPoster())
+    // }
+
     if (location.pathname === "/movie") {
       const storedContent = sessionStorage.getItem("selectedMovie")
       const initialContent = storedContent
@@ -100,7 +104,6 @@ const App = () => {
       if (location.pathname === "/") {
         dispatch(fetchMoviesPoster())
       }
-      dispatch(fetchMoviesAllTitle())
     }
   }, [])
 
