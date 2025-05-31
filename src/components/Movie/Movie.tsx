@@ -124,19 +124,23 @@ const Movie = () => {
           <div className="movie-container">
             <div className="movie-details">
               <h1 className="movie-title item-1">
-                {`${title} ( ${releaseYear} )`}
+              <>
+                {title}
+                <br />
+                ( {releaseYear} )
+              </>
               </h1>
               {/* <p className="movie-description item-2">
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-                {isOverviewExpanded ? overview : `${overview.slice(0, 450)}`}
-                {overview.length > 450 && (
+                {isOverviewExpanded ? overview : `${overview.slice(0, 200)}`}
+                {overview.length > 200 && (
                   <span
                     className="movie-description--link-more"
                     onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
                   >
-                    {isOverviewExpanded ? "See Less" : ".. See More"}
+                    {isOverviewExpanded ? ". See Less" : ".. See More"}
                   </span>
                 )}
               </p>
@@ -152,24 +156,24 @@ const Movie = () => {
 
             <div className="movie-meta">
               <div className="movie-meta-item">
-                <strong className="strong">DIRECTOR:</strong>
-                <br />
-                {director}
+                <p className="movie-meta-item-p">DIRECTOR:</p>
+                <p> {director} </p>
+                
               </div>
               <div className="movie-meta-item">
-                <strong className="strong">TYPE:</strong>
-                <br />
-                {type}
+                <p className="movie-meta-item-p">TYPE:</p>
+                <p> {type} </p>
+                
               </div>
               <div className="movie-meta-item">
-                <strong className="strong">IMDB RATING:</strong>
-                <br />
-                {rating.toFixed(2)}
+                <p className="movie-meta-item-p">IMDB RATING:</p>
+                <p> {rating.toFixed(2)} </p>
+                
               </div>
               <div className="movie-meta-item">
-                <strong>DURATION:</strong>
-                <br />
-                {duration}
+                <p className="movie-meta-item-p">DURATION:</p>
+                <p> {duration} </p>
+                
               </div>
 
 
@@ -344,7 +348,7 @@ const Movie = () => {
               onClick={handleLuckClick}
               className="movie-button movie-button--secondary"
             >
-              EXPAND LIST OF RECOMMANDATION
+              GET ANOTHER MOVIE
             </button>
           )}
         </div>

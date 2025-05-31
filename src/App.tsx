@@ -57,7 +57,6 @@ const App = () => {
   // })
 
   useEffect(() => {
-    console.log(`itwork`)
     dispatch(fetchMoviesAllTitle())
 
     if (location.pathname === "/show-top-lists") {
@@ -78,9 +77,9 @@ const App = () => {
       dispatch(fetchMoviesGllery({ title: search, years: year, type: type }))
     }
 
-    if (location.pathname === "/") {
-      dispatch(fetchMoviesPoster())
-    }
+    // if (location.pathname === "/") {
+    //   dispatch(fetchMoviesPoster())
+    // }
 
     if (location.pathname === "/movie/") {
       const storedContent = sessionStorage.getItem("selectedMovie")
@@ -88,9 +87,6 @@ const App = () => {
         ? (JSON.parse(storedContent) as MovieData)
         : null
       if (initialContent instanceof Object) {
-        console.log(`asd`)
-        console.log(movies)
-
         dispatch(setSelectedMovie(initialContent))
       }
 
@@ -105,6 +101,11 @@ const App = () => {
         ? (JSON.parse(storedContent) as VibeMoviesData)
         : null
       dispatch(setVibeMovie(initialContent))
+    }
+    return () => {
+      if (location.pathname === "/") {
+      dispatch(fetchMoviesPoster())
+    }
     }
   }, [])
 
@@ -123,8 +124,9 @@ const App = () => {
         }),
       )
     }
+    // console.log(location.pathname === "/" && movies.data?.length === 0)
 
-    if (location.pathname === "/") {
+    if (location.pathname === "/" || movies.data?.length === 0) {
       dispatch(fetchMoviesPoster())
     }
 
@@ -142,7 +144,7 @@ const App = () => {
     }
 
     if (location.pathname === "/gallery") {
-      console.log(`it too`);
+      console.log(`it too`)
       dispatch(fetchMoviesGllery({ title: search }))
       // dispatch(fetchMoviesGllery({}))
     }
@@ -163,7 +165,7 @@ const App = () => {
 
   useEffect(() => {
     if (location.pathname === "/gallery") {
-      console.log(`it too`);
+      console.log(`it too`)
       dispatch(fetchMoviesGllery({ title: search }))
       // dispatch(fetchMoviesGllery({}))
     }
@@ -174,7 +176,6 @@ const App = () => {
       <MadeInUkraine />
       {/* {true ? ( */}
       {loading ? (
-
         <Loading />
       ) : (
         <Routes>

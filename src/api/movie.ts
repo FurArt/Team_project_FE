@@ -1,4 +1,4 @@
-import { MovieData, MoviesData } from "../types/movie"
+import { Movie, MovieData } from "../types/movie"
 import { TitleData } from "../types/title"
 import { TopListTypes } from "../types/TopListTypes"
 import {
@@ -27,7 +27,7 @@ export const getMovies = (
   size: number = 100,
   sort: string[] = [],
 ) => {
-  return client.getMovies(page, size, sort) as Promise<MoviesData>
+  return client.getMovies(page, size, sort) as Promise<Movie[]>
 }
 
 export const getMovie = (id: string) => {

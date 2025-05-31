@@ -74,8 +74,6 @@ const ShowListTopList = () => {
       )
     }
     
-    // console.log(headPage);
-    
   }, [location]);
 
   if (loading) {
@@ -118,7 +116,7 @@ const ShowListTopList = () => {
 
         <div className="movie-list">
           {displayedMovies.map((movie, index) => {
-            const { posterPath, title, rating, genres, duration, director, actors, id } = movie;
+            const { posterPath, title, rating, genres, duration, director, actors, id, releaseYear } = movie;
             return (
               <div
                 className="movie-card"
@@ -128,7 +126,7 @@ const ShowListTopList = () => {
                 <span className="movie-index">{`0${index + 1 + startIndex}`}</span>
                 <img src={posterPath} alt={title} className="movie-poster" />
                 <div className="movie-info">
-                  <h4>{title}</h4>
+                  <h4>{`${title} (${releaseYear})`}</h4>
                   <p>
                     {Array.isArray(genres) ? genres.slice(0, 2).join(", ") : null}
                   </p>

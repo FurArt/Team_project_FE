@@ -15,7 +15,9 @@ const Wrapper = ({ children }: WrapperProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const moviesData = useAppSelector(state => state.movies.data)
-  const content = moviesData?.content || null
+  // const content = [...moviesData] || []
+  // const content =  []
+
 
   const [showMovies, setShowMovies] = useState<Movie[]>([])
 
@@ -24,21 +26,29 @@ const Wrapper = ({ children }: WrapperProps) => {
     dispatch(fetchMovieById(id))
     dispatch(handleSelectMovie(e, id, navigate))
   }
+// useEffect(() => {
+//   console.log(moviesData);
+  
+// })
 
+  
   useEffect(() => {
-    if (Array.isArray(content)) {
-      setShowMovies(content)
-    } else {
-      setShowMovies([])
-    }
-  }, [])
+    const updatedMovies = moviesData?.map(movie => ({
+  ...movie,
+  posterPath: movie.posterPath.replace(/\/w\d+\//, '/w200/')
+}));
+
+console.log(updatedMovies);
+if (updatedMovies?.length) {
+  
+  setShowMovies([...updatedMovies])
+}
+  }, [moviesData])
 
   return (
     <main className="wrapper">
-      {/* <MadeInUkraine /> */}
       <section className="conteiner-video">
-        {/* Карты фильмов для десктопа */}
-        {(showMovies?.length < 70 || showMovies?.length === undefined)
+        {(showMovies?.length ?? 0) < 70
           ? Array.from({ length: 70 }).map((_, index) => (
             <div
               key={index}

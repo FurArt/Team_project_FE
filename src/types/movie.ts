@@ -34,35 +34,8 @@ export interface MovieData {
   type: string
 }
 
-export interface MoviesData {
-  content: Movie[]
-  empty: boolean
-  first: boolean
-  last: boolean
-  number: number
-  numberOfElements: number
-  size: number
-  pageable: {
-    pageNumber: number
-    pageSize: number
-    sort: {
-      empty: boolean
-      sorted: boolean
-      unsorted: boolean
-    }
-    offset: number
-    paged: boolean
-  }
-
-  sort: {
-    empty: boolean
-    sorted: boolean
-    unsorted: boolean
-  }
-}
-
 export interface MoviesState {
-  data: MoviesData | null | MoviesData[]
+  data: Movie[]
   selectedMovie: MovieData | null | MovieData[]
   loading: boolean
   error: string | null
