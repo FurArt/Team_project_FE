@@ -47,7 +47,7 @@ const Movie = () => {
     genres = [],
     id = "",
     keywords = null,
-    country = "",
+    countries = "",
     overview = "",
     photos = [],
     posterPath = "",
@@ -122,8 +122,8 @@ const Movie = () => {
           <div className="movie-poster">
             <img className="movie-poster-image" src={posterPath} alt={title} />
             <div className="movie-poster-rating-badge">
-              <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/>
-              <p className="movie-poster-rating-score">{rating.toFixed(1).replace('.', ',')}/10</p>
+              {/* <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/> */}
+              <p className="movie-poster-rating-score">{rating.toFixed(1)}/10</p>
             </div>
           </div>
           <div className="movie-container">
@@ -139,7 +139,7 @@ const Movie = () => {
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-                {isOverviewExpanded ? overview : `${overview.slice(0, 200)}`}
+                {isOverviewExpanded ? overview : `${overview.slice(0, 150)}`}
                 {overview.length > 200 && (
                   <span
                     className="movie-description--link-more"
@@ -167,7 +167,7 @@ const Movie = () => {
 
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">COUNTRY:</p>
-                <p> {country} </p>
+                <p> {countries} </p>
               </div>
 
               <div className="movie-meta-item">
