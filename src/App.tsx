@@ -101,16 +101,10 @@ const App = () => {
       dispatch(setVibeMovie(initialContent))
     }
 
-    return () => {
-      try {
-        if (location.pathname === "/") {
-          dispatch(fetchMoviesPoster())
-        }
-        // dispatch(fetchMoviesAllTitle());
-      } catch (error) {
-        console.error('Cleanup error:', error);
-      }
-    };
+    if (location.pathname === "/") {
+      dispatch(fetchMoviesPoster())
+    }
+
   }, [])
 
   useEffect(() => {
