@@ -4,8 +4,8 @@ import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { Autocomplete, TextField } from "@mui/material"
 import { useNavigate } from "react-router-dom"
-import { ContentItem } from "../../../types/title"
-import { setGalleryMovie } from "../../../app/store"
+import { ContentItem, TitleData } from "../../../types/title"
+import { fetchMoviesAllTitle, setAllTitle, setGalleryMovie } from "../../../app/store"
 
 function BellIcon(props: React.ComponentProps<"svg">) {
   return (
@@ -81,7 +81,11 @@ export default function PopoverSearch() {
       }
     }
   };
-
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(fetchMoviesAllTitle())
+  //   }
+  // }, [loading])
 
 
   useEffect(() => {
@@ -114,8 +118,16 @@ export default function PopoverSearch() {
     }
   }
 
+  const handleSatrtSearch = (isOpen: boolean) => {
+    if (isOpen) {
+      dispatch(fetchMoviesAllTitle())
+    }
+  }
+
   return (
-    <Popover.Root>
+    <Popover.Root
+      onOpenChange={handleSatrtSearch}
+    >
       <Popover.Trigger className={"popover"}>
         <BellIcon className={"popover-icon"} />
       </Popover.Trigger>

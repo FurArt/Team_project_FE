@@ -19,7 +19,7 @@ import {
 import randomNumbersReducer from "./randomNumbersSlice"
 import { NavigateFunction } from "react-router-dom"
 import { scrollToHandler } from "../utils/scrollToHandler"
-import { Movie, MovieData, } from "../types/movie"
+import { Movie, MovieData } from "../types/movie"
 import {
   CategoryTypes,
   MediaTypes,
@@ -168,6 +168,9 @@ const moviesSlice = createSlice({
     setGalleryMovie(state, action: PayloadAction<GalleryData | null>) {
       state.gallery = action.payload ? action.payload : null
     },
+    setAllTitle(state, action: PayloadAction<TitleData | null>) {
+      state.title = action.payload
+    },
   },
   extraReducers: builder => {
     builder
@@ -255,7 +258,7 @@ const moviesSlice = createSlice({
       })
 
       .addCase(fetchMoviesAllTitle.pending, state => {
-        state.loading = true
+        // state.loading = true
         state.error = null
       })
       .addCase(
@@ -263,6 +266,7 @@ const moviesSlice = createSlice({
         (state, action: PayloadAction<TitleData>) => {
           state.loading = false
           state.title = action.payload
+          sessionStorage.setItem("titleAll", JSON.stringify(action.payload))
         },
       )
       .addCase(fetchMoviesAllTitle.rejected, (state, action) => {
@@ -348,5 +352,10 @@ export {
   fetchMovieBySearch,
 }
 
-export const { setLoading, setSelectedMovie, setVibeMovie, setGalleryMovie } =
-  moviesSlice.actions
+export const {
+  setLoading,
+  setSelectedMovie,
+  setVibeMovie,
+  setGalleryMovie,
+  setAllTitle,
+} = moviesSlice.actions
