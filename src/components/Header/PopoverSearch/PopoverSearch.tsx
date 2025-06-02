@@ -55,21 +55,6 @@ export default function PopoverSearch() {
   const dispatch = useAppDispatch()
 
 
-  // const handleEndSearch = (e: React.KeyboardEvent<HTMLDivElement>) => {
-  //   if (Array.isArray(movies?.title?.content)) {
-  //     const sortedContent = movies.title.content
-  //       .slice().find(m => m === e.target.value)
-  //     console.log(
-  //       e.target.value, sortedContent
-
-  //     );
-  //   }
-  //   // if (e.key === "Enter") {
-  //   //   navigate(`../gallery?search=${search}`)
-  //   // }
-  // }
-
-
   const handleEndSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const isHowManyMovies = filteredMovies.length;
@@ -81,12 +66,6 @@ export default function PopoverSearch() {
       }
     }
   };
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(fetchMoviesAllTitle())
-  //   }
-  // }, [loading])
-
 
   useEffect(() => {
     if (Array.isArray(movies?.title?.content)) {

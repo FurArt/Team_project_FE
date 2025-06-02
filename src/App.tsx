@@ -79,7 +79,7 @@ const App = () => {
     //   dispatch(fetchMoviesPoster())
     // }
 
-    if (location.pathname === "/movie") {
+    if (location.pathname.startsWith('/movie')) {
       const storedContent = sessionStorage.getItem("selectedMovie")
       const initialContent = storedContent
         ? (JSON.parse(storedContent) as MovieData)
@@ -107,7 +107,10 @@ const App = () => {
     if (location.pathname === "/") {
       dispatch(fetchMoviesPoster())
     }
-
+    console.log(location.pathname.startsWith('/movie'));
+    return () => {
+      dispatch(setLoading(false))
+    }
   }, [])
 
   useEffect(() => {
