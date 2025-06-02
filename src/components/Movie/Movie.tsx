@@ -108,6 +108,8 @@ const Movie = () => {
     window.open(`https://www.google.com/search?q=${toGoogleSearchQuery(`${title} ${releaseYear}`)}`, '_blank');
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="movie">
       <div className="movie-content">
@@ -139,16 +141,33 @@ const Movie = () => {
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-                {isOverviewExpanded ? overview : `${overview.slice(0, 150)}`}
-                {overview.length > 200 && (
-                  <span
-                    className="movie-description--link-more"
-                    onClick={() => setIsOverviewExpanded(!isOverviewExpanded)}
-                  >
-                    {isOverviewExpanded ? ". See Less" : ".. See More"}
-                  </span>
-                )}
+        {overview.slice(0, 150)}
+        {overview.length > 200 && (
+          <span
+            className="movie-description--link-more"
+            onClick={() => setIsModalOpen(true)}
+          >
+            .. See More
+          </span>
+        )}
               </p>
+              
+              {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()} // чтобы клик вне окна его закрыл
+          >
+            <button
+              className="modal-close-button"
+              onClick={() => setIsModalOpen(false)}
+            >
+              &times;
+            </button>
+            <p>{overview}</p>
+          </div>
+        </div>
+      )}
 
               <div className="movie-tags item-3">
                 {arryGenres?.map((genre, index) => (
