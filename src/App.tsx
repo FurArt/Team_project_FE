@@ -87,6 +87,9 @@ const App = () => {
       if (initialContent instanceof Object) {
         dispatch(setSelectedMovie(initialContent))
       }
+      console.log(`(isMovieLoaded && idMovie)`);
+      console.log((isMovieLoaded && idMovie));
+
 
       if (isMovieLoaded && idMovie) {
         dispatch(fetchMovieById(idMovie))
