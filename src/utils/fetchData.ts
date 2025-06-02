@@ -4,7 +4,7 @@ import { VibeFilters } from "../types/vibe"
 // const BASE_URL = "https://backend-muvio.onrender.com/api"
 // const BASE_URL = "https://muvio.fly.dev/api"
 const BASE_URL = "https://muvio.duckdns.org/api"
-function wait(delay: number) {
+export function wait(delay: number) {
   return new Promise(resolve => setTimeout(resolve, delay))
 }
 
@@ -71,7 +71,7 @@ export const client = {
   getMovieByLuck: <T>(size: number) => request<T>(`/media/luck/${size}`),
 
   getMovies: <T>(page: number = 0, size: number = 71, sort: string[] = []) =>
-    request<T>("/media/posters", "GET", null, {  size,}),
+    request<T>("/media/posters", "GET", null, { size }),
 
   getMediaGallery: <T>(
     title?: string,

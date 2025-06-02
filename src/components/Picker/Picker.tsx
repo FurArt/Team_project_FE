@@ -204,8 +204,8 @@ const Picker = () => {
             <label>
               Release year
               <DinamicSelect
-                defaultValue="2023"
-                placeholder="2005-2025"
+                defaultValue=" "
+                placeholder="Select year"
                 options={ReleaseYearOptions}
                 onValueChange={handleYearChange}
               />
@@ -213,8 +213,8 @@ const Picker = () => {
             <label>
               Types
               <DinamicSelect
-                defaultValue="action"
-                placeholder="Movies"
+                defaultValue=" "
+                placeholder="Select movies"
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
               />

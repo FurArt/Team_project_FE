@@ -38,6 +38,7 @@ import { MovieData } from "./types/movie"
 import AboutUs from "./components/AboutUs/AboutUs"
 import MadeInUkraine from "./components/MadeInUkraine/MadeInUkraine"
 import { getTitleMovieSearch } from "./api/movie"
+import { wait } from "./utils/fetchData"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -52,11 +53,15 @@ const App = () => {
     !!movies.selectedMovie?.id || false,
   )
   const search = params.get("search") || ""
-
+  const ranOnce = useRef(false);
   // useEffect(() => {
   // })
 
   useEffect(() => {
+    if (ranOnce.current) return;
+    ranOnce.current = true;
+    console.log(`useEffect 1`);
+
     if (location.pathname === "/show-top-lists") {
       const id = params.get("id") as TopListTypes
       dispatch(
@@ -105,18 +110,23 @@ const App = () => {
     }
 
     if (location.pathname === "/") {
+      if (movies.data?.length) return
       dispatch(fetchMoviesPoster())
     }
     console.log(location.pathname.startsWith('/movie'));
-    return () => {
-      dispatch(setLoading(false))
-    }
+
+    wait(1500).then(
+      () => {
+        dispatch(setLoading(false))
+      }
+    )
   }, [])
 
   useEffect(() => {
     if (movies.loading) {
       return
     }
+    console.log(`useEffect 2`);
 
     if (location.pathname === "/show-top-lists") {
       const params = new URLSearchParams(location.search)
