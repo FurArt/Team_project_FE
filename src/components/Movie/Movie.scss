@@ -8,7 +8,8 @@ $border-radius: 8px;
 
 %CENTRE_WITH {
   margin: 0 auto;
-  width: 1140px;
+  max-width: 1140px;
+  width: 100%;
   @include respond(mobile) {
     padding-inline: 8px;
     width: 100%;
@@ -625,7 +626,7 @@ $border-radius: 8px;
         padding-inline-start: 6px;
       }
       .movie-button--mb {
-        width: 160px;
+        width: 175px;
         min-height: 44px;
         margin: 16px 0 0;
 
