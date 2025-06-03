@@ -458,6 +458,15 @@ $border-radius: 8px;
   &-cast-list {
     display: flex;
     gap: 20px;
+    @include respond(tablet) {
+      flex-direction: column;
+    }
+    @include respond(mobile) {
+      flex-direction: column;
+    }
+
+
+
   }
 
   &-cast-item {
@@ -499,16 +508,29 @@ $border-radius: 8px;
     margin-top: 56px;
     &-row {
       display: flex;
+          @include respond(mobile) {
+            align-items: center;
+            flex-direction: column;
+          }
+          @include respond(tablet) {
+            align-items: center;
+            flex-direction: column;
+          }
+
+
     }
   }
   &-review {
-    @extend %AG_H5;
     background: rgba(#14181a, 0.6);
     padding: 15px;
     border-radius: $border-radius;
     border: 2px solid $stroke;
-
     margin-bottom: 15px;
+    @extend %AG_H5;
+    @include respond(mobile) {
+            width: 85%;
+            
+    }
     &--rating {
       display: flex;
       margin-left: 20px;
@@ -567,8 +589,13 @@ $border-radius: 8px;
     display: flex;
     justify-content: space-between;
     margin-inline: auto;
-    max-width: 1140px;;
+    max-width: 1140px;
     color: $main-text-color;
+    @include respond(mobile) {
+            flex-direction: column;
+            
+    }
+    
     div {
       display: flex;
       flex-direction: column;
