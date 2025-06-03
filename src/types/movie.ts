@@ -31,6 +31,7 @@ export interface MovieData {
     content: string
     id: string
     time: string
+    rating: string
   }>
   type: string
 }
