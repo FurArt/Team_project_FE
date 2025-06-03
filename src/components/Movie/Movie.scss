@@ -10,6 +10,11 @@ $border-radius: 8px;
   margin: 0 auto;
   width: 1140px;
   @include respond(mobile) {
+    padding-inline: 8px;
+    width: 100%;
+  }
+  @include respond(tablet) {
+    padding-inline: 8px;
     width: 100%;
   }
 }
@@ -593,7 +598,7 @@ $border-radius: 8px;
     color: $main-text-color;
     @include respond(mobile) {
             flex-direction: column;
-            
+            align-items: center;
     }
     
     div {
