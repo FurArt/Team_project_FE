@@ -386,17 +386,17 @@ $border-radius: 8px;
     &--secondary {
       background: transparent;
       border-bottom: 1px solid $button-hover;
-      margin-right: 10px;
+      // margin-right: 10px;
       color: $main-text-color;
       border-radius: 0;
       position: relative;
-      padding-left: 40px;
+      padding-left: 75px;
       width: 360px;
       height: 54px;
       &::before {
         position: absolute;
         content: "";
-        left: -10;
+        
         width: 24px;
         height: 24px;
         background: url(../../images/icon/expand.svg) no-repeat center;
@@ -407,6 +407,7 @@ $border-radius: 8px;
       }
       &:last-child {
         &::before {
+          left: -10;
           content: "";
           background: url(../../images/icon/arrows_reload_01.svg) no-repeat
             center;
