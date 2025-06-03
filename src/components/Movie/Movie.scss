@@ -394,7 +394,9 @@ $border-radius: 8px;
       width: 360px;
       height: 54px;
       &::before {
+        position: absolute;
         content: "";
+        left: -10;
         width: 24px;
         height: 24px;
         background: url(../../images/icon/expand.svg) no-repeat center;
