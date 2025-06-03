@@ -24,6 +24,10 @@
   h2 {
     @extend %AG_H1;
   }
+  &-offers {
+    margin-top: 24px;
+    @extend %AG_H2;
+  }
 }
 
 .movies-container {

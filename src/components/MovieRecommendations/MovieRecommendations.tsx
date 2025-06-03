@@ -49,7 +49,7 @@ const MovieRecommendations: React.FC = () => {
           ← BACK
         </a>
         <h2>LIST OF RECOMMENDATIONS FOR YOU</h2>
-        <p>Muvio offers the following movies for you to watch</p>
+        <p className="movie-recommendations-offers" >Muvio offers the following movies for you to watch</p>
         <div className="movies-container">
           {displayedMovies?.map((movie) => {
             const { posterPath, title, rating, genres, duration, id } = movie
