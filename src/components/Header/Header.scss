@@ -59,6 +59,8 @@
     @extend %AG_H4;
 
     &--link {
+      @extend %AG_H4;
+      background-color: $main-text-color;
   @extend %AG_H8;
       &:hover {
         border: $button-hover 1px solid;
