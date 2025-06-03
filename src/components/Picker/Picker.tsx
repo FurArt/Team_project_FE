@@ -214,7 +214,7 @@ const Picker = () => {
               Types
               <DinamicSelect
                 defaultValue=" "
-                placeholder="Select types"
+                placeholder="Select type"
                 options={MovieTypeOptions}
                 onValueChange={handleTypeChange}
               />

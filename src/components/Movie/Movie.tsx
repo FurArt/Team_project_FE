@@ -383,7 +383,7 @@ const Movie = () => {
               onClick={handleRecommend}
               className="movie-button movie-button--secondary"
             >
-              EXPAND LIST OF RECOMMENDATION
+              EXPAND LIST OF RECOMMENDATIONS
             </button>
           )}
 
