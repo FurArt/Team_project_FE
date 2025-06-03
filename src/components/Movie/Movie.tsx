@@ -131,43 +131,43 @@ const Movie = () => {
           <div className="movie-container">
             <div className="movie-details">
               <h1 className="movie-title item-1">
-              <>
-                {title}
-                <br />
-                ( {releaseYear} )
-              </>
+                <>
+                  {title}
+                  <br />
+                  ( {releaseYear} )
+                </>
               </h1>
               {/* <p className="movie-description item-2">
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-        {overview.slice(0, 150)}
-        {overview.length > 200 && (
-          <span
-            className="movie-description--link-more"
-            onClick={() => setIsModalOpen(true)}
-          >
-            .. See More
-          </span>
-        )}
+                {overview.slice(0, 150)}
+                {overview.length > 200 && (
+                  <span
+                    className="movie-description--link-more"
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    .. See More
+                  </span>
+                )}
               </p>
-              
+
               {isModalOpen && (
-        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()} // чтобы клик вне окна его закрыл
-          >
-            <button
-              className="modal-close-button"
-              onClick={() => setIsModalOpen(false)}
-            >
-              &times;
-            </button>
-            <p>{overview}</p>
-          </div>
-        </div>
-      )}
+                <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+                  <div
+                    className="modal-content"
+                    onClick={(e) => e.stopPropagation()} // чтобы клик вне окна его закрыл
+                  >
+                    <button
+                      className="modal-close-button"
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      &times;
+                    </button>
+                    <p>{overview}</p>
+                  </div>
+                </div>
+              )}
 
               <div className="movie-tags item-3">
                 {arryGenres?.map((genre, index) => (
@@ -191,13 +191,13 @@ const Movie = () => {
 
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">TYPE:</p>
-                <p> {type} </p>  
+                <p> {type} </p>
               </div>
-              
+
               <div className="movie-meta-item">
                 <p className="movie-meta-item-p">DURATION:</p>
                 <p> {duration} </p>
-                
+
               </div>
 
 
@@ -317,11 +317,12 @@ const Movie = () => {
           {reviews.slice(0, 3).map(review => {
             const clearText = stripHTML(review.content)
             const isExpanded = expandedReviewId === review.id
-            const { id, avatarPath, author } = review
+            const { id, avatarPath, author, } = review
+            const ratingReview = review.rating
 
             return (
               <div className="movie-reviews-row">
-                <div key={id} className="movie-review">
+                <div key={id} className="movie-review movie-review-grow movie-review" >
                   <div className="movie-review-item">
                     <div className="movie-review-item--author-block">
                       <Avatar src={avatarPath || undefined} alt={author}>
@@ -339,7 +340,7 @@ const Movie = () => {
                                   className="movie-review-author--link-more"
                                   onClick={() => setExpandedReviewId(null)}
                                 >
-                                  See Less
+                                  {' See Less'}
                                 </span>
                               )}
                             </>
@@ -362,8 +363,10 @@ const Movie = () => {
                     </div>
                   </div>
                 </div>
-                <div className="movie-review movie-review--rating">
-                  <p>{`${rating}/10`}</p>
+                {/* <div className="movie-review movie-review--rating"> */}
+                <div className=" movie-review  movie-review--rating">
+
+                  <p>{`${ratingReview}/10`}</p>
 
                   <span>IMDb </span>
                 </div>
@@ -380,7 +383,7 @@ const Movie = () => {
               onClick={handleRecommend}
               className="movie-button movie-button--secondary"
             >
-              EXPAND LIST OF RECOMMANDATION
+              EXPAND LIST OF RECOMMENDATION
             </button>
           )}
 
