@@ -112,49 +112,10 @@ const GalleryPage: React.FC = () => {
       setSelectedType(setType)
     }
   }
-
-  // const handleSortChange = (valueData: string) => {
-
-  //   setSelectedSort(setOption(valueData, sortOptions))
-  //   let selected
-  //   const value = selectedSort?.value
-  //   if (selectedSort) {
-  //     selected = setOption(selectedSort?.value, sortOptions);
-  //   }
-
-  //   console.log(selectedSort, valueData, setOption(valueData, sortOptions));
-
-
-  //   if (selected) {
-  //     setSelectedSort(selected);
-
-  //     const sorted = [...(searchMovies ?? movies ?? [])];
-
-  //     if (value === '1') {
-  //       sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
-  //     } else if (value === '0') {
-  //       sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
-  //     }
-
-  //     setSearchMovies(sorted);
-  //   }
-  // };
-
   const handleSortChange = (valueData: string) => {
     const selected = setOption(valueData, sortOptions);
     if (!selected) return;
-
     setSelectedSort(selected);
-
-    // const sorted = [...(searchMovies ?? movies ?? [])];
-
-    // if (valueData === '1') {
-    //   sorted.sort((a, b) => b?.releaseYear - a?.releaseYear);
-    // } else if (valueData === '0') {
-    //   sorted.sort((a, b) => a?.releaseYear - b?.releaseYear);
-    // }
-
-    // setSearchMovies(sorted);
   };
 
 
@@ -162,41 +123,10 @@ const GalleryPage: React.FC = () => {
     if (!search.trim()) {
       setSearchMovies(null)
     }
-    // else {
-    //   const filteredMovies: ContentGallery[] | undefined = movies?.filter(
-    //     movie => movie?.title.toLowerCase().includes(search.toLowerCase()),
-    //   )
-    //   if (!filteredMovies) {
-    //     setSearchMovies(null)
-    //   } else {
-    //     setSearchMovies(filteredMovies)
-    //     setPage(1)
-    //   }
-    // }
     const searchTitle = search.toLowerCase()
     debouncedFetch('', '', searchTitle, '',)
     navigate(`/gallery?search=${searchTitle}&type=&year=`)
   }
-
-  // const handleSendFiltering = () => {
-  //   if (!selectedType?.value) {
-  //     debouncedFetch(selectedYear?.value, "", "", "")
-  //     navigate(`/gallery?type=&year=${selectedYear?.value}`)
-  //     return
-  //   }
-  //   if (!selectedYear?.value) {
-  //     debouncedFetch("", selectedType?.value, "", "")
-  //     navigate(`/gallery?type=${selectedType?.value}&year=`)
-  //     return
-  //   }
-  //   if (selectedSort) {
-  //     console.log(selectedSort);
-
-  //   }
-
-  //   navigate(`/gallery?type=${selectedType?.value}&year=${selectedYear?.value}`)
-  //   debouncedFetch(selectedYear?.value, selectedType?.value, "", "")
-  // }
 
   const handleSendFiltering = () => {
     let sortQuery = ""
@@ -243,12 +173,6 @@ const GalleryPage: React.FC = () => {
     scrollToHandler(null)
   }, [page])
 
-  // useEffect(() => {
-  //   if (!selectedYear?.value || !selectedType?.value) {
-  //     return
-  //   }
-  // }, [selectedYear?.value, selectedType?.value, debouncedFetch])
-
   useEffect(() => {
     console.log(firstRenderRef.current);
 
@@ -257,11 +181,6 @@ const GalleryPage: React.FC = () => {
 
     setSelectedYear(setOption(year, ReleaseYearOptions))
     setSelectedType(setOption(type, MovieTypeOptions))
-    // if (searchUrl) {
-    //   setSearch(searchUrl)
-    //   // handleEndSearch()
-    //   firstRenderRef.current = false
-    // }
   }, [])
 
   return (

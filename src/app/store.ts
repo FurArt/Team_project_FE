@@ -144,7 +144,6 @@ const fetchMovieByLuck = createAsyncThunk<MovieData, number>(
 const moviesSlice = createSlice({
   name: "movies",
   initialState: {
-    // data: null as MoviesData | null,
     data: null as Movie[] | null,
     selectedMovie: null as MovieData | null,
     saearchMovie: null as MovieData | null,
@@ -254,11 +253,9 @@ const moviesSlice = createSlice({
       .addCase(fetchMoviesPoster.rejected, (state, action) => {
         state.loading = false
         state.error = action.error.message || "Failed to load movies"
-        // state.data = null
       })
 
       .addCase(fetchMoviesAllTitle.pending, state => {
-        // state.loading = true
         state.error = null
       })
       .addCase(

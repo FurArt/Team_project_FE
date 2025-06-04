@@ -97,8 +97,6 @@
     margin-top: 5px;
   }
   &--btn-primary {
-    // width: 264px;
-    // height: 56px;
     @extend %BTN-bg-grad;
     @extend %AG_H5;
     color: #fff;
@@ -134,17 +132,13 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    // text-align: left;
     label {
       @extend %AG_H4;
-      // height: 44px;
-      
     }
     label:last-child{
       @include respond(mobile) {
 
       }
-      // 
     }
   }
   .label-sort-text {
@@ -186,7 +180,6 @@
     display: block;
     top: 3px;
     width: 343px;
-    // height: 12px;
   }
 }
 

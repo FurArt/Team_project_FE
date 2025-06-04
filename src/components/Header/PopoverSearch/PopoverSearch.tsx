@@ -168,7 +168,6 @@ export default function PopoverSearch() {
                       color: "#000",
                     },
                     "& .MuiAutocomplete-option": {
-                      // color: '#000',
                       color: "#e83f14",
                     },
                   }}

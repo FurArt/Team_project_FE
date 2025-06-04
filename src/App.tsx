@@ -54,8 +54,6 @@ const App = () => {
   )
   const search = params.get("search") || ""
   const ranOnce = useRef(false);
-  // useEffect(() => {
-  // })
 
   useEffect(() => {
     if (ranOnce.current) return;
@@ -80,10 +78,6 @@ const App = () => {
       dispatch(fetchMoviesGllery({ title: search, years: year, type: type }))
     }
 
-    // if (location.pathname === "/") {
-    //   dispatch(fetchMoviesPoster())
-    // }
-
     if (location.pathname.startsWith('/movie')) {
       const storedContent = sessionStorage.getItem("selectedMovie")
       const initialContent = storedContent
@@ -92,9 +86,6 @@ const App = () => {
       if (initialContent instanceof Object) {
         dispatch(setSelectedMovie(initialContent))
       }
-      console.log(`(isMovieLoaded && idMovie)`);
-      console.log((isMovieLoaded && idMovie));
-
 
       if (isMovieLoaded && idMovie) {
         dispatch(fetchMovieById(idMovie))
@@ -138,7 +129,6 @@ const App = () => {
         }),
       )
     }
-    // console.log(location.pathname === "/" && movies.data?.length === 0)
 
     if (location.pathname === "/" || movies.data?.length === 0) {
       dispatch(fetchMoviesPoster())
@@ -160,7 +150,6 @@ const App = () => {
     if (location.pathname === "/gallery") {
       console.log(`it too`)
       dispatch(fetchMoviesGllery({ title: search }))
-      // dispatch(fetchMoviesGllery({}))
     }
 
     if (location.pathname === "/recommendations") {
@@ -181,14 +170,12 @@ const App = () => {
     if (location.pathname === "/gallery") {
       console.log(`it too`)
       dispatch(fetchMoviesGllery({ title: search }))
-      // dispatch(fetchMoviesGllery({}))
     }
   }, [search])
   return (
     <>
       <Header />
       <MadeInUkraine />
-      {/* {true ? ( */}
       {loading ? (
         <Loading />
       ) : (
