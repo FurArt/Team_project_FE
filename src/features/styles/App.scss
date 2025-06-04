@@ -1,4 +1,6 @@
 @import "../../features/styles/variables";
+@import "../../features/styles/typograf";
+
 
 html {
   scroll-behavior: smooth;
@@ -23,6 +25,10 @@ html {
         flex-direction: column;
         height: fit-content;
     }
+}
+
+p {
+  @extend %AG_H6;
 }
 
 main {
