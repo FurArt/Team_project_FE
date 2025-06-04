@@ -141,7 +141,7 @@ const Movie = () => {
                 {`${overview.slice(0, 550)} ...`}
               </p> */}
               <p className="movie-description item-2">
-                {overview.slice(0, 150)}
+                {overview.slice(0, 200)}
                 {overview.length > 200 && (
                   <span
                     className="movie-description--link-more"
