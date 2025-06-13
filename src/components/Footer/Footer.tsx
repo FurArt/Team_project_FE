@@ -26,7 +26,6 @@ const Footer = () => {
             <a className="footer-menu-link" onClick={handleNavigate}>
               About Us
             </a>
-            {/* <a href="#" >About Us</a> */}
           </nav>
         </div>
       </div>

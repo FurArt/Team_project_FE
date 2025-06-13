@@ -34,7 +34,6 @@ $border-radius: 8px;
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.7);
-    // z-index: 1;
     pointer-events: none;
   }
   > * {
@@ -120,22 +119,9 @@ $border-radius: 8px;
       z-index: -2;
     }
 
-    // &::after {  тень??
-    //   content: "";
-    //   position: absolute;
-    //   left: 0;
-    //   right: 0;
-    //   bottom: 0;
-    //   height: 150px; /* больше высота для плавности */
-    //   background: linear-gradient(
-    //     rgba(0, 0, 0, 0.15), /* уменьшена непрозрачность */
-    //     rgba(0, 0, 0, 0)
-    //   );
-    //   z-index: -1;
-    // }
+   
   }
   &-coteiner-info {
-    // height: 265px;
     display: grid;
     gap: 20px;
     grid-template-columns: 1fr 3fr;
@@ -153,11 +139,9 @@ $border-radius: 8px;
       width: 100%;
       height: 475px;
       border-radius: 8px;
-      // object-fit: cover;
       z-index: 1000;
       @include respond(mobile) {
         width: 168px;
-        // display: block;
       }
     }
 

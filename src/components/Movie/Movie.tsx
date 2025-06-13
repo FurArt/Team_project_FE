@@ -119,12 +119,10 @@ const Movie = () => {
           </a>
           <h1 className="movie-page-title">Film for you</h1>
         </div>
-        {/* screen for pc */}
         <div className="movie-coteiner-info">
           <div className="movie-poster">
             <img className="movie-poster-image" src={posterPath} alt={title} />
             <div className="movie-poster-rating-badge">
-              {/* <img className="movie-poster-rating-image" src="vimages/icon/star_sharp.png"/> */}
               <p className="movie-poster-rating-score">{rating.toFixed(1)}/10</p>
             </div>
           </div>
@@ -137,9 +135,6 @@ const Movie = () => {
                   ( {releaseYear} )
                 </>
               </h1>
-              {/* <p className="movie-description item-2">
-                {`${overview.slice(0, 550)} ...`}
-              </p> */}
               <p className="movie-description item-2">
                 {overview.slice(0, 200)}
                 {overview.length > 200 && (
@@ -156,7 +151,7 @@ const Movie = () => {
                 <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
                   <div
                     className="modal-content"
-                    onClick={(e) => e.stopPropagation()} // чтобы клик вне окна его закрыл
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <button
                       className="modal-close-button"
@@ -210,8 +205,6 @@ const Movie = () => {
             </button>
           </div>
         </div>
-        {/* screen for mobile */}
-
         <div className="movie-container-info--mb">
           <div className="movie-poster--mb">
             <img src={posterPath} alt={title} />
@@ -276,9 +269,6 @@ const Movie = () => {
         <div className="movie-photos">
           <div className="movie-row">
             <h2 className="movie-section-title">Photos</h2>
-            {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
-            VIEW ALL
-          </a> */}
           </div>
           <GalleryComponent photos={photos.slice(0, 4)} />
         </div>
@@ -287,9 +277,7 @@ const Movie = () => {
       <div className="movie-cast">
         <div className="movie-row">
           <h2 className="movie-section-title">Top Cast</h2>
-          {/* <a href="#" className="movie-link" onClick={e => e.preventDefault()}>
-            VIEW ALL
-          </a> */}
+
         </div>
 
         <div className="movie-cast-list">
@@ -363,7 +351,6 @@ const Movie = () => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="movie-review movie-review--rating"> */}
                 <div className=" movie-review  movie-review--rating">
 
                   <p>{`${ratingReview}/10`}</p>

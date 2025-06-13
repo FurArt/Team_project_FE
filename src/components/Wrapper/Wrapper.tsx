@@ -26,23 +26,23 @@ const Wrapper = ({ children }: WrapperProps) => {
     dispatch(fetchMovieById(id))
     dispatch(handleSelectMovie(e, id, navigate))
   }
-// useEffect(() => {
-//   console.log(moviesData);
-  
-// })
+  // useEffect(() => {
+  //   console.log(moviesData);
 
-  
+  // })
+
+
   useEffect(() => {
     const updatedMovies = moviesData?.map(movie => ({
-  ...movie,
-  posterPath: movie.posterPath.replace(/\/w\d+\//, '/w200/')
-}));
+      ...movie,
+      posterPath: movie.posterPath.replace(/\/w\d+\//, '/w200/')
+    }));
 
-console.log(updatedMovies);
-if (updatedMovies?.length) {
-  
-  setShowMovies([...updatedMovies])
-}
+    console.log(updatedMovies);
+    if (updatedMovies?.length) {
+
+      setShowMovies([...updatedMovies])
+    }
   }, [moviesData])
 
   return (
@@ -68,7 +68,6 @@ if (updatedMovies?.length) {
             ))
         }
 
-        {/* Мобильная обложка */}
         <div className="mobile-poster" />
       </section>
       {children}

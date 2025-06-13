@@ -30,9 +30,6 @@
 
   &-head {
     @extend %AG_H1;
-    @include respond(mobile) {
-      // @extend %AG_H4;
-    }
   }
   &-title {
     width: 80%;

@@ -67,13 +67,13 @@ const ShowListTopList = () => {
 
   useEffect(() => {
     const storedHeader = sessionStorage.getItem("TopListvalue")
-    
+
     if (storedHeader) {
       setHeadPage(
         JSON.parse(storedHeader)
       )
     }
-    
+
   }, [location]);
 
   if (loading) {
@@ -133,10 +133,6 @@ const ShowListTopList = () => {
                 </div>
                 <div className="movie-info">
                   <h4>{`DIRECTOR: ${director}`}</h4>
-                  {/* <p>
-                    Cast: {Array.isArray(actors) ? actors.slice(0, 4).map(a => a.name).join(", ") : null}
-                  </p> */}
-
                   <p>
                     Cast:{" "}
                     {Array.isArray(actors)

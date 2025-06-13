@@ -15,13 +15,13 @@ const itemsPerPage = 8
 
 const MovieRecommendations: React.FC = () => {
   const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-  
+  const dispatch = useAppDispatch()
+
 
   const { vibe } = useAppSelector(
     (state) => state.movies
   );
-  const content  = vibe?.content
+  const content = vibe?.content
 
   const handlerBack = () => {
     navigate(-1)
@@ -36,7 +36,7 @@ const MovieRecommendations: React.FC = () => {
 
   const displayedMovies = content?.slice(0, itemsPerPage)
   // console.log(displayedMovies[0]);
-  
+
 
   return (
     <section className="conteiner">
@@ -54,8 +54,8 @@ const MovieRecommendations: React.FC = () => {
           {displayedMovies?.map((movie) => {
             const { posterPath, title, rating, genres, duration, id } = movie
             return (
-              <div key={id} className="movie-card" 
-              onClick={e => handleClick(e, id)}
+              <div key={id} className="movie-card"
+                onClick={e => handleClick(e, id)}
               >
                 <img src={posterPath} alt={title} />
                 <div className="movie-info">
@@ -71,20 +71,6 @@ const MovieRecommendations: React.FC = () => {
             )
           })}
         </div>
-        {/* <Stack spacing={2} className="pagination">
-          <Pagination
-            count={Math.ceil(movies.length / itemsPerPage)}
-            page={page}
-            onChange={handleChange}
-            onClick={scrollToHandler}
-            hideNextButton={false}
-            shape="rounded"
-            showLastButton
-            renderItem={item => (
-              <PaginationItem slots={{ next: NextText }} {...item} />
-            )}
-          />
-        </Stack> */}
       </div>
     </section>
   )
