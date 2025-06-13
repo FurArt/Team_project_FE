@@ -3,17 +3,33 @@
 
 .top-lists {
   text-align: center;
-  padding: 2rem;
+  padding: 60px 30px;
   background: url(../../images/stats-bg.jpg) no-repeat center/cover;
   color: #fff;
+  min-height: 300px;
   flex-grow: 2;
+  position: relative;
   @extend %AG_H2;
   &-title {
     @extend %AG_H1;
+    z-index: 3;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    // right: 20px;
+    width: 100%; // размер по желанию
+    height: 297px;
+    z-index: 2;
+    pointer-events: none; // если не нужно взаимодействие
   }
 
   &-description {
-    margin: 24px auto 84px;
+    margin: 24px auto 134px;
+    @extend %AG_H2;
+    z-index: 3;
   }
 
   &-container {
