@@ -10,9 +10,18 @@
   flex-grow: 2;
   position: relative;
   @extend %AG_H2;
+  @include respond(mobile) {
+    padding: 24px 16px;
+    font-family: "Kodchasan", serif;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0.01px;
+  }
   &-title {
     @extend %AG_H1;
-    z-index: 3;
+    z-index: 10;
+    position: relative;
+    
   }
 
   &__overlay {
@@ -24,12 +33,24 @@
     height: 297px;
     z-index: 2;
     pointer-events: none; // если не нужно взаимодействие
+    @include respond(mobile) {
+      height: 127px;
+      opacity: 70%;
+    }
   }
 
   &-description {
-    margin: 24px auto 134px;
+    margin: 24px auto 115px;
     @extend %AG_H2;
-    z-index: 3;
+    z-index: 10;
+    position: relative;
+    @include respond(mobile) {
+      margin: 10px auto 10px;
+      font-family: "Kodchasan", serif;
+      font-size: 14px;
+      line-height: 150%;
+      letter-spacing: 0.01px;
+    }
   }
 
   &-container {
