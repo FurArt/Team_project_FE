@@ -39,6 +39,7 @@ import AboutUs from "./components/AboutUs/AboutUs"
 import MadeInUkraine from "./components/MadeInUkraine/MadeInUkraine"
 import { getTitleMovieSearch } from "./api/movie"
 import { wait } from "./utils/fetchData"
+import { useLanguage } from "./features/language/useLanguage"
 
 const App = () => {
   const dispatch = useAppDispatch()
@@ -55,10 +56,17 @@ const App = () => {
   const search = params.get("search") || ""
   const ranOnce = useRef(false);
 
+  const { locale, changeLanguage } = useLanguage();
+
+  const handleChange = (event) => {
+    changeLanguage(event.target.value as string);
+  };
+
   useEffect(() => {
     if (ranOnce.current) return;
     ranOnce.current = true;
-    console.log(`useEffect 1`);
+    // це поки ручна зміна поки немає кнопки зміни мови "en" або "uk"
+    localStorage.setItem('locale', 'uk');
 
     if (location.pathname === "/show-top-lists") {
       const id = params.get("id") as TopListTypes

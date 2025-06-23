@@ -6,6 +6,8 @@ import App from "./App"
 import { store } from "./app/store"
 import "./features/styles/index.scss"
 import { HashRouter as Router } from "react-router-dom"
+import { LanguageProvider } from "./features/language/LanguageContext"
+import "./features/language/i18n";
 
 const container = document.getElementById("root")
 
@@ -16,7 +18,10 @@ if (container) {
     <React.StrictMode>
       <Router>
         <Provider store={store}>
-          <App />
+          <LanguageProvider>
+
+            <App />
+          </LanguageProvider>
         </Provider>
       </Router>
     </React.StrictMode>,
