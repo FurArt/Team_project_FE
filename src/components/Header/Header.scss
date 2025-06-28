@@ -16,6 +16,7 @@
   }
   @include respond(tablet) {
     height: 86px;
+    align-items: center;
   }
 }
 
@@ -90,8 +91,13 @@
     width: 151px;
     height: 66px;
     pointer-events: visible;
+    align-items: center;
     background-size: contain;
     @include respond(mobile) {
+      width: 79px;
+    }
+    @include respond(tablet) {
+      height: 42px;
       width: 79px;
     }
   }
@@ -142,6 +148,8 @@
 
     &--table {
       @media screen and (max-width: 1199px) {
+        height: 86px;
+        align-items: center;
         display: flex;
         padding: 12px 16px;
         .menu-list {
