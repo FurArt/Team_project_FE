@@ -14,6 +14,9 @@
   @include respond(mobile) {
     height: 65px;
   }
+  @include respond(tablet) {
+    height: 86px;
+  }
 }
 
 .top-bar {
@@ -132,13 +135,13 @@
       display: flex;
       padding: 32px 34px;
 
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1200px) {
         display: none;
       }
     }
 
     &--table {
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 1199px) {
         display: flex;
         padding: 12px 16px;
         .menu-list {
