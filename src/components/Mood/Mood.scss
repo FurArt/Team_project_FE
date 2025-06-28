@@ -30,6 +30,9 @@
 
   &-head {
     @extend %AG_H1;
+    @include respond(tablet) {
+      font-size: 30px;
+    }
   }
   &-title {
     width: 80%;
@@ -43,6 +46,9 @@
       line-height: 150%;
       letter-spacing: 0.02px;
       width: 370px;
+    }
+    @include respond(tablet) {
+      font-size: 20px;
     }
   }
  
