@@ -52,6 +52,7 @@ const TopLists: React.FC = () => {
 
   return (
     <section className="top-lists" onClick={handleSectionClick}>
+      <img src="images/top_list_top.png" className="top-lists__overlay" />
       <h2 className="top-lists-title">TOP LISTS</h2>
       <p className="top-lists-description">
         Here are ideas for various movie top lists based on different criteria
