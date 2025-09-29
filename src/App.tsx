@@ -58,9 +58,9 @@ const App = () => {
 
   const { locale, changeLanguage } = useLanguage();
 
-  const handleChange = (event) => {
-    changeLanguage(event.target.value as string);
-  };
+  // const handleChange = (event) => {
+  //   changeLanguage(event.target.value as string);
+  // };
 
   useEffect(() => {
     if (ranOnce.current) return;
